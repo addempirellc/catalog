@@ -142,6 +142,16 @@
       color: #4ade80;
       font-size: 0.9rem;
     }
+    .price-multiline {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .price-note {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #4ade80;
+    }
     .service-qty {
       width: 60px;
       background: #050509;
@@ -337,7 +347,7 @@
                  data-name="service.recording.name"
                  data-price="30"
                  data-category="grabacion"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -355,7 +365,7 @@
                  data-name="service.mix.name"
                  data-price="50"
                  data-category="mixmaster"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -373,7 +383,7 @@
                  data-name="service.tuning.name"
                  data-price="25"
                  data-category="afinacion"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -391,11 +401,11 @@
                  data-name="service.beatOriginal.name"
                  data-price="150"
                  data-category="beat_original"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
-      <!-- Beats No Exclusivos -->
+      <!-- Beats No Exclusivos (ajustado multilinea) -->
       <div class="card">
         <div class="card-title" data-i18n="service.beatNonExclusive.title"></div>
         <small data-i18n="service.beatNonExclusive.desc"></small>
@@ -403,13 +413,16 @@
         <div class="service-line">
           <div class="service-info">
             <span class="service-label" data-i18n="service.beatNonExclusive.label"></span>
-            <span class="price" data-i18n="service.beatNonExclusive.price"></span>
+            <span class="price price-multiline">
+              <span data-i18n="service.beatNonExclusive.priceMain"></span>
+              <span class="price-note" data-i18n="service.beatNonExclusive.priceNote"></span>
+            </span>
           </div>
           <input type="number" class="service-qty"
                  data-name="service.beatNonExclusive.name"
                  data-price="50"
                  data-category="beat_noex"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -427,7 +440,7 @@
                  data-name="service.packFull.name"
                  data-price="250"
                  data-category="pack_full"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -445,7 +458,7 @@
                  data-name="service.covers.name"
                  data-price="20"
                  data-category="portada"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
 
         <div class="service-line">
@@ -457,7 +470,7 @@
                  data-name="service.video.name"
                  data-price="20"
                  data-category="video"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -475,7 +488,7 @@
                  data-name="service.coaching.name"
                  data-price="25"
                  data-category="asesoria"
-                 min="0" value="0" />
+                 min="0" max="20" step="1" inputmode="numeric" />
         </div>
       </div>
     </section>
@@ -497,6 +510,10 @@
         <label>
           <span data-i18n="form.ig.label"></span>
           <input type="text" id="client-ig" data-i18n-placeholder="form.ig.placeholder" placeholder="" />
+        </label>
+        <label>
+          <span data-i18n="form.date.label"></span>
+          <input type="date" id="client-date" />
         </label>
         <label>
           <span data-i18n="form.notes.label"></span>
@@ -594,7 +611,8 @@
           "service.beatNonExclusive.title": "🔥 Beats No Exclusivos",
           "service.beatNonExclusive.desc": "Ideal para mixtapes, demos y proyectos económicos.",
           "service.beatNonExclusive.label": "Cantidad de beats no exclusivos",
-          "service.beatNonExclusive.price": "$50 / beat (desde $5 con membresía)",
+          "service.beatNonExclusive.priceMain": "$50 / beat",
+          "service.beatNonExclusive.priceNote": "(desde $5 con membresía)",
           "service.beatNonExclusive.name": "Beat No Exclusivo",
 
           "service.packFull.title": "📦 Pack “Canción Full Terminada”",
@@ -636,6 +654,7 @@
           "form.email.placeholder": "tucorreo@example.com",
           "form.ig.label": "Instagram",
           "form.ig.placeholder": "@tu_usuario",
+          "form.date.label": "Fecha tentativa",
           "form.notes.label": "Notas adicionales",
           "form.notes.placeholder": "Fechas, estilo musical, referencias, etc.",
 
@@ -660,6 +679,7 @@
           "wa.email": "Email",
           "wa.ig": "Instagram",
           "wa.notes": "Notas",
+          "wa.date": "Fecha tentativa",
           "wa.notSpecified": "No especificado",
           "wa.noNotes": "Sin notas adicionales",
 
@@ -708,7 +728,8 @@
           "service.beatNonExclusive.title": "🔥 Non-Exclusive Beats",
           "service.beatNonExclusive.desc": "Perfect for mixtapes, demos and budget projects.",
           "service.beatNonExclusive.label": "Number of non-exclusive beats",
-          "service.beatNonExclusive.price": "$50 / beat (from $5 with membership)",
+          "service.beatNonExclusive.priceMain": "$50 / beat",
+          "service.beatNonExclusive.priceNote": "(from $5 with membership)",
           "service.beatNonExclusive.name": "Non-Exclusive Beat",
 
           "service.packFull.title": "📦 “Full Finished Song” Pack",
@@ -750,6 +771,7 @@
           "form.email.placeholder": "youremail@example.com",
           "form.ig.label": "Instagram",
           "form.ig.placeholder": "@your_user",
+          "form.date.label": "Tentative date",
           "form.notes.label": "Additional notes",
           "form.notes.placeholder": "Dates, music style, references, etc.",
 
@@ -774,6 +796,7 @@
           "wa.email": "Email",
           "wa.ig": "Instagram",
           "wa.notes": "Notes",
+          "wa.date": "Tentative date",
           "wa.notSpecified": "Not specified",
           "wa.noNotes": "No additional notes",
 
@@ -820,6 +843,7 @@
       const clientName = document.getElementById("client-name");
       const clientEmail = document.getElementById("client-email");
       const clientIG = document.getElementById("client-ig");
+      const clientDate = document.getElementById("client-date");
       const clientNotes = document.getElementById("client-notes");
 
       const phoneNumber = "19718182710";
@@ -932,6 +956,7 @@
         const emailLabel = t("wa.email");
         const igLabel = t("wa.ig");
         const notesLabel = t("wa.notes");
+        const dateLabel = t("wa.date");
         const notSpecified = t("wa.notSpecified");
         const noNotes = t("wa.noNotes");
 
@@ -944,6 +969,7 @@
           `${artistNameLabel}: ${clientName.value || notSpecified}\n` +
           `${emailLabel}: ${clientEmail.value || notSpecified}\n` +
           `${igLabel}: ${clientIG.value || notSpecified}\n` +
+          `${dateLabel}: ${clientDate.value || notSpecified}\n` +
           `${notesLabel}: ${clientNotes.value || noNotes}\n`;
 
         const url =
@@ -963,6 +989,7 @@
       clientName.addEventListener("input", updateSummary);
       clientEmail.addEventListener("input", updateSummary);
       clientIG.addEventListener("input", updateSummary);
+      clientDate.addEventListener("input", updateSummary);
       clientNotes.addEventListener("input", updateSummary);
 
       langSelect.addEventListener("change", () => {
