@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>AddEmpire Studio – Catálogo de Servicios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050509;
+      color: #f5f5f5;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      margin: 0.5rem 0;
+      font-size: 1.9rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin: 0 0 0.75rem;
+    }
+    .tagline {
+      color: #bbbbbb;
+      font-size: 0.9rem;
+    }
+    .contact {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #d1d1d1;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #111118;
+      border-radius: 10px;
+      padding: 1rem;
+      border: 1px solid #222233;
+    }
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .card small {
+      display: block;
+      color: #aaaaaa;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+    }
+    label.service-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+      padding: 0.3rem 0.4rem;
+      border-radius: 6px;
+      background: #14141d;
+      cursor: pointer;
+    }
+    label.service-line input {
+      margin-right: 0.4rem;
+    }
+    .service-text {
+      flex: 1;
+    }
+    .price {
+      white-space: nowrap;
+      font-weight: 600;
+      color: #4ade80;
+      font-size: 0.9rem;
+    }
+    .summary {
+      background: #0c0c12;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      border: 1px solid #272742;
+      margin-bottom: 1.5rem;
+    }
+    .summary h2 {
+      margin-bottom: 0.5rem;
+    }
+    .summary-list {
+      list-style: none;
+      padding-left: 1rem;
+      margin: 0.5rem 0 1rem;
+      font-size: 0.9rem;
+    }
+    .summary-list li::marker {
+      color: #4ade80;
+    }
+    .total {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .note {
+      font-size: 0.8rem;
+      color: #aaaaaa;
+    }
+    .btn-whatsapp {
+      display: inline-block;
+      text-decoration: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: #22c55e;
+      color: #02140a;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2);
+    }
+    .btn-whatsapp:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #777;
+      margin-top: 1.5rem;
+      padding-bottom: 1rem;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .page {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="tagline">ADD EMPIRE STUDIO · LOUISVILLE, KY</div>
+      <h1>Catálogo de Servicios</h1>
+      <p class="tagline">Selecciona lo que necesitas y envía tu pedido directo por WhatsApp.</p>
+      <p class="contact">
+        WhatsApp: <strong>+1 (971) 818-2710</strong> · Instagram: <strong>@addempire.music</strong>
+      </p>
+    </header>
+
+    <!-- SERVICIOS -->
+    <section class="grid">
+      <!-- Grabación Vocal -->
+      <div class="card">
+        <div class="card-title">🎙 Grabación Vocal</div>
+        <small>Grabación profesional, guía vocal y calidad para plataformas.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Grabación Vocal — 1 hora" data-price="30">
+            1 hora
+          </span>
+          <span class="price">$30</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Grabación Vocal — 2 horas" data-price="50">
+            2 horas
+          </span>
+          <span class="price">$50</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Grabación Vocal — 4 horas" data-price="90">
+            4 horas
+          </span>
+          <span class="price">$90</span>
+        </label>
+      </div>
+
+      <!-- Mezcla + Master -->
+      <div class="card">
+        <div class="card-title">🎛 Mezcla + Master</div>
+        <small>Limpieza vocal, afinación y optimizado para streaming y radio.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Mezcla + Master — 1 canción" data-price="50">
+            1 canción
+          </span>
+          <span class="price">$50</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Mezcla + Master — 2 canciones" data-price="90">
+            2 canciones
+          </span>
+          <span class="price">$90</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Mezcla + Master — 3 canciones" data-price="125">
+            3 canciones
+          </span>
+          <span class="price">$125</span>
+        </label>
+      </div>
+
+      <!-- Afinación Vocal -->
+      <div class="card">
+        <div class="card-title">🛠 Afinación Vocal</div>
+        <small>Corrección de tono y tiempo, sonido profesional.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Afinación Vocal (Vocal Tuning) — 1 canción" data-price="25">
+            1 canción
+          </span>
+          <span class="price">$25</span>
+        </label>
+      </div>
+
+      <!-- Beats Originales -->
+      <div class="card">
+        <div class="card-title">🎹 Beats Originales (Exclusivos)</div>
+        <small>Beats desde cero, uso comercial y opción de STEMS.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Beat Original Exclusivo — 1 beat" data-price="150">
+            1 beat
+          </span>
+          <span class="price">$150</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Beat Original Exclusivo — 2 beats" data-price="270">
+            2 beats
+          </span>
+          <span class="price">$270</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Beat Original Exclusivo — 3 beats" data-price="400">
+            3 beats
+          </span>
+          <span class="price">$400</span>
+        </label>
+      </div>
+
+      <!-- Beats No Exclusivos -->
+      <div class="card">
+        <div class="card-title">🔥 Beats No Exclusivos</div>
+        <small>Ideal para mixtapes, demos y proyectos económicos.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Beat No Exclusivo — estándar" data-price="50">
+            Beat no exclusivo (precio estándar)
+          </span>
+          <span class="price">$50</span>
+        </label>
+      </div>
+
+      <!-- Packs Full Canción (sin membresía) -->
+      <div class="card">
+        <div class="card-title">📦 Pack “Canción Full Terminada”</div>
+        <small>Grabación + Mezcla + Master + Beat original (sin membresía).</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Pack Full — 1 canción (sin membresía)" data-price="250">
+            1 canción
+          </span>
+          <span class="price">$250</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Pack Full — 2 canciones (sin membresía)" data-price="450">
+            2 canciones
+          </span>
+          <span class="price">$450</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Pack Full — 3 canciones (sin membresía)" data-price="600">
+            3 canciones
+          </span>
+          <span class="price">$600</span>
+        </label>
+      </div>
+
+      <!-- Portadas y Video -->
+      <div class="card">
+        <div class="card-title">📸 Portadas & 🎬 Videos Promo</div>
+        <small>Diseños y reels para lanzamientos.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Portada profesional (básica)" data-price="20">
+            Portada profesional (básica)
+          </span>
+          <span class="price">$20</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Portada profesional (avanzada)" data-price="40">
+            Portada profesional (avanzada)
+          </span>
+          <span class="price">$40</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Video promo / Reel (corto)" data-price="20">
+            Video promo / Reel (corto)
+          </span>
+          <span class="price">$20</span>
+        </label>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Video promo / Reel (extendido)" data-price="50">
+            Video promo / Reel (extendido)
+          </span>
+          <span class="price">$50</span>
+        </label>
+      </div>
+
+      <!-- Asesoría -->
+      <div class="card">
+        <div class="card-title">🧠 Asesoría Artística</div>
+        <small>Corrección creativa, guía de proyecto y dudas sobre licencias.</small>
+
+        <label class="service-line">
+          <span class="service-text">
+            <input type="checkbox" class="service-item"
+                   data-name="Asesoría Artística — 30 minutos" data-price="25">
+            30 minutos de asesoría
+          </span>
+          <span class="price">$25</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="summary">
+      <h2>🧾 Resumen de tu pedido</h2>
+      <ul id="summary-list" class="summary-list">
+        <li>No has seleccionado ningún servicio aún.</li>
+      </ul>
+      <div class="total" id="total-amount">Total estimado: $0 USD</div>
+      <p class="note">
+        Este total es una estimación. Precios finales y detalles se confirman por WhatsApp según
+        complejidad del proyecto y membresía (si aplica).
+      </p>
+      <a id="whatsapp-link" class="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer" disabled>
+        Enviar pedido por WhatsApp
+      </a>
+    </section>
+
+    <footer>
+      AddEmpire Studio · Sonido profesional desde un home studio real.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const items = document.querySelectorAll(".service-item");
+      const summaryList = document.getElementById("summary-list");
+      const totalAmount = document.getElementById("total-amount");
+      const whatsappLink = document.getElementById("whatsapp-link");
+
+      const phoneNumber = "19718182710"; // sin + y sin espacios
+
+      function updateSummary() {
+        let selected = [];
+        let total = 0;
+
+        items.forEach((item) => {
+          if (item.checked) {
+            const name = item.getAttribute("data-name");
+            const price = Number(item.getAttribute("data-price") || 0);
+            selected.push({ name, price });
+            total += price;
+          }
+        });
+
+        // Actualizar lista visual
+        summaryList.innerHTML = "";
+        if (selected.length === 0) {
+          const li = document.createElement("li");
+          li.textContent = "No has seleccionado ningún servicio aún.";
+          summaryList.appendChild(li);
+        } else {
+          selected.forEach((s) => {
+            const li = document.createElement("li");
+            li.textContent = `${s.name} — $${s.price}`;
+            summaryList.appendChild(li);
+          });
+        }
+
+        totalAmount.textContent = `Total estimado: $${total} USD`;
+
+        // Actualizar botón de WhatsApp
+        if (selected.length === 0) {
+          whatsappLink.setAttribute("href", "#");
+          whatsappLink.setAttribute("disabled", "disabled");
+          return;
+        }
+
+        const serviciosTexto = selected
+          .map((s) => `• ${s.name} — $${s.price}`)
+          .join("\n");
+
+        const message =
+          "Hola, quiero agendar estos servicios en AddEmpire Studio:\n\n" +
+          serviciosTexto +
+          `\n\nTotal estimado: $${total} USD\n\n` +
+          "Mi nombre es: __________\nCiudad / Estado: __________\nFechas aproximadas: __________";
+
+        const url =
+          "https://wa.me/" +
+          phoneNumber +
+          "?text=" +
+          encodeURIComponent(message);
+
+        whatsappLink.removeAttribute("disabled");
+        whatsappLink.setAttribute("href", url);
+      }
+
+      items.forEach((item) => {
+        item.addEventListener("change", updateSummary);
+      });
+
+      updateSummary();
+    })();
+  </script>
+</body>
+</html>
