@@ -25,6 +25,13 @@
       text-align: center;
       margin-bottom: 2rem;
     }
+    .logo-addempire {
+      width: 110px;
+      height: auto;
+      display: block;
+      margin: 0 auto 1rem auto;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+    }
     h1 {
       margin: 0.5rem 0;
       font-size: 1.9rem;
@@ -284,6 +291,10 @@
 <body>
   <div class="page">
     <header>
+      <img src="https://raw.githubusercontent.com/addempirellc/catalog/refs/heads/main/logo-addempire%20.png"
+           alt="AddEmpire Logo"
+           class="logo-addempire" />
+
       <div class="tagline" data-i18n="header.tagline"></div>
       <h1 data-i18n="header.title"></h1>
       <p class="tagline" data-i18n="header.subtitle"></p>
@@ -790,7 +801,6 @@
           el.setAttribute("placeholder", t(key));
         });
 
-        // Actualizar atributos de opción de membresía
         const membershipOptions = document.querySelectorAll("#membership option");
         membershipOptions.forEach((opt) => {
           const key = opt.getAttribute("data-i18n");
@@ -812,7 +822,7 @@
       const clientIG = document.getElementById("client-ig");
       const clientNotes = document.getElementById("client-notes");
 
-      const phoneNumber = "19718182710"; // sin + y sin espacios
+      const phoneNumber = "19718182710";
 
       const discounts = {
         none: 0,
@@ -826,7 +836,6 @@
       }
 
       function getServiceName(key) {
-        // key es el valor en data-name, usamos las traducciones
         return t(key);
       }
 
@@ -962,7 +971,6 @@
         updateSummary();
       });
 
-      // Inicializar
       applyTranslations();
       updateSummary();
     })();
