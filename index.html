@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Supabase JS (solo cliente) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <meta charset="UTF-8" />
   <title>AddEmpire Studio – Estudio de grabación urbano en Louisville</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -376,45 +378,6 @@
       font-size: 0.85rem;
       color: #facc15;
       margin-top: 0.25rem;
-    }
-
-    /* CLIENT FORM */
-    .client-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.85rem;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
-    }
-    .client-form label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .client-form input,
-    .client-form textarea {
-      background: #020617;
-      border: 1px solid #4b5563;
-      border-radius: 8px;
-      padding: 0.4rem 0.55rem;
-      color: #f5f5f5;
-      font-size: 0.85rem;
-      resize: vertical;
-      outline: none;
-    }
-    .client-form input:focus,
-    .client-form textarea:focus {
-      border-color: #60a5fa;
-      box-shadow:
-        0 0 0 1px rgba(96, 165, 250, 0.9),
-        0 0 16px rgba(59, 130, 246, 0.8);
-    }
-    .client-form textarea {
-      min-height: 100px;
-    }
-    /* Texto de notas ocupando todo el ancho de la landing */
-    .client-form .notes-field {
-      grid-column: 1 / -1;
     }
 
     .btn-whatsapp {
@@ -818,33 +781,9 @@
       </div>
     </section>
 
-    <!-- RESUMEN -->
+    <!-- RESUMEN (sin formulario de datos ahora) -->
     <section class="summary" id="resumen">
       <h2 data-i18n="summary.title"></h2>
-
-      <!-- Mini formulario de datos -->
-      <div class="client-form">
-        <label>
-          <span data-i18n="form.name.label"></span>
-          <input type="text" id="client-name" data-i18n-placeholder="form.name.placeholder" placeholder="" />
-        </label>
-        <label>
-          <span data-i18n="form.email.label"></span>
-          <input type="email" id="client-email" data-i18n-placeholder="form.email.placeholder" placeholder="" />
-        </label>
-        <label>
-          <span data-i18n="form.ig.label"></span>
-          <input type="text" id="client-ig" data-i18n-placeholder="form.ig.placeholder" placeholder="" />
-        </label>
-        <label>
-          <span data-i18n="form.date.label"></span>
-          <input type="date" id="client-date" />
-        </label>
-        <label class="notes-field">
-          <span data-i18n="form.notes.label"></span>
-          <textarea id="client-notes" data-i18n-placeholder="form.notes.placeholder" placeholder=""></textarea>
-        </label>
-      </div>
 
       <ul id="summary-list" class="summary-list">
         <li data-i18n="summary.empty"></li>
@@ -893,12 +832,19 @@
     <a href="#resumen" data-i18n="cta.floating"></a>
   </div>
 
-  <!-- Archivos externos -->
+  <!-- Archivos externos (códigos de membresía / config futura) -->
   <script src="membership-codes.js"></script>
   <script src="accounts-config.js"></script>
 
   <script>
     (function () {
+      // === SUPABASE CLIENT (preparado, aún sin guardar cuentas/pedidos) ===
+      const SUPABASE_URL = "https://xshxhfexvvzrrqllhrvp.supabase.co";
+      const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzaHhoZmV4dnZ6cnJxbGxocnZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODU4MjUsImV4cCI6MjA3OTE2MTgyNX0.stCbU3Db73PueHgO4T10wObDdd6HJvE_DE-CTTLedGQ";
+
+      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      // Próximo paso: usar supabase para guardar cuentas / perfiles.
+
       const translations = {
         es: {
           "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
@@ -1010,16 +956,6 @@
 
           "upsell.message": "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
 
-          "form.name.label": "Nombre artístico",
-          "form.name.placeholder": "Ej: Mr.Addamz",
-          "form.email.label": "Email",
-          "form.email.placeholder": "tucorreo@example.com",
-          "form.ig.label": "Instagram",
-          "form.ig.placeholder": "@tu_usuario",
-          "form.date.label": "Fecha tentativa",
-          "form.notes.label": "Notas adicionales",
-          "form.notes.placeholder": "Fechas, estilo musical, referencias, etc.",
-
           "steps.title": "⚙️ Cómo funciona",
           "steps.step1": "Seleccionas servicios y cantidades en el catálogo.",
           "steps.step2": "Nos contactas por WhatsApp con el resumen y tus datos.",
@@ -1038,14 +974,7 @@
           "wa.membershipLabel": "Membresía:",
           "wa.membershipCodeLabel": "Código de artista:",
           "wa.accountLabel": "Cuenta AddStudio:",
-          "wa.artistData": "Datos de artista:",
-          "wa.artistName": "Nombre artístico",
-          "wa.email": "Email",
-          "wa.ig": "Instagram",
-          "wa.notes": "Notas",
-          "wa.date": "Fecha tentativa",
           "wa.notSpecified": "No especificado",
-          "wa.noNotes": "Sin notas adicionales",
 
           "membership.text.none": "Sin membresía",
           "membership.text.key": "Key Tier (−10%)",
@@ -1162,16 +1091,6 @@
 
           "upsell.message": "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
 
-          "form.name.label": "Artist name",
-          "form.name.placeholder": "Ex: Mr.Addamz",
-          "form.email.label": "Email",
-          "form.email.placeholder": "youremail@example.com",
-          "form.ig.label": "Instagram",
-          "form.ig.placeholder": "@your_user",
-          "form.date.label": "Tentative date",
-          "form.notes.label": "Additional notes",
-          "form.notes.placeholder": "Dates, music style, references, etc.",
-
           "steps.title": "⚙️ How it works",
           "steps.step1": "Select services and quantities in the catalog.",
           "steps.step2": "Contact us on WhatsApp with the summary and your info.",
@@ -1190,14 +1109,7 @@
           "wa.membershipLabel": "Membership:",
           "wa.membershipCodeLabel": "Artist code:",
           "wa.accountLabel": "AddStudio account:",
-          "wa.artistData": "Artist info:",
-          "wa.artistName": "Artist name",
-          "wa.email": "Email",
-          "wa.ig": "Instagram",
-          "wa.notes": "Notes",
-          "wa.date": "Tentative date",
           "wa.notSpecified": "Not specified",
-          "wa.noNotes": "No additional notes",
 
           "membership.text.none": "No membership",
           "membership.text.key": "Key Tier (−10%)",
@@ -1238,12 +1150,6 @@
       const whatsappLink = document.getElementById("whatsapp-link");
       const membershipSelect = document.getElementById("membership");
       const langSelect = document.getElementById("lang-select");
-
-      const clientName = document.getElementById("client-name");
-      const clientEmail = document.getElementById("client-email");
-      const clientIG = document.getElementById("client-ig");
-      const clientDate = document.getElementById("client-date");
-      const clientNotes = document.getElementById("client-notes");
 
       const membershipCodeInput = document.getElementById("membership-code");
       const membershipCodeStatus = document.getElementById("membership-code-status");
@@ -1291,15 +1197,6 @@
           membershipCodeStatus.classList.add("invalid");
           return false;
         }
-      }
-
-      function isClientFormValid() {
-        return (
-          clientName.value.trim() &&
-          clientEmail.value.trim() &&
-          clientIG.value.trim() &&
-          clientDate.value
-        );
       }
 
       function getAccessType() {
@@ -1401,13 +1298,6 @@
           return;
         }
 
-        // Si los datos del formulario no están completos, bloquear WhatsApp
-        if (!isClientFormValid()) {
-          whatsappLink.setAttribute("href", "#");
-          whatsappLink.setAttribute("aria-disabled", "true");
-          return;
-        }
-
         const serviciosTexto = selected
           .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
           .join("\n");
@@ -1425,14 +1315,7 @@
         const membershipLabel = t("wa.membershipLabel");
         const membershipCodeLabel = t("wa.membershipCodeLabel");
         const accountLabel = t("wa.accountLabel");
-        const artistDataLabel = t("wa.artistData");
-        const artistNameLabel = t("wa.artistName");
-        const emailLabel = t("wa.email");
-        const igLabel = t("wa.ig");
-        const notesLabel = t("wa.notes");
-        const dateLabel = t("wa.date");
         const notSpecified = t("wa.notSpecified");
-        const noNotes = t("wa.noNotes");
 
         const message =
           `${greeting}\n\n` +
@@ -1440,13 +1323,7 @@
           `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
           `${membershipLabel} ${membershipText}\n` +
           `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
-          `${accountLabel} ${accountValue}\n\n` +
-          `${artistDataLabel}\n` +
-          `${artistNameLabel}: ${clientName.value || notSpecified}\n` +
-          `${emailLabel}: ${clientEmail.value || notSpecified}\n` +
-          `${igLabel}: ${clientIG.value || notSpecified}\n` +
-          `${dateLabel}: ${clientDate.value || notSpecified}\n` +
-          `${notesLabel}: ${clientNotes.value || noNotes}\n`;
+          `${accountLabel} ${accountValue}\n`;
 
         const url =
           "https://wa.me/" +
@@ -1462,17 +1339,10 @@
         input.addEventListener("input", updateSummary);
       });
       membershipSelect.addEventListener("change", updateSummary);
-      clientName.addEventListener("input", updateSummary);
-      clientEmail.addEventListener("input", updateSummary);
-      clientIG.addEventListener("input", updateSummary);
-      clientDate.addEventListener("input", updateSummary);
-      clientNotes.addEventListener("input", updateSummary);
-
       membershipCodeInput.addEventListener("input", () => {
         validateMembershipCode();
         updateSummary();
       });
-
       document.getElementById("access-guest").addEventListener("change", updateSummary);
       document.getElementById("access-account").addEventListener("change", updateSummary);
 
