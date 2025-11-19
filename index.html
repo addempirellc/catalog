@@ -8,47 +8,83 @@
   <style>
     :root {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #050509;
       color: #f5f5f5;
+      background: #020203;
+    }
+    * {
+      box-sizing: border-box;
     }
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: url('https://raw.githubusercontent.com/addempirellc/catalog/refs/heads/main/AddEmpire_LogoOficial_Comercial_V01%20.png') no-repeat center center fixed;
-      background-size: cover;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.08), transparent 55%),
+        radial-gradient(circle at bottom, rgba(129, 140, 248, 0.12), transparent 55%),
+        #020203;
+      color: #e5e7eb;
     }
     .page {
-      max-width: 960px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 1.5rem;
-      padding-bottom: 5rem;
+      padding: 1.75rem 1.5rem 5rem;
       position: relative;
-      background: radial-gradient(circle at top, rgba(0,0,0,0.65), rgba(0,0,0,0.9));
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      border-left: 1px solid rgba(56, 78, 130, 0.6);
+      border-right: 1px solid rgba(56, 78, 130, 0.6);
+      box-shadow:
+        0 0 80px rgba(15, 23, 42, 0.9),
+        0 0 140px rgba(30, 64, 175, 0.45);
+      overflow: hidden;
     }
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.2), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(147, 51, 234, 0.18), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+
     header {
-      text-align: center;
+      position: relative;
       margin-bottom: 2rem;
-      padding-top: 5rem;
+      padding-top: 4.5rem;
+      text-align: center;
     }
     .logo-addempire {
-      width: 160px;
+      width: 150px;
       height: auto;
       position: absolute;
-      top: 20px;
-      left: 20px;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7));
+      top: 18px;
+      left: 18px;
+      filter:
+        drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9))
+        drop-shadow(0 0 26px rgba(59, 130, 246, 0.8));
+      z-index: 2;
+    }
+    .hero-title {
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #a5b4fc;
     }
     h1 {
       margin: 0.5rem 0;
-      font-size: 1.9rem;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
     }
     h2 {
       font-size: 1.2rem;
       margin: 0 0 0.75rem;
     }
     .tagline {
-      color: #bbbbbb;
+      color: #9ca3af;
       font-size: 0.9rem;
     }
     .contact {
@@ -57,46 +93,85 @@
       color: #d1d1d1;
     }
     .lang-switch {
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
       font-size: 0.85rem;
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
+      display: inline-flex;
       align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.35);
     }
     .lang-switch select {
-      background: #101019;
-      border: 1px solid #34344d;
-      color: #f5f5f5;
-      border-radius: 6px;
-      padding: 0.2rem 0.5rem;
+      background: #020617;
+      border: 1px solid #334155;
+      color: #e5e7eb;
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    /* MEMBERSHIP + ACCOUNT BOX */
+    .access-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
       font-size: 0.85rem;
     }
+    .access-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+    }
+    .access-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+    .access-options input[type="radio"] {
+      accent-color: #2563eb;
+      cursor: pointer;
+    }
+    .access-note {
+      color: #a1a1b5;
+      font-size: 0.78rem;
+    }
+
     .membership-box {
-      background: #0c0c12;
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      border: 1px solid #272742;
-      margin-bottom: 1.5rem;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.25), transparent 55%),
+                  rgba(10, 14, 32, 0.95);
+      border-radius: 14px;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid rgba(88, 118, 234, 0.65);
+      margin-bottom: 1.8rem;
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
-      gap: 0.75rem;
+      gap: 0.9rem 1.2rem;
       font-size: 0.9rem;
+      box-shadow:
+        0 0 25px rgba(37, 99, 235, 0.45),
+        0 0 55px rgba(17, 24, 39, 0.85);
     }
     .membership-box label {
       font-weight: 600;
     }
     .membership-box select {
-      background: #101019;
-      border: 1px solid #34344d;
-      color: #f5f5f5;
-      border-radius: 6px;
-      padding: 0.3rem 0.5rem;
-      font-size: 0.9rem;
+      background: #020617;
+      border: 1px solid #4b5563;
+      color: #f9fafb;
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.86rem;
+      min-width: 170px;
     }
     .membership-note {
-      color: #a1a1b5;
+      color: #9ca3af;
       font-size: 0.8rem;
       flex-basis: 100%;
     }
@@ -107,19 +182,27 @@
       font-weight: 500;
     }
     .membership-code-input {
-      background: #050509;
-      border: 1px solid #34344d;
-      border-radius: 6px;
-      padding: 0.35rem 0.5rem;
-      color: #f5f5f5;
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+      color: #e5e7eb;
       font-size: 0.85rem;
-      min-width: 190px;
+      min-width: 210px;
+      outline: none;
+      box-shadow: 0 0 0 1px rgba(30, 64, 175, 0.4);
+    }
+    .membership-code-input:focus {
+      border-color: #60a5fa;
+      box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.9),
+        0 0 18px rgba(59, 130, 246, 0.6);
     }
     .membership-code-status {
       font-size: 0.78rem;
       flex-basis: 100%;
       min-height: 1rem;
-      color: #a1a1b5;
+      color: #9ca3af;
     }
     .membership-code-status.valid {
       color: #4ade80;
@@ -127,17 +210,55 @@
     .membership-code-status.invalid {
       color: #f97316;
     }
+
+    /* SERVICE GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
+      gap: 1.1rem;
       margin-bottom: 2rem;
     }
     .card {
-      background: #111118;
-      border-radius: 10px;
+      position: relative;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+      border-radius: 14px;
       padding: 1rem;
-      border: 1px solid #222233;
+      border: 1px solid rgba(51, 65, 85, 0.95);
+      box-shadow:
+        0 18px 35px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(30, 64, 175, 0.3);
+      overflow: hidden;
+      transition:
+        transform 0.18s ease-out,
+        box-shadow 0.18s ease-out,
+        border-color 0.18s ease-out,
+        background 0.18s ease-out;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: linear-gradient(120deg,
+        rgba(56, 189, 248, 0),
+        rgba(56, 189, 248, 0.7),
+        rgba(129, 140, 248, 0));
+      opacity: 0;
+      transform: translateX(-40%);
+      transition: opacity 0.2s ease-out, transform 0.25s ease-out;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96, 165, 250, 0.95);
+      box-shadow:
+        0 22px 50px rgba(15, 23, 42, 0.95),
+        0 0 28px rgba(59, 130, 246, 0.9);
+      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.8), rgba(15, 23, 42, 0.98));
+    }
+    .card:hover::before {
+      opacity: 0.9;
+      transform: translateX(40%);
     }
     .card-title {
       font-weight: 600;
@@ -145,12 +266,13 @@
       display: flex;
       align-items: center;
       gap: 0.4rem;
+      color: #e5e7eb;
     }
     .card small {
       display: block;
-      color: #aaaaaa;
-      margin-bottom: 0.5rem;
-      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 0.55rem;
+      font-size: 0.78rem;
     }
     .service-line {
       display: flex;
@@ -159,9 +281,19 @@
       gap: 0.5rem;
       font-size: 0.9rem;
       margin: 0.25rem 0;
-      padding: 0.3rem 0.4rem;
-      border-radius: 6px;
-      background: #14141d;
+      padding: 0.35rem 0.45rem;
+      border-radius: 9px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(51, 65, 85, 0.95);
+      transition:
+        border-color 0.18s ease-out,
+        box-shadow 0.18s ease-out,
+        background 0.18s ease-out;
+    }
+    .service-line:hover {
+      border-color: rgba(96, 165, 250, 0.95);
+      background: rgba(15, 23, 42, 1);
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.8);
     }
     .service-info {
       display: flex;
@@ -188,21 +320,34 @@
       color: #4ade80;
     }
     .service-qty {
-      width: 60px;
-      background: #050509;
-      border: 1px solid #33334a;
-      border-radius: 6px;
+      width: 64px;
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 999px;
       color: #f5f5f5;
-      padding: 0.25rem 0.35rem;
+      padding: 0.25rem 0.4rem;
       font-size: 0.85rem;
       text-align: right;
+      outline: none;
     }
+    .service-qty:focus {
+      border-color: #60a5fa;
+      box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.9),
+        0 0 14px rgba(59, 130, 246, 0.8);
+      background: #020617;
+    }
+
+    /* SUMMARY PANEL */
     .summary {
-      background: #0c0c12;
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      border: 1px solid #272742;
-      margin-bottom: 1.5rem;
+      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.5), rgba(10, 16, 40, 0.98));
+      border-radius: 16px;
+      padding: 1.25rem 1.4rem;
+      border: 1px solid rgba(129, 140, 248, 0.9);
+      margin-bottom: 1.7rem;
+      box-shadow:
+        0 0 40px rgba(30, 64, 175, 0.85),
+        0 0 0 1px rgba(15, 23, 42, 1);
     }
     .summary-list {
       list-style: none;
@@ -220,22 +365,24 @@
     }
     .discount-label {
       font-size: 0.85rem;
-      color: #a1a1b5;
+      color: #cbd5f5;
       margin-bottom: 0.75rem;
     }
     .note {
       font-size: 0.8rem;
-      color: #aaaaaa;
+      color: #e5e7eb;
     }
     .upsell {
       font-size: 0.85rem;
       color: #facc15;
       margin-top: 0.25rem;
     }
+
+    /* CLIENT FORM */
     .client-form {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
+      gap: 0.85rem;
       margin-bottom: 1rem;
       font-size: 0.85rem;
     }
@@ -246,44 +393,75 @@
     }
     .client-form input,
     .client-form textarea {
-      background: #050509;
-      border: 1px solid #34344d;
-      border-radius: 6px;
-      padding: 0.35rem 0.5rem;
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      padding: 0.4rem 0.55rem;
       color: #f5f5f5;
       font-size: 0.85rem;
       resize: vertical;
+      outline: none;
+    }
+    .client-form input:focus,
+    .client-form textarea:focus {
+      border-color: #60a5fa;
+      box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.9),
+        0 0 16px rgba(59, 130, 246, 0.8);
     }
     .client-form textarea {
-      min-height: 70px;
+      min-height: 100px;
     }
+    /* Texto de notas ocupando todo el ancho de la landing */
+    .client-form .notes-field {
+      grid-column: 1 / -1;
+    }
+
     .btn-whatsapp {
       display: inline-block;
       text-decoration: none;
-      padding: 0.7rem 1.4rem;
+      padding: 0.8rem 1.9rem;
       border-radius: 999px;
       border: none;
-      background: #22c55e;
-      color: #02140a;
+      background: radial-gradient(circle at top left, #60a5fa, #2563eb);
+      color: #e5f2ff;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       cursor: pointer;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2);
+      box-shadow:
+        0 18px 40px rgba(37, 99, 235, 0.9),
+        0 0 26px rgba(191, 219, 254, 0.7);
+      transition:
+        transform 0.14s ease-out,
+        box-shadow 0.14s ease-out,
+        filter 0.14s ease-out,
+        opacity 0.14s ease-out;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow:
+        0 22px 48px rgba(37, 99, 235, 1),
+        0 0 35px rgba(191, 219, 254, 0.95);
     }
     .btn-whatsapp[aria-disabled="true"] {
       opacity: 0.45;
       cursor: not-allowed;
       box-shadow: none;
+      transform: none;
+      filter: none;
     }
+
     .steps,
     .trust {
-      background: #0c0c12;
-      border-radius: 12px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.92), rgba(10, 16, 40, 0.98));
+      border-radius: 14px;
       padding: 1rem 1.25rem;
-      border: 1px solid #272742;
+      border: 1px solid rgba(75, 85, 99, 0.96);
       margin-bottom: 1rem;
       font-size: 0.9rem;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
     }
     .steps ol {
       padding-left: 1.2rem;
@@ -293,47 +471,52 @@
       padding-left: 1.2rem;
       margin: 0.5rem 0 0;
     }
+
     .floating-cta {
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
       padding: 0.6rem 1rem;
-      background: linear-gradient(to top, rgba(5, 5, 9, 0.98), rgba(5, 5, 9, 0.8));
-      border-top: 1px solid #222233;
+      background: linear-gradient(to top, rgba(3, 7, 18, 0.98), rgba(15, 23, 42, 0.95));
+      border-top: 1px solid #1f2933;
       display: flex;
       justify-content: center;
       z-index: 20;
+      backdrop-filter: blur(14px);
     }
     .floating-cta a {
       text-decoration: none;
-      padding: 0.6rem 1.2rem;
+      padding: 0.6rem 1.3rem;
       border-radius: 999px;
-      background: #1d4ed8;
+      background: linear-gradient(to right, #2563eb, #4f46e5);
       color: #f9fafb;
       font-weight: 600;
       font-size: 0.9rem;
       text-align: center;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.95);
     }
     footer {
       text-align: center;
       font-size: 0.75rem;
-      color: #777;
+      color: #9ca3af;
       margin-top: 1.5rem;
       padding-bottom: 1rem;
     }
     @media (max-width: 600px) {
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
       .page {
-        padding: 1rem;
-        padding-bottom: 4.5rem;
+        padding: 1.25rem 0.9rem 4.5rem;
       }
       .logo-addempire {
-        width: 135px;
-        top: 16px;
-        left: 16px;
+        width: 130px;
+        top: 14px;
+        left: 14px;
+      }
+      .membership-box {
+        padding: 0.9rem 0.85rem;
       }
     }
   </style>
@@ -345,7 +528,7 @@
            alt="AddEmpire Logo"
            class="logo-addempire" />
 
-      <div class="tagline" data-i18n="header.tagline"></div>
+      <div class="hero-title" data-i18n="header.tagline"></div>
       <h1 data-i18n="header.title"></h1>
       <p class="tagline" data-i18n="header.subtitle"></p>
       <p class="contact" data-i18n="header.contact"></p>
@@ -359,6 +542,22 @@
       </div>
     </header>
 
+    <!-- Acceso: sin cuenta / crear cuenta -->
+    <section class="access-row">
+      <strong data-i18n="access.title"></strong>
+      <div class="access-options">
+        <label>
+          <input type="radio" name="access-type" value="guest" id="access-guest" checked />
+          <span data-i18n="access.guest"></span>
+        </label>
+        <label>
+          <input type="radio" name="access-type" value="account" id="access-account" />
+          <span data-i18n="access.account"></span>
+        </label>
+      </div>
+      <div class="access-note" data-i18n="access.note"></div>
+    </section>
+
     <!-- Selector de membresía -->
     <section class="membership-box">
       <label for="membership" data-i18n="membership.label"></label>
@@ -369,7 +568,7 @@
         <option value="crown" data-i18n="membership.crown">Crown Tier (−30%)</option>
       </select>
 
-      <!-- Campo nuevo: código de artista -->
+      <!-- Código de artista -->
       <label class="membership-code-label" for="membership-code">
         <span data-i18n="membership.codeLabel"></span>
         <input
@@ -641,7 +840,7 @@
           <span data-i18n="form.date.label"></span>
           <input type="date" id="client-date" />
         </label>
-        <label>
+        <label class="notes-field">
           <span data-i18n="form.notes.label"></span>
           <textarea id="client-notes" data-i18n-placeholder="form.notes.placeholder" placeholder=""></textarea>
         </label>
@@ -694,8 +893,9 @@
     <a href="#resumen" data-i18n="cta.floating"></a>
   </div>
 
-  <!-- NUEVO: archivo externo con los códigos de membresía -->
+  <!-- Archivos externos -->
   <script src="membership-codes.js"></script>
+  <script src="accounts-config.js"></script>
 
   <script>
     (function () {
@@ -706,14 +906,20 @@
           "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
           "header.contact": "WhatsApp: +1 (971) 818-2710 · Instagram: @addempire.music",
           "lang.label": "Idioma:",
+
+          "access.title": "Cómo quieres continuar:",
+          "access.guest": "Seguir sin cuenta (precio normal)",
+          "access.account": "Crear cuenta AddStudio y obtener −10% en 1 servicio (se confirma por WhatsApp)",
+          "access.note": "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos. Puedes darte de baja cuando quieras.",
+
           "membership.label": "Membresía AddStudio:",
           "membership.none": "Sin membresía",
           "membership.key": "Key Tier (−10%)",
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "El descuento se aplica automáticamente al total estimado. Beats no exclusivos pueden bajar hasta $5 con membresía.",
+          "membership.note": "El descuento de membresía se aplica automáticamente al total estimado. Beats no exclusivos pueden bajar hasta $5 con membresía.",
           "membership.codeLabel": "Código de artista (si tienes membresía):",
-          "membership.codePlaceholder": "Ej: ADD-KEY-001",
+          "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
           "membership.codeStatus.valid": "Código de membresía validado.",
           "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
           "membership.codeStatus.empty": "",
@@ -793,13 +999,14 @@
 
           "summary.title": "🧾 Resumen de tu pedido",
           "summary.empty": "No has agregado cantidades aún.",
-          "summary.note": "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto y tu membresía (si aplica).",
+          "summary.note": "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
           "summary.button": "Enviar pedido por WhatsApp",
           "summary.totalPrefix": "Total estimado: ",
           "summary.totalSuffix": " USD",
-          "summary.totalWithDiscountPrefix": "Total estimado con descuento: ",
-          "summary.discount.none": "Sin descuento de membresía aplicado.",
+          "summary.totalWithDiscountPrefix": "Total estimado con descuentos: ",
+          "summary.discount.none": "Sin descuentos aplicados todavía.",
           "summary.discount.applied": "Descuento de membresía aplicado: ",
+          "summary.accountDiscount.applied": "Descuento extra por cuenta AddStudio (aprox): ",
 
           "upsell.message": "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
 
@@ -827,9 +1034,10 @@
           "cta.floating": "Revisar pedido y agendar por WhatsApp",
 
           "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
-          "wa.totalLabel": "Total estimado con descuento:",
+          "wa.totalLabel": "Total estimado con descuentos:",
           "wa.membershipLabel": "Membresía:",
           "wa.membershipCodeLabel": "Código de artista:",
+          "wa.accountLabel": "Cuenta AddStudio:",
           "wa.artistData": "Datos de artista:",
           "wa.artistName": "Nombre artístico",
           "wa.email": "Email",
@@ -850,14 +1058,20 @@
           "header.subtitle": "Select what you need, set quantities and book directly.",
           "header.contact": "WhatsApp: +1 (971) 818-2710 · Instagram: @addempire.music",
           "lang.label": "Language:",
+
+          "access.title": "How do you want to continue:",
+          "access.guest": "Continue without account (regular price)",
+          "access.account": "Create AddStudio account and get −10% on 1 service (confirmed via WhatsApp)",
+          "access.note": "Creating an account means we store your email to send reminders, offers and exclusive benefits. You can unsubscribe anytime.",
+
           "membership.label": "AddStudio Membership:",
           "membership.none": "No membership",
           "membership.key": "Key Tier (−10%)",
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "Discount is applied automatically to the estimated total. Non-exclusive beats can go as low as $5 with membership.",
+          "membership.note": "Membership discount is applied automatically to the estimated total. Non-exclusive beats can go as low as $5 with membership.",
           "membership.codeLabel": "Artist code (if you have membership):",
-          "membership.codePlaceholder": "Ex: ADD-KEY-001",
+          "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
           "membership.codeStatus.valid": "Membership code validated.",
           "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
           "membership.codeStatus.empty": "",
@@ -937,13 +1151,14 @@
 
           "summary.title": "🧾 Your order summary",
           "summary.empty": "You haven't added any quantities yet.",
-          "summary.note": "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity and your membership (if any).",
+          "summary.note": "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity, your membership and account benefits (if any).",
           "summary.button": "Send order via WhatsApp",
           "summary.totalPrefix": "Estimated total: ",
           "summary.totalSuffix": " USD",
-          "summary.totalWithDiscountPrefix": "Estimated total with discount: ",
-          "summary.discount.none": "No membership discount applied.",
+          "summary.totalWithDiscountPrefix": "Estimated total with discounts: ",
+          "summary.discount.none": "No discounts applied yet.",
           "summary.discount.applied": "Membership discount applied: ",
+          "summary.accountDiscount.applied": "Extra discount for AddStudio account (approx): ",
 
           "upsell.message": "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
 
@@ -971,9 +1186,10 @@
           "cta.floating": "Review order and book via WhatsApp",
 
           "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
-          "wa.totalLabel": "Estimated total with discount:",
+          "wa.totalLabel": "Estimated total with discounts:",
           "wa.membershipLabel": "Membership:",
           "wa.membershipCodeLabel": "Artist code:",
+          "wa.accountLabel": "AddStudio account:",
           "wa.artistData": "Artist info:",
           "wa.artistName": "Artist name",
           "wa.email": "Email",
@@ -1041,7 +1257,6 @@
         crown: 0.30
       };
 
-      // Lista de códigos válidos viene de membership-codes.js
       function getValidCodes() {
         if (Array.isArray(window.validCodes)) {
           return window.validCodes.map(c => String(c).trim().toUpperCase());
@@ -1078,9 +1293,24 @@
         }
       }
 
+      function isClientFormValid() {
+        return (
+          clientName.value.trim() &&
+          clientEmail.value.trim() &&
+          clientIG.value.trim() &&
+          clientDate.value
+        );
+      }
+
+      function getAccessType() {
+        const checked = document.querySelector('input[name="access-type"]:checked');
+        return checked ? checked.value : "guest";
+      }
+
       function updateSummary() {
         const membership = membershipSelect.value;
         const discount = discounts[membership] || 0;
+        const accessType = getAccessType();
 
         let selected = [];
         let totalBase = 0;
@@ -1133,16 +1363,31 @@
           });
         }
 
+        // Extra −10% por cuenta AddStudio en el servicio más caro
+        let extraAccountDiscount = 0;
+        if (accessType === "account" && selected.length > 0) {
+          let maxLine = selected[0];
+          selected.forEach((s) => {
+            if (s.discounted > maxLine.discounted) maxLine = s;
+          });
+          extraAccountDiscount = maxLine.discounted * 0.10;
+          totalWithDiscount -= extraAccountDiscount;
+        }
+
         const totalPrefix = t("summary.totalWithDiscountPrefix");
         const totalSuffix = t("summary.totalSuffix");
         totalAmount.textContent = `${totalPrefix}${formatMoney(totalWithDiscount)}${totalSuffix}`;
 
+        // Mensaje de descuentos combinados
+        const parts = [];
         if (discount > 0) {
           const percent = Math.round(discount * 100);
-          discountLabel.textContent = `${t("summary.discount.applied")}−${percent}%. (${t("summary.totalPrefix")}${formatMoney(totalBase)}${t("summary.totalSuffix")})`;
-        } else {
-          discountLabel.textContent = t("summary.discount.none");
+          parts.push(`${t("summary.discount.applied")}−${percent}%. (${t("summary.totalPrefix")}${formatMoney(totalBase)}${t("summary.totalSuffix")})`);
         }
+        if (extraAccountDiscount > 0) {
+          parts.push(`${t("summary.accountDiscount.applied")}$${formatMoney(extraAccountDiscount)} USD`);
+        }
+        discountLabel.textContent = parts.length > 0 ? parts.join(" | ") : t("summary.discount.none");
 
         if (qtyGrab > 0 && qtyMix > 0 && qtyPack === 0 && qtyBeatOrig === 0) {
           upsellNote.textContent = t("upsell.message");
@@ -1156,6 +1401,13 @@
           return;
         }
 
+        // Si los datos del formulario no están completos, bloquear WhatsApp
+        if (!isClientFormValid()) {
+          whatsappLink.setAttribute("href", "#");
+          whatsappLink.setAttribute("aria-disabled", "true");
+          return;
+        }
+
         const serviciosTexto = selected
           .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
           .join("\n");
@@ -1163,11 +1415,16 @@
         const membershipTextKey = `membership.text.${membership}`;
         const membershipText = t(membershipTextKey);
         const artistCode = membershipCodeInput.value.trim() || "";
+        const accountValue =
+          accessType === "account"
+            ? (currentLang === "es" ? "Sí, crear cuenta y aplicar beneficio" : "Yes, create account and apply benefit")
+            : (currentLang === "es" ? "No (precio regular)" : "No (regular price)");
 
         const totalLabel = t("wa.totalLabel");
         const greeting = t("wa.greeting");
         const membershipLabel = t("wa.membershipLabel");
         const membershipCodeLabel = t("wa.membershipCodeLabel");
+        const accountLabel = t("wa.accountLabel");
         const artistDataLabel = t("wa.artistData");
         const artistNameLabel = t("wa.artistName");
         const emailLabel = t("wa.email");
@@ -1182,7 +1439,8 @@
           `${serviciosTexto}\n\n` +
           `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
           `${membershipLabel} ${membershipText}\n` +
-          `${membershipCodeLabel} ${artistCode || notSpecified}\n\n` +
+          `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
+          `${accountLabel} ${accountValue}\n\n` +
           `${artistDataLabel}\n` +
           `${artistNameLabel}: ${clientName.value || notSpecified}\n` +
           `${emailLabel}: ${clientEmail.value || notSpecified}\n` +
@@ -1214,6 +1472,9 @@
         validateMembershipCode();
         updateSummary();
       });
+
+      document.getElementById("access-guest").addEventListener("change", updateSummary);
+      document.getElementById("access-account").addEventListener("change", updateSummary);
 
       langSelect.addEventListener("change", () => {
         currentLang = langSelect.value || "es";
