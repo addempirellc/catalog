@@ -7,6 +7,7 @@ window.validCodes = [
   "ADD-KEY-001",
   "ADD-KEY-002",
   "ADD-KEY-003",
+  "ADD-KEY-004",
 
   // Rising Tier
   "ADD-RISE-001",
