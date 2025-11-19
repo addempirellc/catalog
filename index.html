@@ -550,10 +550,11 @@
       <div class="access-note" data-i18n="access.note"></div>
     </section>
 
-    <!-- FORMULARIO DE CREACIÓN DE CUENTA -->
+    <!-- FORMULARIO DE CREACIÓN / LOGIN DE CUENTA -->
     <section id="account-create-box" style="display:none; margin-bottom:1.5rem;">
-      <h3 style="margin:0 0 .5rem; font-size:1rem; color:#a5b4fc;">Crear cuenta AddStudio</h3>
+      <h3 style="margin:0 0 .5rem; font-size:1rem; color:#a5b4fc;">Crear o acceder a tu cuenta AddStudio</h3>
 
+      <!-- Signup -->
       <div class="client-form">
         <label>
           <span>Correo electrónico</span>
@@ -581,6 +582,31 @@
       </button>
 
       <p id="signup-status" style="color:#f97316; font-size:.85rem; margin-top:.5rem;"></p>
+
+      <hr style="border:none; border-top:1px solid #1f2937; margin:1rem 0;">
+
+      <!-- Login -->
+      <p style="font-size:.85rem; margin:.2rem 0 .5rem; color:#9ca3af;">
+        ¿Ya tienes cuenta? Inicia sesión aquí:
+      </p>
+
+      <div class="client-form">
+        <label>
+          <span>Correo electrónico</span>
+          <input type="email" id="login-email" placeholder="tucorreo@example.com" />
+        </label>
+
+        <label>
+          <span>Contraseña</span>
+          <input type="password" id="login-password" placeholder="Tu contraseña" />
+        </label>
+      </div>
+
+      <button id="btn-login-account" class="btn-whatsapp" style="margin-top:.5rem; background:radial-gradient(circle at top left,#34d399,#059669); box-shadow:0 18px 40px rgba(16,185,129,.6),0 0 26px rgba(167,243,208,.7);">
+        Iniciar sesión
+      </button>
+
+      <p id="login-status" style="color:#f97316; font-size:.85rem; margin-top:.5rem;"></p>
     </section>
 
     <!-- Selector de membresía -->
@@ -1223,6 +1249,11 @@
       const signupStatus = document.getElementById("signup-status");
       const btnCreateAccount = document.getElementById("btn-create-account");
 
+      const loginEmail = document.getElementById("login-email");
+      const loginPassword = document.getElementById("login-password");
+      const btnLoginAccount = document.getElementById("btn-login-account");
+      const loginStatus = document.getElementById("login-status");
+
       const phoneNumber = "19718182710";
 
       const discounts = {
@@ -1295,7 +1326,6 @@
           return;
         }
 
-        // Crear usuario Auth
         const { data: authData, error: authError } = await supabase.auth.signUp({
           email,
           password
@@ -1312,7 +1342,6 @@
           return;
         }
 
-        // Guardar perfil
         const { error: profileError } = await supabase
           .from("profiles")
           .insert({
@@ -1329,8 +1358,8 @@
           accountEmailCache = email;
           signupStatus.style.color = "#4ade80";
           signupStatus.textContent = "Cuenta creada. Revisa tu correo y selecciona tus servicios.";
-          // Opcional: colapsar el formulario después de crear cuenta
-          // accountBox.style.display = "none";
+          document.getElementById("access-account").checked = true;
+          accountBox.style.display = "none";
         }
 
         updateSummary();
@@ -1343,6 +1372,67 @@
         } finally {
           btnCreateAccount.disabled = false;
         }
+      }
+
+      // Login en Supabase
+      async function loginAccount() {
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value.trim();
+        loginStatus.style.color = "#f97316";
+        loginStatus.textContent = "";
+
+        if (!email || !password) {
+          loginStatus.textContent = "Debes ingresar correo y contraseña.";
+          return;
+        }
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          loginStatus.textContent = "Error al iniciar sesión: " + error.message;
+          return;
+        }
+
+        if (!data || !data.user) {
+          loginStatus.textContent = "No se pudo obtener la sesión.";
+          return;
+        }
+
+        accountCreated = true;
+        accountEmailCache = email;
+        loginStatus.style.color = "#4ade80";
+        loginStatus.textContent = "Sesión iniciada. Puedes continuar con tu pedido.";
+        signupStatus.textContent = "";
+
+        document.getElementById("access-account").checked = true;
+        accountBox.style.display = "none";
+
+        updateSummary();
+      }
+
+      async function handleLoginClick() {
+        btnLoginAccount.disabled = true;
+        try {
+          await loginAccount();
+        } finally {
+          btnLoginAccount.disabled = false;
+        }
+      }
+
+      // Revisar sesión existente al cargar la página
+      async function checkExistingSession() {
+        const { data } = await supabase.auth.getSession();
+        const session = data && data.session;
+        if (session && session.user) {
+          accountCreated = true;
+          accountEmailCache = session.user.email || "";
+          document.getElementById("access-account").checked = true;
+          accountBox.style.display = "none";
+        }
+        updateSummary();
       }
 
       function updateSummary() {
@@ -1416,7 +1506,6 @@
         const totalSuffix = t("summary.totalSuffix");
         totalAmount.textContent = `${totalPrefix}${formatMoney(totalWithDiscount)}${totalSuffix}`;
 
-        // Mensaje de descuentos combinados
         const parts = [];
         if (discount > 0) {
           const percent = Math.round(discount * 100);
@@ -1440,7 +1529,7 @@
           return;
         }
 
-        // Si eligió "crear cuenta" pero aún no se creó, bloquear WhatsApp
+        // Si eligió "crear cuenta" pero aún no está logueado / creada, bloquear WhatsApp
         if (accessType === "account" && !accountCreated) {
           whatsappLink.setAttribute("href", "#");
           whatsappLink.setAttribute("aria-disabled", "true");
@@ -1523,6 +1612,8 @@
 
       // Crear cuenta
       btnCreateAccount.addEventListener("click", handleCreateAccountClick);
+      // Login
+      btnLoginAccount.addEventListener("click", handleLoginClick);
 
       // Cambio de idioma
       langSelect.addEventListener("change", () => {
@@ -1534,6 +1625,7 @@
 
       applyTranslations();
       updateSummary();
+      checkExistingSession();
     })();
   </script>
 </body>
