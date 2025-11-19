@@ -213,6 +213,35 @@
       color: #f97316;
     }
 
+    /* FORMULARIO CUENTA */
+    .client-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .client-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .client-form input {
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      padding: 0.4rem 0.55rem;
+      color: #f5f5f5;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .client-form input:focus {
+      border-color: #60a5fa;
+      box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.9),
+        0 0 16px rgba(59, 130, 246, 0.8);
+    }
+
     /* SERVICE GRID */
     .grid {
       display: grid;
@@ -519,6 +548,39 @@
         </label>
       </div>
       <div class="access-note" data-i18n="access.note"></div>
+    </section>
+
+    <!-- FORMULARIO DE CREACIÓN DE CUENTA -->
+    <section id="account-create-box" style="display:none; margin-bottom:1.5rem;">
+      <h3 style="margin:0 0 .5rem; font-size:1rem; color:#a5b4fc;">Crear cuenta AddStudio</h3>
+
+      <div class="client-form">
+        <label>
+          <span>Correo electrónico</span>
+          <input type="email" id="signup-email" placeholder="tucorreo@example.com" />
+        </label>
+
+        <label>
+          <span>Contraseña</span>
+          <input type="password" id="signup-password" placeholder="Mínimo 6 caracteres" />
+        </label>
+
+        <label>
+          <span>Nombre artístico</span>
+          <input type="text" id="signup-artist" placeholder="Ej: Mr.Addamz" />
+        </label>
+
+        <label>
+          <span>Instagram</span>
+          <input type="text" id="signup-ig" placeholder="@tu_usuario" />
+        </label>
+      </div>
+
+      <button id="btn-create-account" class="btn-whatsapp" style="margin-top:.5rem;">
+        Crear cuenta y continuar
+      </button>
+
+      <p id="signup-status" style="color:#f97316; font-size:.85rem; margin-top:.5rem;"></p>
     </section>
 
     <!-- Selector de membresía -->
@@ -838,12 +900,11 @@
 
   <script>
     (function () {
-      // === SUPABASE CLIENT (preparado, aún sin guardar cuentas/pedidos) ===
+      // === SUPABASE CLIENT ===
       const SUPABASE_URL = "https://xshxhfexvvzrrqllhrvp.supabase.co";
       const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzaHhoZmV4dnZ6cnJxbGxocnZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODU4MjUsImV4cCI6MjA3OTE2MTgyNX0.stCbU3Db73PueHgO4T10wObDdd6HJvE_DE-CTTLedGQ";
 
       const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      // Próximo paso: usar supabase para guardar cuentas / perfiles.
 
       const translations = {
         es: {
@@ -1154,6 +1215,14 @@
       const membershipCodeInput = document.getElementById("membership-code");
       const membershipCodeStatus = document.getElementById("membership-code-status");
 
+      const accountBox = document.getElementById("account-create-box");
+      const signupEmail = document.getElementById("signup-email");
+      const signupPassword = document.getElementById("signup-password");
+      const signupArtist = document.getElementById("signup-artist");
+      const signupIG = document.getElementById("signup-ig");
+      const signupStatus = document.getElementById("signup-status");
+      const btnCreateAccount = document.getElementById("btn-create-account");
+
       const phoneNumber = "19718182710";
 
       const discounts = {
@@ -1162,6 +1231,9 @@
         rising: 0.20,
         crown: 0.30
       };
+
+      let accountCreated = false;
+      let accountEmailCache = "";
 
       function getValidCodes() {
         if (Array.isArray(window.validCodes)) {
@@ -1202,6 +1274,75 @@
       function getAccessType() {
         const checked = document.querySelector('input[name="access-type"]:checked');
         return checked ? checked.value : "guest";
+      }
+
+      // Crear cuenta en Supabase
+      async function createAccount() {
+        const email = signupEmail.value.trim();
+        const password = signupPassword.value.trim();
+        const artist = signupArtist.value.trim();
+        const ig = signupIG.value.trim();
+        signupStatus.style.color = "#f97316";
+        signupStatus.textContent = "";
+
+        if (!email || !password) {
+          signupStatus.textContent = "Debes ingresar correo y contraseña.";
+          return;
+        }
+
+        if (password.length < 6) {
+          signupStatus.textContent = "La contraseña debe tener al menos 6 caracteres.";
+          return;
+        }
+
+        // Crear usuario Auth
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email,
+          password
+        });
+
+        if (authError) {
+          signupStatus.textContent = "Error creando cuenta: " + authError.message;
+          return;
+        }
+
+        const user = authData.user;
+        if (!user) {
+          signupStatus.textContent = "No se pudo obtener el usuario creado.";
+          return;
+        }
+
+        // Guardar perfil
+        const { error: profileError } = await supabase
+          .from("profiles")
+          .insert({
+            user_id: user.id,
+            email,
+            artist_name: artist || null,
+            instagram: ig || null
+          });
+
+        if (profileError) {
+          signupStatus.textContent = "Cuenta creada, pero error guardando datos de perfil.";
+        } else {
+          accountCreated = true;
+          accountEmailCache = email;
+          signupStatus.style.color = "#4ade80";
+          signupStatus.textContent = "Cuenta creada. Revisa tu correo y selecciona tus servicios.";
+          // Opcional: colapsar el formulario después de crear cuenta
+          // accountBox.style.display = "none";
+        }
+
+        updateSummary();
+      }
+
+      async function handleCreateAccountClick() {
+        btnCreateAccount.disabled = true;
+        try {
+          await createAccount();
+        } finally {
+          btnCreateAccount.disabled = false;
+        }
       }
 
       function updateSummary() {
@@ -1292,7 +1433,15 @@
           upsellNote.textContent = "";
         }
 
+        // Si no hay servicios, bloquear WhatsApp
         if (selected.length === 0) {
+          whatsappLink.setAttribute("href", "#");
+          whatsappLink.setAttribute("aria-disabled", "true");
+          return;
+        }
+
+        // Si eligió "crear cuenta" pero aún no se creó, bloquear WhatsApp
+        if (accessType === "account" && !accountCreated) {
           whatsappLink.setAttribute("href", "#");
           whatsappLink.setAttribute("aria-disabled", "true");
           return;
@@ -1305,17 +1454,33 @@
         const membershipTextKey = `membership.text.${membership}`;
         const membershipText = t(membershipTextKey);
         const artistCode = membershipCodeInput.value.trim() || "";
-        const accountValue =
-          accessType === "account"
-            ? (currentLang === "es" ? "Sí, crear cuenta y aplicar beneficio" : "Yes, create account and apply benefit")
-            : (currentLang === "es" ? "No (precio regular)" : "No (regular price)");
+        const notSpecified = t("wa.notSpecified");
+
+        let accountValue;
+        if (accessType === "account") {
+          if (accountCreated) {
+            accountValue =
+              currentLang === "es"
+                ? `Sí, cuenta activa (${accountEmailCache || notSpecified})`
+                : `Yes, active account (${accountEmailCache || notSpecified})`;
+          } else {
+            accountValue =
+              currentLang === "es"
+                ? "Pendiente de crear cuenta"
+                : "Account not created yet";
+          }
+        } else {
+          accountValue =
+            currentLang === "es"
+              ? "No (precio regular)"
+              : "No (regular price)";
+        }
 
         const totalLabel = t("wa.totalLabel");
         const greeting = t("wa.greeting");
         const membershipLabel = t("wa.membershipLabel");
         const membershipCodeLabel = t("wa.membershipCodeLabel");
         const accountLabel = t("wa.accountLabel");
-        const notSpecified = t("wa.notSpecified");
 
         const message =
           `${greeting}\n\n` +
@@ -1335,6 +1500,7 @@
         whatsappLink.setAttribute("aria-disabled", "false");
       }
 
+      // Eventos servicios / membresía
       items.forEach((input) => {
         input.addEventListener("input", updateSummary);
       });
@@ -1343,9 +1509,22 @@
         validateMembershipCode();
         updateSummary();
       });
-      document.getElementById("access-guest").addEventListener("change", updateSummary);
-      document.getElementById("access-account").addEventListener("change", updateSummary);
 
+      // Mostrar / ocultar formulario de cuenta
+      document.getElementById("access-guest").addEventListener("change", () => {
+        accountBox.style.display = "none";
+        updateSummary();
+      });
+
+      document.getElementById("access-account").addEventListener("change", () => {
+        accountBox.style.display = "block";
+        updateSummary();
+      });
+
+      // Crear cuenta
+      btnCreateAccount.addEventListener("click", handleCreateAccountClick);
+
+      // Cambio de idioma
       langSelect.addEventListener("change", () => {
         currentLang = langSelect.value || "es";
         applyTranslations();
