@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>AddEmpire Studio – Estudio de grabación urbano en Louisville</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AddEmpire Studio en Louisville, KY. Grabación, mezcla, master, beats originales, portadas, videos y asesoría para artistas urbanos. Selecciona tus servicios y agenda directo por WhatsApp." />
+  <meta name="description" content="AddEmpire Studio en Louisville, KY. Grabación, mezcla, master, beats originales, portadas, videos y asesoría para artistas urbanos. Selecciona lo que necesitas, pon cantidades y agenda directo." />
   <style>
     :root {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -14,23 +14,30 @@
     body {
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      background: url('https://raw.githubusercontent.com/addempirellc/catalog/refs/heads/main/AddEmpire_LogoOficial_Comercial_V01%20.png') no-repeat center center fixed;
+      background-size: cover;
     }
     .page {
       max-width: 960px;
       margin: 0 auto;
       padding: 1.5rem;
       padding-bottom: 5rem;
+      position: relative;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.65), rgba(0,0,0,0.9)); /* para que se lea el texto */
     }
     header {
       text-align: center;
       margin-bottom: 2rem;
+      padding-top: 5rem; /* espacio para el logo fijo */
     }
     .logo-addempire {
-      width: 110px;
+      width: 160px;
       height: auto;
-      display: block;
-      margin: 0 auto 1rem auto;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7));
     }
     h1 {
       margin: 0.5rem 0;
@@ -73,7 +80,7 @@
       margin-bottom: 1.5rem;
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.75rem;
       font-size: 0.9rem;
     }
@@ -91,6 +98,34 @@
     .membership-note {
       color: #a1a1b5;
       font-size: 0.8rem;
+      flex-basis: 100%;
+    }
+    .membership-code-label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-weight: 500;
+    }
+    .membership-code-input {
+      background: #050509;
+      border: 1px solid #34344d;
+      border-radius: 6px;
+      padding: 0.35rem 0.5rem;
+      color: #f5f5f5;
+      font-size: 0.85rem;
+      min-width: 190px;
+    }
+    .membership-code-status {
+      font-size: 0.78rem;
+      flex-basis: 100%;
+      min-height: 1rem;
+      color: #a1a1b5;
+    }
+    .membership-code-status.valid {
+      color: #4ade80;
+    }
+    .membership-code-status.invalid {
+      color: #f97316;
     }
     .grid {
       display: grid;
@@ -295,6 +330,11 @@
         padding: 1rem;
         padding-bottom: 4.5rem;
       }
+      .logo-addempire {
+        width: 135px;
+        top: 16px;
+        left: 16px;
+      }
     }
   </style>
 </head>
@@ -328,6 +368,20 @@
         <option value="rising" data-i18n="membership.rising">Rising Tier (−20%)</option>
         <option value="crown" data-i18n="membership.crown">Crown Tier (−30%)</option>
       </select>
+
+      <!-- Campo nuevo: código de artista -->
+      <label class="membership-code-label" for="membership-code">
+        <span data-i18n="membership.codeLabel"></span>
+        <input
+          type="text"
+          id="membership-code"
+          class="membership-code-input"
+          data-i18n-placeholder="membership.codePlaceholder"
+          placeholder=""
+        />
+      </label>
+      <div class="membership-code-status" id="membership-code-status"></div>
+
       <div class="membership-note" data-i18n="membership.note"></div>
     </section>
 
@@ -405,7 +459,7 @@
         </div>
       </div>
 
-      <!-- Beats No Exclusivos (ajustado multilinea) -->
+      <!-- Beats No Exclusivos -->
       <div class="card">
         <div class="card-title" data-i18n="service.beatNonExclusive.title"></div>
         <small data-i18n="service.beatNonExclusive.desc"></small>
@@ -572,9 +626,9 @@
     (function () {
       const translations = {
         es: {
-          "header.tagline": "ADD EMPIRE STUDIO · LOUISVILLE, KY",
+          "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
           "header.title": "Catálogo de Servicios",
-          "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo por WhatsApp.",
+          "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
           "header.contact": "WhatsApp: +1 (971) 818-2710 · Instagram: @addempire.music",
           "lang.label": "Idioma:",
           "membership.label": "Membresía AddStudio:",
@@ -583,6 +637,11 @@
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
           "membership.note": "El descuento se aplica automáticamente al total estimado. Beats no exclusivos pueden bajar hasta $5 con membresía.",
+          "membership.codeLabel": "Código de artista (si tienes membresía):",
+          "membership.codePlaceholder": "Ej: ADD-KEY-001",
+          "membership.codeStatus.valid": "Código de membresía validado.",
+          "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
+          "membership.codeStatus.empty": "",
 
           "service.recording.title": "🎙 Grabación Vocal",
           "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
@@ -674,6 +733,7 @@
           "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
           "wa.totalLabel": "Total estimado con descuento:",
           "wa.membershipLabel": "Membresía:",
+          "wa.membershipCodeLabel": "Código de artista:",
           "wa.artistData": "Datos de artista:",
           "wa.artistName": "Nombre artístico",
           "wa.email": "Email",
@@ -689,9 +749,9 @@
           "membership.text.crown": "Crown Tier (−30%)"
         },
         en: {
-          "header.tagline": "ADD EMPIRE STUDIO · LOUISVILLE, KY",
+          "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
           "header.title": "Service Catalog",
-          "header.subtitle": "Select what you need, set quantities and book directly via WhatsApp.",
+          "header.subtitle": "Select what you need, set quantities and book directly.",
           "header.contact": "WhatsApp: +1 (971) 818-2710 · Instagram: @addempire.music",
           "lang.label": "Language:",
           "membership.label": "AddStudio Membership:",
@@ -700,6 +760,11 @@
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
           "membership.note": "Discount is applied automatically to the estimated total. Non-exclusive beats can go as low as $5 with membership.",
+          "membership.codeLabel": "Artist code (if you have membership):",
+          "membership.codePlaceholder": "Ex: ADD-KEY-001",
+          "membership.codeStatus.valid": "Membership code validated.",
+          "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
+          "membership.codeStatus.empty": "",
 
           "service.recording.title": "🎙 Vocal Recording",
           "service.recording.desc": "Professional recording, vocal guidance and platform-ready quality.",
@@ -791,6 +856,7 @@
           "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
           "wa.totalLabel": "Estimated total with discount:",
           "wa.membershipLabel": "Membership:",
+          "wa.membershipCodeLabel": "Artist code:",
           "wa.artistData": "Artist info:",
           "wa.artistName": "Artist name",
           "wa.email": "Email",
@@ -846,6 +912,9 @@
       const clientDate = document.getElementById("client-date");
       const clientNotes = document.getElementById("client-notes");
 
+      const membershipCodeInput = document.getElementById("membership-code");
+      const membershipCodeStatus = document.getElementById("membership-code-status");
+
       const phoneNumber = "19718182710";
 
       const discounts = {
@@ -855,12 +924,40 @@
         crown: 0.30
       };
 
+      // Simulación de "Excel": lista de códigos válidos
+      const validCodes = [
+        "ADD-KEY-001",
+        "ADD-KEY-002",
+        "ADD-RISE-001",
+        "ADD-CROWN-001"
+      ];
+
       function formatMoney(value) {
         return value.toFixed(2).replace(/\.00$/, "");
       }
 
       function getServiceName(key) {
         return t(key);
+      }
+
+      function validateMembershipCode() {
+        const raw = membershipCodeInput.value.trim().toUpperCase();
+        membershipCodeStatus.classList.remove("valid", "invalid");
+
+        if (!raw) {
+          membershipCodeStatus.textContent = t("membership.codeStatus.empty");
+          return false;
+        }
+
+        if (validCodes.includes(raw)) {
+          membershipCodeStatus.textContent = t("membership.codeStatus.valid");
+          membershipCodeStatus.classList.add("valid");
+          return true;
+        } else {
+          membershipCodeStatus.textContent = t("membership.codeStatus.invalid");
+          membershipCodeStatus.classList.add("invalid");
+          return false;
+        }
       }
 
       function updateSummary() {
@@ -947,10 +1044,12 @@
 
         const membershipTextKey = `membership.text.${membership}`;
         const membershipText = t(membershipTextKey);
+        const artistCode = membershipCodeInput.value.trim() || "";
 
         const totalLabel = t("wa.totalLabel");
         const greeting = t("wa.greeting");
         const membershipLabel = t("wa.membershipLabel");
+        const membershipCodeLabel = t("wa.membershipCodeLabel");
         const artistDataLabel = t("wa.artistData");
         const artistNameLabel = t("wa.artistName");
         const emailLabel = t("wa.email");
@@ -964,7 +1063,8 @@
           `${greeting}\n\n` +
           `${serviciosTexto}\n\n` +
           `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
-          `${membershipLabel} ${membershipText}\n\n` +
+          `${membershipLabel} ${membershipText}\n` +
+          `${membershipCodeLabel} ${artistCode || notSpecified}\n\n` +
           `${artistDataLabel}\n` +
           `${artistNameLabel}: ${clientName.value || notSpecified}\n` +
           `${emailLabel}: ${clientEmail.value || notSpecified}\n` +
@@ -992,9 +1092,16 @@
       clientDate.addEventListener("input", updateSummary);
       clientNotes.addEventListener("input", updateSummary);
 
+      membershipCodeInput.addEventListener("input", () => {
+        validateMembershipCode();
+        updateSummary();
+      });
+
       langSelect.addEventListener("change", () => {
         currentLang = langSelect.value || "es";
         applyTranslations();
+        // revalida texto de código al cambiar idioma
+        validateMembershipCode();
         updateSummary();
       });
 
