@@ -4,15 +4,13 @@
 
 window.validCodes = [
   // Key Tier
-  "ADD-KEY-001",
-  "ADD-KEY-002",
-  "ADD-KEY-003",
-  "ADD-KEY-004",
+"ASD-K-MRA-001",
+
 
   // Rising Tier
-  "ADD-RISE-001",
-  "ADD-RISE-002",
+  "ASD-R-MRA-001",
+
 
   // Crown Tier
-  "ADD-CROWN-001"
+  "ASD-C-MRA-001",
 ];
