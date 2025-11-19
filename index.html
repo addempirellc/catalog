@@ -24,12 +24,12 @@
       padding: 1.5rem;
       padding-bottom: 5rem;
       position: relative;
-      background: radial-gradient(circle at top, rgba(0,0,0,0.65), rgba(0,0,0,0.9)); /* para que se lea el texto */
+      background: radial-gradient(circle at top, rgba(0,0,0,0.65), rgba(0,0,0,0.9));
     }
     header {
       text-align: center;
       margin-bottom: 2rem;
-      padding-top: 5rem; /* espacio para el logo fijo */
+      padding-top: 5rem;
     }
     .logo-addempire {
       width: 160px;
@@ -435,7 +435,7 @@
           </div>
           <input type="number" class="service-qty"
                  data-name="service.tuning.name"
-                 data-price="25"
+                 data-price="30"
                  data-category="afinacion"
                  min="0" max="20" step="1" inputmode="numeric" />
         </div>
@@ -498,7 +498,7 @@
         </div>
       </div>
 
-      <!-- Portadas y Video -->
+      <!-- Portadas y Video (unitarios por canción) -->
       <div class="card">
         <div class="card-title" data-i18n="service.coversVideo.title"></div>
         <small data-i18n="service.coversVideo.desc"></small>
@@ -510,9 +510,9 @@
           </div>
           <input type="number" class="service-qty"
                  data-name="service.covers.name"
-                 data-price="20"
+                 data-price="15"
                  data-category="portada"
-                 min="0" max="20" step="1" inputmode="numeric" />
+                 min="0" max="50" step="1" inputmode="numeric" />
         </div>
 
         <div class="service-line">
@@ -522,9 +522,81 @@
           </div>
           <input type="number" class="service-qty"
                  data-name="service.video.name"
-                 data-price="20"
+                 data-price="30"
                  data-category="video"
-                 min="0" max="20" step="1" inputmode="numeric" />
+                 min="0" max="50" step="1" inputmode="numeric" />
+        </div>
+      </div>
+
+      <!-- Packs de Portadas -->
+      <div class="card">
+        <div class="card-title" data-i18n="service.coversPacks.title"></div>
+        <small data-i18n="service.coversPacks.desc"></small>
+
+        <div class="service-line">
+          <div class="service-info">
+            <span class="service-label" data-i18n="service.coversPacks.pack1.label"></span>
+            <span class="price" data-i18n="service.coversPacks.pack1.price"></span>
+          </div>
+          <input type="number" class="service-qty"
+                 data-name="service.coversPacks.pack1.name"
+                 data-price="65"
+                 data-category="portada_pack"
+                 min="0" max="50" step="1" inputmode="numeric" />
+        </div>
+
+        <div class="service-line">
+          <div class="service-info">
+            <span class="service-label" data-i18n="service.coversPacks.pack2.label"></span>
+            <span class="price" data-i18n="service.coversPacks.pack2.price"></span>
+          </div>
+          <input type="number" class="service-qty"
+                 data-name="service.coversPacks.pack2.name"
+                 data-price="100"
+                 data-category="portada_pack"
+                 min="0" max="50" step="1" inputmode="numeric" />
+        </div>
+      </div>
+
+      <!-- Packs de Reels -->
+      <div class="card">
+        <div class="card-title" data-i18n="service.reelsPacks.title"></div>
+        <small data-i18n="service.reelsPacks.desc"></small>
+
+        <div class="service-line">
+          <div class="service-info">
+            <span class="service-label" data-i18n="service.reelsPacks.pack1.label"></span>
+            <span class="price" data-i18n="service.reelsPacks.pack1.price"></span>
+          </div>
+          <input type="number" class="service-qty"
+                 data-name="service.reelsPacks.pack1.name"
+                 data-price="250"
+                 data-category="reels_pack"
+                 min="0" max="50" step="1" inputmode="numeric" />
+        </div>
+
+        <div class="service-line">
+          <div class="service-info">
+            <span class="service-label" data-i18n="service.reelsPacks.pack2.label"></span>
+            <span class="price" data-i18n="service.reelsPacks.pack2.price"></span>
+          </div>
+          <input type="number" class="service-qty"
+                 data-name="service.reelsPacks.pack2.name"
+                 data-price="500"
+                 data-category="reels_pack"
+                 min="0" max="50" step="1" inputmode="numeric" />
+        </div>
+
+        <div class="service-line">
+          <div class="service-info">
+            <span class="service-label" data-i18n="service.reelsPacks.pack3.label"></span>
+            <span class="price" data-i18n="service.reelsPacks.pack3.price"></span>
+          </div>
+          <input type="number" class="service-qty"
+                 data-name="service.reelsPacks.pack3.name"
+                 data-price="900"
+                 data-category="reels_pack"
+                 min="0" max="50" step="1" inputmode="numeric" />
         </div>
       </div>
 
@@ -622,6 +694,9 @@
     <a href="#resumen" data-i18n="cta.floating"></a>
   </div>
 
+  <!-- NUEVO: archivo externo con los códigos de membresía -->
+  <script src="membership-codes.js"></script>
+
   <script>
     (function () {
       const translations = {
@@ -658,11 +733,11 @@
           "service.tuning.title": "🛠 Afinación Vocal",
           "service.tuning.desc": "Corrección de tono y tiempo, sonido profesional.",
           "service.tuning.label": "Canciones a afinar",
-          "service.tuning.price": "$25 / canción",
+          "service.tuning.price": "$30 / canción",
           "service.tuning.name": "Afinación Vocal (Vocal Tuning)",
 
           "service.beatOriginal.title": "🎹 Beats Originales (Exclusivos)",
-          "service.beatOriginal.desc": "Beats desde cero, uso comercial y opción de STEMS.",
+          "service.beatOriginal.desc": "Beats desde cero con uso comercial.",
           "service.beatOriginal.label": "Cantidad de beats exclusivos",
           "service.beatOriginal.price": "$150 / beat (precio base)",
           "service.beatOriginal.name": "Beat Original Exclusivo",
@@ -680,14 +755,35 @@
           "service.packFull.price": "$250 / canción (precio base)",
           "service.packFull.name": "Pack Canción Full Terminada",
 
-          "service.coversVideo.title": "📸 Portadas & 🎬 Videos Promo",
-          "service.coversVideo.desc": "Diseños y reels para lanzamientos.",
-          "service.covers.label": "Portadas profesionales",
-          "service.covers.price": "$20 / portada (básica)",
+          "service.coversVideo.title": "📸 Portadas & 🎬 Videos Promo (por canción)",
+          "service.coversVideo.desc": "Portada y reels pensados para lanzar una canción a plataformas.",
+          "service.covers.label": "Portadas profesionales (1 canción)",
+          "service.covers.price": "$15 / portada",
           "service.covers.name": "Portada profesional",
-          "service.video.label": "Videos promo / reels",
-          "service.video.price": "$20 / video (precio base)",
+          "service.video.label": "Videos promo / reels (1 canción)",
+          "service.video.price": "$30 / video",
           "service.video.name": "Video promo / Reel",
+
+          "service.coversPacks.title": "📦 Packs de Portadas",
+          "service.coversPacks.desc": "Pensado para varios lanzamientos: te sale mejor por volumen.",
+          "service.coversPacks.pack1.label": "Pack 1 · 5 portadas",
+          "service.coversPacks.pack1.price": "$65 / pack",
+          "service.coversPacks.pack1.name": "Pack 5 portadas",
+          "service.coversPacks.pack2.label": "Pack 2 · 10 portadas",
+          "service.coversPacks.pack2.price": "$100 / pack",
+          "service.coversPacks.pack2.name": "Pack 10 portadas",
+
+          "service.reelsPacks.title": "📦 Packs de Reels Promo",
+          "service.reelsPacks.desc": "Reels listos para contenido constante en redes.",
+          "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
+          "service.reelsPacks.pack1.price": "$250 / pack",
+          "service.reelsPacks.pack1.name": "Pack 10 reels",
+          "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
+          "service.reelsPacks.pack2.price": "$500 / pack",
+          "service.reelsPacks.pack2.name": "Pack 25 reels",
+          "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
+          "service.reelsPacks.pack3.price": "$900 / pack",
+          "service.reelsPacks.pack3.name": "Pack 50 reels",
 
           "service.coaching.title": "🧠 Asesoría Artística",
           "service.coaching.desc": "Corrección creativa, guía de proyecto y dudas sobre licencias.",
@@ -781,11 +877,11 @@
           "service.tuning.title": "🛠 Vocal Tuning",
           "service.tuning.desc": "Pitch and timing correction, professional sound.",
           "service.tuning.label": "Songs to tune",
-          "service.tuning.price": "$25 / song",
+          "service.tuning.price": "$30 / song",
           "service.tuning.name": "Vocal Tuning",
 
           "service.beatOriginal.title": "🎹 Original Beats (Exclusive)",
-          "service.beatOriginal.desc": "Custom beats from scratch, commercial use and optional STEMS.",
+          "service.beatOriginal.desc": "Custom beats from scratch for commercial use.",
           "service.beatOriginal.label": "Number of exclusive beats",
           "service.beatOriginal.price": "$150 / beat (base price)",
           "service.beatOriginal.name": "Exclusive Original Beat",
@@ -803,14 +899,35 @@
           "service.packFull.price": "$250 / song (base price)",
           "service.packFull.name": "Full Finished Song Pack",
 
-          "service.coversVideo.title": "📸 Covers & 🎬 Promo Videos",
-          "service.coversVideo.desc": "Artwork and reels for releases.",
-          "service.covers.label": "Professional covers",
-          "service.covers.price": "$20 / cover (basic)",
+          "service.coversVideo.title": "📸 Covers & 🎬 Promo Videos (per song)",
+          "service.coversVideo.desc": "Cover and reels designed to launch one song on platforms.",
+          "service.covers.label": "Professional covers (1 song)",
+          "service.covers.price": "$15 / cover",
           "service.covers.name": "Professional Cover",
-          "service.video.label": "Promo videos / reels",
-          "service.video.price": "$20 / video (base price)",
+          "service.video.label": "Promo videos / reels (1 song)",
+          "service.video.price": "$30 / video",
           "service.video.name": "Promo Video / Reel",
+
+          "service.coversPacks.title": "📦 Cover Packs",
+          "service.coversPacks.desc": "Made for multiple releases: better price per cover.",
+          "service.coversPacks.pack1.label": "Pack 1 · 5 covers",
+          "service.coversPacks.pack1.price": "$65 / pack",
+          "service.coversPacks.pack1.name": "Pack 5 covers",
+          "service.coversPacks.pack2.label": "Pack 2 · 10 covers",
+          "service.coversPacks.pack2.price": "$100 / pack",
+          "service.coversPacks.pack2.name": "Pack 10 covers",
+
+          "service.reelsPacks.title": "📦 Promo Reels Packs",
+          "service.reelsPacks.desc": "Reels ready for consistent social media content.",
+          "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
+          "service.reelsPacks.pack1.price": "$250 / pack",
+          "service.reelsPacks.pack1.name": "Pack 10 reels",
+          "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
+          "service.reelsPacks.pack2.price": "$500 / pack",
+          "service.reelsPacks.pack2.name": "Pack 25 reels",
+          "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
+          "service.reelsPacks.pack3.price": "$900 / pack",
+          "service.reelsPacks.pack3.name": "Pack 50 reels",
 
           "service.coaching.title": "🧠 Artistic Coaching",
           "service.coaching.desc": "Creative feedback, project guidance and licensing questions.",
@@ -924,13 +1041,13 @@
         crown: 0.30
       };
 
-      // Simulación de "Excel": lista de códigos válidos
-      const validCodes = [
-        "ADD-KEY-001",
-        "ADD-KEY-002",
-        "ADD-RISE-001",
-        "ADD-CROWN-001"
-      ];
+      // Lista de códigos válidos viene de membership-codes.js
+      function getValidCodes() {
+        if (Array.isArray(window.validCodes)) {
+          return window.validCodes.map(c => String(c).trim().toUpperCase());
+        }
+        return [];
+      }
 
       function formatMoney(value) {
         return value.toFixed(2).replace(/\.00$/, "");
@@ -941,6 +1058,7 @@
       }
 
       function validateMembershipCode() {
+        const codes = getValidCodes();
         const raw = membershipCodeInput.value.trim().toUpperCase();
         membershipCodeStatus.classList.remove("valid", "invalid");
 
@@ -949,7 +1067,7 @@
           return false;
         }
 
-        if (validCodes.includes(raw)) {
+        if (codes.includes(raw)) {
           membershipCodeStatus.textContent = t("membership.codeStatus.valid");
           membershipCodeStatus.classList.add("valid");
           return true;
@@ -1100,7 +1218,6 @@
       langSelect.addEventListener("change", () => {
         currentLang = langSelect.value || "es";
         applyTranslations();
-        // revalida texto de código al cambiar idioma
         validateMembershipCode();
         updateSummary();
       });
