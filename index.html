@@ -76,7 +76,7 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       color: #a5b4fc;
-      margin-top: 130px; /* separación bajo el logo centrado */
+      margin-top: 160px; /* deja espacio bajo el logo centrado */
     }
     h1 {
       margin: 0.5rem 0;
@@ -92,13 +92,9 @@
       font-size: 0.9rem;
     }
     .contact {
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
       font-size: 0.9rem;
       color: #d1d1d1;
-      max-width: 90%;
-      margin-left: auto;
-      margin-right: auto;
-      white-space: pre-line; /* respeta el salto de línea del texto */
     }
     .lang-switch {
       margin-top: 0.75rem;
@@ -470,30 +466,6 @@
       margin: 0.5rem 0 0;
     }
 
-    .floating-cta {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 0.6rem 1rem;
-      background: linear-gradient(to top, rgba(3, 7, 18, 0.98), rgba(15, 23, 42, 0.95));
-      border-top: 1px solid #1f2933;
-      display: flex;
-      justify-content: center;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-    }
-    .floating-cta a {
-      text-decoration: none;
-      padding: 0.6rem 1.3rem;
-      border-radius: 999px;
-      background: linear-gradient(to right, #2563eb, #4f46e5);
-      color: #f9fafb;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-align: center;
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.95);
-    }
     footer {
       text-align: center;
       font-size: 0.75rem;
@@ -512,11 +484,11 @@
         width: 130px;
         top: 14px;
       }
+      .hero-title {
+        margin-top: 140px;
+      }
       .membership-box {
         padding: 0.9rem 0.85rem;
-      }
-      .hero-title {
-        margin-top: 120px;
       }
     }
   </style>
@@ -531,7 +503,8 @@
       <div class="hero-title" data-i18n="header.tagline"></div>
       <h1 data-i18n="header.title"></h1>
       <p class="tagline" data-i18n="header.subtitle"></p>
-      <p class="contact" data-i18n="header.contact"></p>
+      <p class="contact" data-i18n="header.contact1"></p>
+      <p class="contact" data-i18n="header.contact2"></p>
 
       <div class="lang-switch">
         <span data-i18n="lang.label"></span>
@@ -919,13 +892,7 @@
       </ul>
     </section>
 
-    <footer data-i18n="footer.text">
-    </footer>
-  </div>
-
-  <!-- CTA flotante -->
-  <div class="floating-cta">
-    <a href="#resumen" data-i18n="cta.floating"></a>
+    <footer data-i18n="footer.text"></footer>
   </div>
 
   <!-- Archivos externos (códigos de membresía / config futura) -->
@@ -945,7 +912,8 @@
           "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
           "header.title": "Catálogo de Servicios",
           "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
-          "header.contact": "WhatsApp: +1 (971) 818-2710\nInstagram: @addempire.music",
+          "header.contact1": "WhatsApp: +1 (971) 818-2710",
+          "header.contact2": "Instagram: @addempire.music",
           "lang.label": "Idioma:",
 
           "access.title": "Cómo quieres continuar:",
@@ -958,12 +926,12 @@
           "membership.key": "Key Tier (−10%)",
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "El descuento de membresía se aplica automáticamente al total estimado. Beats no exclusivos pueden bajar hasta $5 con membresía.",
+          "membership.note": "El descuento de membresía se aplica solo si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
           "membership.codeLabel": "Código de artista (si tienes membresía):",
           "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
-          "membership.codeStatus.valid": "Código de membresía validado.",
-          "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
-          "membership.codeStatus.empty": "",
+          "membership.codeStatus.valid": "Código de membresía validado. Descuento aplicado.",
+          "membership.codeStatus.invalid": "Código no reconocido. Elige tu membresía y usa un código válido.",
+          "membership.codeStatus.empty": "Para aplicar descuento de membresía, ingresa tu código de artista.",
 
           "service.recording.title": "🎙 Grabación Vocal",
           "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
@@ -1062,7 +1030,6 @@
           "trust.point3": "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
 
           "footer.text": "AddEmpire Studio · Sonido profesional desde un home studio real en Louisville, KY.",
-          "cta.floating": "Revisar pedido y agendar por WhatsApp",
 
           "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
           "wa.totalLabel": "Total estimado con descuentos:",
@@ -1080,12 +1047,13 @@
           "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
           "header.title": "Service Catalog",
           "header.subtitle": "Select what you need, set quantities and book directly.",
-          "header.contact": "WhatsApp: +1 (971) 818-2710\nInstagram: @addempire.music",
+          "header.contact1": "WhatsApp: +1 (971) 818-2710",
+          "header.contact2": "Instagram: @addempire.music",
           "lang.label": "Language:",
 
           "access.title": "How do you want to continue:",
           "access.guest": "Continue without account (regular price)",
-          "access.account": "Create AddStudio account and get automatic −10% on 1 welcome service + 5% monthly on 1 service.",
+          "access.account": "Create AddStudio account and get −10% automatic welcome on 1 service + 5% monthly on 1 service.",
           "access.note": "Creating an account means we store your email to send reminders, offers and exclusive benefits. You can unsubscribe anytime.",
 
           "membership.label": "AddStudio Membership:",
@@ -1093,12 +1061,12 @@
           "membership.key": "Key Tier (−10%)",
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "Membership discount is applied automatically to the estimated total. Non-exclusive beats can go as low as $5 with membership.",
+          "membership.note": "Membership discount applies only if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
           "membership.codeLabel": "Artist code (if you have membership):",
           "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
-          "membership.codeStatus.valid": "Membership code validated.",
-          "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
-          "membership.codeStatus.empty": "",
+          "membership.codeStatus.valid": "Membership code validated. Discount applied.",
+          "membership.codeStatus.invalid": "Code not recognized. Choose your membership and use a valid code.",
+          "membership.codeStatus.empty": "To apply membership discount, enter your artist code.",
 
           "service.recording.title": "🎙 Vocal Recording",
           "service.recording.desc": "Professional recording, vocal guidance and platform-ready quality.",
@@ -1197,7 +1165,6 @@
           "trust.point3": "Real creative direction: not just pushing buttons, but building your sound.",
 
           "footer.text": "AddEmpire Studio · Professional sound from a real home studio in Louisville, KY.",
-          "cta.floating": "Review order and book via WhatsApp",
 
           "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
           "wa.totalLabel": "Estimated total with discounts:",
@@ -1214,6 +1181,7 @@
       };
 
       let currentLang = "es";
+      let membershipCodeIsValid = false;
 
       function t(key) {
         const langPack = translations[currentLang] || {};
@@ -1295,15 +1263,18 @@
         membershipCodeStatus.classList.remove("valid", "invalid");
 
         if (!raw) {
+          membershipCodeIsValid = false;
           membershipCodeStatus.textContent = t("membership.codeStatus.empty");
           return false;
         }
 
         if (codes.includes(raw)) {
+          membershipCodeIsValid = true;
           membershipCodeStatus.textContent = t("membership.codeStatus.valid");
           membershipCodeStatus.classList.add("valid");
           return true;
         } else {
+          membershipCodeIsValid = false;
           membershipCodeStatus.textContent = t("membership.codeStatus.invalid");
           membershipCodeStatus.classList.add("invalid");
           return false;
@@ -1350,6 +1321,7 @@
           return;
         }
 
+        // Intento de guardar perfil. Si falla, NO bloquea la cuenta.
         const { error: profileError } = await supabase
           .from("profiles")
           .insert({
@@ -1359,15 +1331,18 @@
             instagram: ig || null
           });
 
+        accountCreated = true;
+        accountEmailCache = email;
+        document.getElementById("access-account").checked = true;
+        accountBox.style.display = "none";
+
         if (profileError) {
-          signupStatus.textContent = "Cuenta creada, pero error guardando datos de perfil.";
+          console.warn("Error guardando perfil:", profileError);
+          signupStatus.style.color = "#fbbf24";
+          signupStatus.textContent = "Cuenta creada. Tus datos de perfil se terminarán de completar en estudio.";
         } else {
-          accountCreated = true;
-          accountEmailCache = email;
           signupStatus.style.color = "#4ade80";
-          signupStatus.textContent = "Cuenta creada. Revisa tu correo y selecciona tus servicios (10% aplicado en 1 servicio).";
-          document.getElementById("access-account").checked = true;
-          accountBox.style.display = "none";
+          signupStatus.textContent = "Cuenta creada. Revisa tu correo y selecciona tus servicios.";
         }
 
         updateSummary();
@@ -1412,7 +1387,7 @@
         accountCreated = true;
         accountEmailCache = email;
         loginStatus.style.color = "#4ade80";
-        loginStatus.textContent = "Sesión iniciada. Puedes continuar con tu pedido (10% aplicado en 1 servicio).";
+        loginStatus.textContent = "Sesión iniciada. Puedes continuar con tu pedido.";
         signupStatus.textContent = "";
 
         document.getElementById("access-account").checked = true;
@@ -1443,9 +1418,62 @@
         updateSummary();
       }
 
+      function buildBookingMessage(selected, totalWithDiscount) {
+        const membership = membershipSelect.value;
+        const membershipTextKey = `membership.text.${membership}`;
+        const membershipText = t(membershipTextKey);
+        const artistCode = membershipCodeInput.value.trim() || "";
+        const accessType = getAccessType();
+        const notSpecified = t("wa.notSpecified");
+
+        let accountValue;
+        if (accessType === "account") {
+          if (accountCreated) {
+            accountValue =
+              currentLang === "es"
+                ? `Sí, cuenta activa (${accountEmailCache || notSpecified})`
+                : `Yes, active account (${accountEmailCache || notSpecified})`;
+          } else {
+            accountValue =
+              currentLang === "es"
+                ? "Pendiente de crear cuenta"
+                : "Account not created yet";
+          }
+        } else {
+          accountValue =
+            currentLang === "es"
+              ? "No (precio regular)"
+              : "No (regular price)";
+        }
+
+        const serviciosTexto = selected
+          .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
+          .join("\n");
+
+        const totalLabel = t("wa.totalLabel");
+        const greeting = t("wa.greeting");
+        const membershipLabel = t("wa.membershipLabel");
+        const membershipCodeLabel = t("wa.membershipCodeLabel");
+        const accountLabel = t("wa.accountLabel");
+
+        const message =
+          `${greeting}\n\n` +
+          `${serviciosTexto}\n\n` +
+          `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
+          `${membershipLabel} ${membershipText}\n` +
+          `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
+          `${accountLabel} ${accountValue}\n`;
+
+        // lo dejamos accesible también para usarlo luego con TidyCal si hace falta
+        window.currentBookingMessage = message;
+
+        return message;
+      }
+
       function updateSummary() {
         const membership = membershipSelect.value;
-        const discount = discounts[membership] || 0;
+        const baseDiscount = discounts[membership] || 0;
+        const discount = membershipCodeIsValid ? baseDiscount : 0;
         const accessType = getAccessType();
 
         let selected = [];
@@ -1499,9 +1527,9 @@
           });
         }
 
-        // Extra −10% por cuenta AddStudio en el servicio más caro (solo si cuenta creada)
+        // Extra −10% por cuenta AddStudio en el servicio más caro (bienvenida)
         let extraAccountDiscount = 0;
-        if (accessType === "account" && accountCreated && selected.length > 0) {
+        if (accessType === "account" && selected.length > 0) {
           let maxLine = selected[0];
           selected.forEach((s) => {
             if (s.discounted > maxLine.discounted) maxLine = s;
@@ -1518,6 +1546,13 @@
         if (discount > 0) {
           const percent = Math.round(discount * 100);
           parts.push(`${t("summary.discount.applied")}−${percent}%. (${t("summary.totalPrefix")}${formatMoney(totalBase)}${t("summary.totalSuffix")})`);
+        } else if (membership !== "none" && !membershipCodeIsValid) {
+          // dejó una membresía seleccionada pero sin código válido
+          if (currentLang === "es") {
+            parts.push("Seleccionaste una membresía. Ingresa tu código de artista válido para aplicar el descuento.");
+          } else {
+            parts.push("You selected a membership. Enter a valid artist code to apply the discount.");
+          }
         }
         if (extraAccountDiscount > 0) {
           parts.push(`${t("summary.accountDiscount.applied")}$${formatMoney(extraAccountDiscount)} USD`);
@@ -1537,55 +1572,15 @@
           return;
         }
 
-        // Si eligió "crear cuenta" pero aún no está logueado / creada, bloquear WhatsApp
+        // Si eligió "crear cuenta" pero aún no está creada/logueada, bloquear WhatsApp
         if (accessType === "account" && !accountCreated) {
           whatsappLink.setAttribute("href", "#");
           whatsappLink.setAttribute("aria-disabled", "true");
           return;
         }
 
-        const serviciosTexto = selected
-          .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
-          .join("\n");
-
-        const membershipTextKey = `membership.text.${membership}`;
-        const membershipText = t(membershipTextKey);
-        const artistCode = membershipCodeInput.value.trim() || "";
-        const notSpecified = t("wa.notSpecified");
-
-        let accountValue;
-        if (accessType === "account") {
-          if (accountCreated) {
-            accountValue =
-              currentLang === "es"
-                ? `Sí, cuenta activa (${accountEmailCache || notSpecified})`
-                : `Yes, active account (${accountEmailCache || notSpecified})`;
-          } else {
-            accountValue =
-              currentLang === "es"
-                ? "Pendiente de crear cuenta"
-                : "Account not created yet";
-          }
-        } else {
-          accountValue =
-            currentLang === "es"
-              ? "No (precio regular)"
-              : "No (regular price)";
-        }
-
-        const totalLabel = t("wa.totalLabel");
-        const greeting = t("wa.greeting");
-        const membershipLabel = t("wa.membershipLabel");
-        const membershipCodeLabel = t("wa.membershipCodeLabel");
-        const accountLabel = t("wa.accountLabel");
-
-        const message =
-          `${greeting}\n\n` +
-          `${serviciosTexto}\n\n` +
-          `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
-          `${membershipLabel} ${membershipText}\n` +
-          `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
-          `${accountLabel} ${accountValue}\n`;
+        // Construir mensaje (sirve para WhatsApp y futuro TidyCal)
+        const message = buildBookingMessage(selected, totalWithDiscount);
 
         const url =
           "https://wa.me/" +
@@ -1632,6 +1627,7 @@
       });
 
       applyTranslations();
+      validateMembershipCode();
       updateSummary();
       checkExistingSession();
     })();
