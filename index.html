@@ -495,18 +495,28 @@
       margin-top: 1.5rem;
       padding-bottom: 1rem;
     }
+
+    /* === FIX MOBILE HEADER / LOGO === */
     @media (max-width: 600px) {
       h1 {
         font-size: 1.6rem;
       }
+
       .page {
         padding: 1.25rem 0.9rem 4.5rem;
       }
-      .logo-addempire {
-        width: 130px;
-        top: 14px;
-        left: 14px;
+
+      header {
+        padding-top: 7rem; /* más espacio para que el logo no tape el título */
       }
+
+      .logo-addempire {
+        width: 110px;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%); /* centrado en móvil */
+      }
+
       .membership-box {
         padding: 0.9rem 0.85rem;
       }
@@ -869,7 +879,7 @@
       </div>
     </section>
 
-    <!-- RESUMEN (sin formulario de datos ahora) -->
+    <!-- RESUMEN -->
     <section class="summary" id="resumen">
       <h2 data-i18n="summary.title"></h2>
 
@@ -1529,7 +1539,7 @@
           return;
         }
 
-        // Si eligió "crear cuenta" pero aún no está logueado / creada, bloquear WhatsApp
+        // Si eligió "crear cuenta" pero aún no está creada/logueada, bloquear WhatsApp
         if (accessType === "account" && !accountCreated) {
           whatsappLink.setAttribute("href", "#");
           whatsappLink.setAttribute("aria-disabled", "true");
