@@ -60,23 +60,20 @@
       text-align: center;
     }
     .logo-addempire {
-      width: 150px;
+      width: 180px;
       height: auto;
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
+      margin: 0 auto 0.75rem;
+      display: block;
       filter:
         drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9))
         drop-shadow(0 0 26px rgba(59, 130, 246, 0.8));
-      z-index: 2;
     }
     .hero-title {
       letter-spacing: 0.12em;
       font-size: 0.75rem;
       text-transform: uppercase;
       color: #a5b4fc;
-      margin-top: 160px; /* deja espacio bajo el logo centrado */
+      margin-top: 0.25rem;
     }
     h1 {
       margin: 0.5rem 0;
@@ -92,12 +89,20 @@
       font-size: 0.9rem;
     }
     .contact {
-      margin-top: 0.3rem;
+      margin-top: 0.5rem;
       font-size: 0.9rem;
       color: #d1d1d1;
+      line-height: 1.5;
     }
+    .contact-line {
+      display: block;
+    }
+    .contact-label {
+      font-weight: 500;
+    }
+
     .lang-switch {
-      margin-top: 0.75rem;
+      margin-top: 0.9rem;
       font-size: 0.85rem;
       display: inline-flex;
       align-items: center;
@@ -118,34 +123,293 @@
       outline: none;
     }
 
-    /* MEMBERSHIP + ACCOUNT BOX */
+    /* ACCESS CARDS */
     .access-row {
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
       font-size: 0.85rem;
+    }
+    .access-row > strong {
+      font-size: 0.95rem;
     }
     .access-options {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
+      gap: 0.9rem;
     }
-    .access-options label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+    .access-card {
+      position: relative;
+      flex: 1 1 260px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.99));
+      border: 1px solid rgba(51, 65, 85, 0.95);
+      box-shadow:
+        0 14px 26px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(30, 64, 175, 0.25);
       cursor: pointer;
+      display: flex;
+      align-items: stretch;
+      padding: 0.55rem 0.7rem;
+      transition:
+        border-color 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        transform 0.15s ease-out,
+        background 0.15s ease-out;
     }
-    .access-options input[type="radio"] {
-      accent-color: #2563eb;
+    .access-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(96, 165, 250, 0.96);
+      box-shadow:
+        0 18px 32px rgba(15, 23, 42, 0.95),
+        0 0 22px rgba(59, 130, 246, 0.9);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.99));
+    }
+    .access-radio {
+      position: relative;
+      width: 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 0.2rem;
+    }
+    .access-radio input[type="radio"] {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid #64748b;
+      background: transparent;
+      display: inline-block;
+      position: relative;
       cursor: pointer;
+      outline: none;
+    }
+    .access-radio input[type="radio"]::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #60a5fa, #4f46e5);
+      opacity: 0;
+      transition: opacity 0.12s ease-out;
+    }
+    .access-radio input[type="radio"]:checked {
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.4);
+    }
+    .access-radio input[type="radio"]:checked::after {
+      opacity: 1;
+    }
+    .access-card-body {
+      flex: 1;
+      padding-left: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .access-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+    .access-sub {
+      font-size: 0.8rem;
+      color: #a5b4fc;
     }
     .access-note {
       color: #a1a1b5;
       font-size: 0.78rem;
+      max-width: 720px;
     }
 
+    .access-card-highlight {
+      border-color: rgba(96, 165, 250, 0.98) !important;
+      box-shadow:
+        0 18px 32px rgba(15, 23, 42, 0.95),
+        0 0 22px rgba(59, 130, 246, 0.9) !important;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.99)) !important;
+    }
+
+    /* AUTH PANELS */
+    .auth-section {
+      margin-bottom: 1.75rem;
+    }
+    .auth-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 1rem;
+    }
+    .auth-panel {
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.35), rgba(15, 23, 42, 0.98));
+      border-radius: 14px;
+      padding: 1rem 1.1rem 0.85rem;
+      border: 1px solid rgba(75, 85, 99, 0.96);
+      box-shadow:
+        0 16px 32px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 1);
+    }
+    .auth-panel h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+      color: #e5e7eb;
+    }
+    .auth-panel p.helper {
+      margin: 0 0 0.6rem;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+    }
+
+    .client-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.85rem;
+    }
+    .client-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .client-form input {
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      padding: 0.4rem 0.55rem;
+      color: #f5f5f5;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .client-form input:focus {
+      border-color: #60a5fa;
+      box-shadow:
+        0 0 0 1px rgba(96, 165, 250, 0.9),
+        0 0 16px rgba(59, 130, 246, 0.8);
+    }
+
+    .auth-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at top left, #60a5fa, #2563eb);
+      color: #e5f2ff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-align: center;
+      box-shadow:
+        0 16px 34px rgba(37, 99, 235, 0.9),
+        0 0 22px rgba(191, 219, 254, 0.7);
+      transition:
+        transform 0.14s ease-out,
+        box-shadow 0.14s ease-out,
+        filter 0.14s ease-out,
+        opacity 0.14s ease-out;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow:
+        0 20px 40px rgba(37, 99, 235, 1),
+        0 0 28px rgba(191, 219, 254, 0.95);
+    }
+    .btn-primary[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+      filter: none;
+    }
+
+    .btn-success {
+      background: radial-gradient(circle at top left,#34d399,#059669);
+      box-shadow:
+        0 16px 34px rgba(16,185,129,.6),
+        0 0 22px rgba(167,243,208,.7);
+    }
+    .btn-success:hover {
+      box-shadow:
+        0 20px 42px rgba(16,185,129,.8),
+        0 0 28px rgba(167,243,208,.9);
+    }
+
+    /* GOOGLE BUTTON */
+    .btn-google {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.86rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+      transition:
+        transform 0.14s ease-out,
+        box-shadow 0.14s ease-out,
+        background 0.14s ease-out,
+        border-color 0.14s ease-out;
+    }
+    .btn-google:hover {
+      transform: translateY(-1px);
+      background: #02081a;
+      border-color: #6b7280;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.95);
+    }
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background:
+        conic-gradient(from 135deg,
+          #ea4335 0deg 90deg,
+          #4285f4 90deg 180deg,
+          #34a853 180deg 270deg,
+          #fbbc05 270deg 360deg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .google-icon::after {
+      content: "G";
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: #fff;
+      text-shadow: 0 0 3px rgba(0,0,0,0.6);
+    }
+
+    .auth-status {
+      margin-top: 0.45rem;
+      font-size: 0.82rem;
+      min-height: 1rem;
+    }
+    #signup-status {
+      color: #f97316;
+    }
+    #login-status {
+      color: #f97316;
+    }
+
+    /* MEMBERSHIP BOX */
     .membership-box {
       background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.25), transparent 55%),
                   rgba(10, 14, 32, 0.95);
@@ -213,35 +477,6 @@
     }
     .membership-code-status.invalid {
       color: #f97316;
-    }
-
-    /* FORMULARIO CUENTA */
-    .client-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.85rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.85rem;
-    }
-    .client-form label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .client-form input {
-      background: #020617;
-      border: 1px solid #4b5563;
-      border-radius: 8px;
-      padding: 0.4rem 0.55rem;
-      color: #f5f5f5;
-      font-size: 0.85rem;
-      outline: none;
-    }
-    .client-form input:focus {
-      border-color: #60a5fa;
-      box-shadow:
-        0 0 0 1px rgba(96, 165, 250, 0.9),
-        0 0 16px rgba(59, 130, 246, 0.8);
     }
 
     /* SERVICE GRID */
@@ -473,6 +708,28 @@
       margin-top: 1.5rem;
       padding-bottom: 1rem;
     }
+    footer .footer-links {
+      margin-top: 0.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      justify-content: center;
+      font-size: 0.74rem;
+    }
+    footer .footer-links a {
+      color: #a5b4fc;
+      text-decoration: none;
+    }
+    footer .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 800px) {
+      .auth-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
     @media (max-width: 600px) {
       h1 {
         font-size: 1.6rem;
@@ -481,14 +738,13 @@
         padding: 1.25rem 0.9rem 4.5rem;
       }
       .logo-addempire {
-        width: 130px;
-        top: 14px;
-      }
-      .hero-title {
-        margin-top: 140px;
+        width: 150px;
       }
       .membership-box {
         padding: 0.9rem 0.85rem;
+      }
+      .access-options {
+        flex-direction: column;
       }
     }
   </style>
@@ -503,8 +759,15 @@
       <div class="hero-title" data-i18n="header.tagline"></div>
       <h1 data-i18n="header.title"></h1>
       <p class="tagline" data-i18n="header.subtitle"></p>
-      <p class="contact" data-i18n="header.contact1"></p>
-      <p class="contact" data-i18n="header.contact2"></p>
+
+      <p class="contact">
+        <span class="contact-line">
+          <span class="contact-label">WhatsApp:</span> +1 (971) 818-2710
+        </span>
+        <span class="contact-line">
+          <span class="contact-label">Instagram:</span> @addempire.music
+        </span>
+      </p>
 
       <div class="lang-switch">
         <span data-i18n="lang.label"></span>
@@ -519,75 +782,98 @@
     <section class="access-row">
       <strong data-i18n="access.title"></strong>
       <div class="access-options">
-        <label>
-          <input type="radio" name="access-type" value="guest" id="access-guest" checked />
-          <span data-i18n="access.guest"></span>
+        <label class="access-card" id="card-guest">
+          <div class="access-radio">
+            <input type="radio" name="access-type" value="guest" id="access-guest" checked />
+          </div>
+          <div class="access-card-body">
+            <div class="access-title" data-i18n="access.guest.title"></div>
+            <div class="access-sub" data-i18n="access.guest.subtitle"></div>
+          </div>
         </label>
-        <label>
-          <input type="radio" name="access-type" value="account" id="access-account" />
-          <span data-i18n="access.account"></span>
+
+        <label class="access-card" id="card-account">
+          <div class="access-radio">
+            <input type="radio" name="access-type" value="account" id="access-account" />
+          </div>
+          <div class="access-card-body">
+            <div class="access-title" data-i18n="access.account.title"></div>
+            <div class="access-sub" data-i18n="access.account.subtitle"></div>
+          </div>
         </label>
       </div>
       <div class="access-note" data-i18n="access.note"></div>
     </section>
 
     <!-- FORMULARIO DE CREACIÓN / LOGIN DE CUENTA -->
-    <section id="account-create-box" style="display:none; margin-bottom:1.5rem;">
-      <h3 style="margin:0 0 .5rem; font-size:1rem; color:#a5b4fc;">Crear o acceder a tu cuenta AddStudio</h3>
+    <section id="account-create-box" class="auth-section" style="display:none;">
+      <div class="auth-grid">
+        <!-- Signup -->
+        <div class="auth-panel">
+          <h3 data-i18n="auth.signup.title"></h3>
+          <p class="helper" data-i18n="auth.signup.helper"></p>
 
-      <!-- Signup -->
-      <div class="client-form">
-        <label>
-          <span>Correo electrónico</span>
-          <input type="email" id="signup-email" placeholder="tucorreo@example.com" />
-        </label>
+          <div class="client-form">
+            <label>
+              <span data-i18n="auth.email"></span>
+              <input type="email" id="signup-email" placeholder="tucorreo@example.com" />
+            </label>
 
-        <label>
-          <span>Contraseña</span>
-          <input type="password" id="signup-password" placeholder="Mínimo 6 caracteres" />
-        </label>
+            <label>
+              <span data-i18n="auth.password"></span>
+              <input type="password" id="signup-password" placeholder="Mínimo 6 caracteres" />
+            </label>
 
-        <label>
-          <span>Nombre artístico</span>
-          <input type="text" id="signup-artist" placeholder="Ej: Mr.Addamz" />
-        </label>
+            <label>
+              <span data-i18n="auth.artistName"></span>
+              <input type="text" id="signup-artist" placeholder="Ej: Mr.Addamz" />
+            </label>
 
-        <label>
-          <span>Instagram</span>
-          <input type="text" id="signup-ig" placeholder="@tu_usuario" />
-        </label>
+            <label>
+              <span data-i18n="auth.instagram"></span>
+              <input type="text" id="signup-ig" placeholder="@tu_usuario" />
+            </label>
+          </div>
+
+          <div class="auth-actions">
+            <button id="btn-create-account" class="btn-primary">
+              <span data-i18n="auth.signup.button"></span>
+            </button>
+            <button id="btn-google-signup" class="btn-google" type="button">
+              <span class="google-icon"></span>
+              <span data-i18n="auth.signup.google"></span>
+            </button>
+          </div>
+
+          <p id="signup-status" class="auth-status"></p>
+        </div>
+
+        <!-- Login -->
+        <div class="auth-panel">
+          <h3 data-i18n="auth.login.title"></h3>
+          <p class="helper" data-i18n="auth.login.helper"></p>
+
+          <div class="client-form">
+            <label>
+              <span data-i18n="auth.email"></span>
+              <input type="email" id="login-email" placeholder="tucorreo@example.com" />
+            </label>
+
+            <label>
+              <span data-i18n="auth.password"></span>
+              <input type="password" id="login-password" placeholder="Tu contraseña" />
+            </label>
+          </div>
+
+          <div class="auth-actions">
+            <button id="btn-login-account" class="btn-primary btn-success">
+              <span data-i18n="auth.login.button"></span>
+            </button>
+          </div>
+
+          <p id="login-status" class="auth-status"></p>
+        </div>
       </div>
-
-      <button id="btn-create-account" class="btn-whatsapp" style="margin-top:.5rem;">
-        Crear cuenta y continuar
-      </button>
-
-      <p id="signup-status" style="color:#f97316; font-size:.85rem; margin-top:.5rem;"></p>
-
-      <hr style="border:none; border-top:1px solid #1f2937; margin:1rem 0;">
-
-      <!-- Login -->
-      <p style="font-size:.85rem; margin:.2rem 0 .5rem; color:#9ca3af;">
-        ¿Ya tienes cuenta? Inicia sesión aquí:
-      </p>
-
-      <div class="client-form">
-        <label>
-          <span>Correo electrónico</span>
-          <input type="email" id="login-email" placeholder="tucorreo@example.com" />
-        </label>
-
-        <label>
-          <span>Contraseña</span>
-          <input type="password" id="login-password" placeholder="Tu contraseña" />
-        </label>
-      </div>
-
-      <button id="btn-login-account" class="btn-whatsapp" style="margin-top:.5rem; background:radial-gradient(circle at top left,#34d399,#059669); box-shadow:0 18px 40px rgba(16,185,129,.6),0 0 26px rgba(167,243,208,.7);">
-        Iniciar sesión
-      </button>
-
-      <p id="login-status" style="color:#f97316; font-size:.85rem; margin-top:.5rem;"></p>
     </section>
 
     <!-- Selector de membresía -->
@@ -892,7 +1178,15 @@
       </ul>
     </section>
 
-    <footer data-i18n="footer.text"></footer>
+    <footer>
+      <div data-i18n="footer.text"></div>
+      <div class="footer-links">
+        <span>© 2025 ADD EMPIRE LLC · All Rights Reserved ®</span>
+        <a href="privacy.html" data-i18n="footer.privacy"></a>
+        <a href="terms.html" data-i18n="footer.terms"></a>
+        <a href="cookies.html" data-i18n="footer.cookies"></a>
+      </div>
+    </footer>
   </div>
 
   <!-- Archivos externos (códigos de membresía / config futura) -->
@@ -912,26 +1206,38 @@
           "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
           "header.title": "Catálogo de Servicios",
           "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
-          "header.contact1": "WhatsApp: +1 (971) 818-2710",
-          "header.contact2": "Instagram: @addempire.music",
           "lang.label": "Idioma:",
 
           "access.title": "Cómo quieres continuar:",
-          "access.guest": "Seguir sin cuenta (precio normal)",
-          "access.account": "Crear cuenta AddStudio y obtener −10% automático en 1 servicio de bienvenida + 5% mensual en 1 servicio.",
-          "access.note": "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos. Puedes darte de baja cuando quieras.",
+          "access.guest.title": "Seguir sin cuenta",
+          "access.guest.subtitle": "Precio normal, sin beneficios de cuenta.",
+          "access.account.title": "Crear cuenta AddStudio",
+          "access.account.subtitle": "Obtén −10% automático de bienvenida + 5% mensual en 1 servicio.",
+          "access.note": "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos (incluyendo descuentos de bienvenida y mensuales). Puedes darte de baja cuando quieras.",
+
+          "auth.signup.title": "Crear cuenta AddStudio",
+          "auth.signup.helper": "Activa tus beneficios de bienvenida y descuentos mensuales.",
+          "auth.login.title": "Iniciar sesión",
+          "auth.login.helper": "Si ya tienes cuenta, entra aquí para aplicar tus beneficios.",
+          "auth.email": "Correo electrónico",
+          "auth.password": "Contraseña",
+          "auth.artistName": "Nombre artístico",
+          "auth.instagram": "Instagram",
+          "auth.signup.button": "Crear cuenta y continuar",
+          "auth.signup.google": "Crear cuenta con Google",
+          "auth.login.button": "Iniciar sesión",
 
           "membership.label": "Membresía AddStudio:",
           "membership.none": "Sin membresía",
           "membership.key": "Key Tier (−10%)",
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "El descuento de membresía se aplica solo si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
+          "membership.note": "El descuento de membresía solo se aplica si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
           "membership.codeLabel": "Código de artista (si tienes membresía):",
           "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
-          "membership.codeStatus.valid": "Código de membresía validado. Descuento aplicado.",
-          "membership.codeStatus.invalid": "Código no reconocido. Elige tu membresía y usa un código válido.",
-          "membership.codeStatus.empty": "Para aplicar descuento de membresía, ingresa tu código de artista.",
+          "membership.codeStatus.valid": "Código de membresía validado.",
+          "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
+          "membership.codeStatus.empty": "",
 
           "service.recording.title": "🎙 Grabación Vocal",
           "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
@@ -1015,7 +1321,7 @@
           "summary.totalWithDiscountPrefix": "Total estimado con descuentos: ",
           "summary.discount.none": "Sin descuentos aplicados todavía.",
           "summary.discount.applied": "Descuento de membresía aplicado: ",
-          "summary.accountDiscount.applied": "Descuento extra por cuenta AddStudio (aprox): ",
+          "summary.accountDiscount.applied": "Beneficio por cuenta AddStudio (aprox): ",
 
           "upsell.message": "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
 
@@ -1030,6 +1336,9 @@
           "trust.point3": "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
 
           "footer.text": "AddEmpire Studio · Sonido profesional desde un home studio real en Louisville, KY.",
+          "footer.privacy": "Política de privacidad",
+          "footer.terms": "Términos del servicio",
+          "footer.cookies": "Política de cookies",
 
           "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
           "wa.totalLabel": "Total estimado con descuentos:",
@@ -1047,26 +1356,38 @@
           "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
           "header.title": "Service Catalog",
           "header.subtitle": "Select what you need, set quantities and book directly.",
-          "header.contact1": "WhatsApp: +1 (971) 818-2710",
-          "header.contact2": "Instagram: @addempire.music",
           "lang.label": "Language:",
 
           "access.title": "How do you want to continue:",
-          "access.guest": "Continue without account (regular price)",
-          "access.account": "Create AddStudio account and get −10% automatic welcome on 1 service + 5% monthly on 1 service.",
-          "access.note": "Creating an account means we store your email to send reminders, offers and exclusive benefits. You can unsubscribe anytime.",
+          "access.guest.title": "Continue without account",
+          "access.guest.subtitle": "Regular price, no account benefits.",
+          "access.account.title": "Create AddStudio account",
+          "access.account.subtitle": "Get −10% welcome automatic + 5% monthly on 1 service.",
+          "access.note": "Creating an account means we store your email to send reminders, offers and exclusive benefits (including welcome and monthly discounts). You can unsubscribe anytime.",
+
+          "auth.signup.title": "Create AddStudio account",
+          "auth.signup.helper": "Activate your welcome benefits and monthly discounts.",
+          "auth.login.title": "Log in",
+          "auth.login.helper": "If you already have an account, log in to apply your benefits.",
+          "auth.email": "Email",
+          "auth.password": "Password",
+          "auth.artistName": "Artist name",
+          "auth.instagram": "Instagram",
+          "auth.signup.button": "Create account and continue",
+          "auth.signup.google": "Sign up with Google",
+          "auth.login.button": "Log in",
 
           "membership.label": "AddStudio Membership:",
           "membership.none": "No membership",
           "membership.key": "Key Tier (−10%)",
           "membership.rising": "Rising Tier (−20%)",
           "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "Membership discount applies only if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
+          "membership.note": "Membership discount is only applied if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
           "membership.codeLabel": "Artist code (if you have membership):",
           "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
-          "membership.codeStatus.valid": "Membership code validated. Discount applied.",
-          "membership.codeStatus.invalid": "Code not recognized. Choose your membership and use a valid code.",
-          "membership.codeStatus.empty": "To apply membership discount, enter your artist code.",
+          "membership.codeStatus.valid": "Membership code validated.",
+          "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
+          "membership.codeStatus.empty": "",
 
           "service.recording.title": "🎙 Vocal Recording",
           "service.recording.desc": "Professional recording, vocal guidance and platform-ready quality.",
@@ -1150,7 +1471,7 @@
           "summary.totalWithDiscountPrefix": "Estimated total with discounts: ",
           "summary.discount.none": "No discounts applied yet.",
           "summary.discount.applied": "Membership discount applied: ",
-          "summary.accountDiscount.applied": "Extra discount for AddStudio account (approx): ",
+          "summary.accountDiscount.applied": "Benefit for AddStudio account (approx): ",
 
           "upsell.message": "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
 
@@ -1165,6 +1486,9 @@
           "trust.point3": "Real creative direction: not just pushing buttons, but building your sound.",
 
           "footer.text": "AddEmpire Studio · Professional sound from a real home studio in Louisville, KY.",
+          "footer.privacy": "Privacy policy",
+          "footer.terms": "Terms of service",
+          "footer.cookies": "Cookies policy",
 
           "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
           "wa.totalLabel": "Estimated total with discounts:",
@@ -1181,7 +1505,6 @@
       };
 
       let currentLang = "es";
-      let membershipCodeIsValid = false;
 
       function t(key) {
         const langPack = translations[currentLang] || {};
@@ -1224,11 +1547,15 @@
       const signupIG = document.getElementById("signup-ig");
       const signupStatus = document.getElementById("signup-status");
       const btnCreateAccount = document.getElementById("btn-create-account");
+      const btnGoogleSignup = document.getElementById("btn-google-signup");
 
       const loginEmail = document.getElementById("login-email");
       const loginPassword = document.getElementById("login-password");
       const btnLoginAccount = document.getElementById("btn-login-account");
       const loginStatus = document.getElementById("login-status");
+
+      const cardGuest = document.getElementById("card-guest");
+      const cardAccount = document.getElementById("card-account");
 
       const phoneNumber = "19718182710";
 
@@ -1241,6 +1568,7 @@
 
       let accountCreated = false;
       let accountEmailCache = "";
+      let isMembershipValid = false;
 
       function getValidCodes() {
         if (Array.isArray(window.validCodes)) {
@@ -1261,20 +1589,19 @@
         const codes = getValidCodes();
         const raw = membershipCodeInput.value.trim().toUpperCase();
         membershipCodeStatus.classList.remove("valid", "invalid");
+        isMembershipValid = false;
 
         if (!raw) {
-          membershipCodeIsValid = false;
           membershipCodeStatus.textContent = t("membership.codeStatus.empty");
           return false;
         }
 
         if (codes.includes(raw)) {
-          membershipCodeIsValid = true;
           membershipCodeStatus.textContent = t("membership.codeStatus.valid");
           membershipCodeStatus.classList.add("valid");
+          isMembershipValid = true;
           return true;
         } else {
-          membershipCodeIsValid = false;
           membershipCodeStatus.textContent = t("membership.codeStatus.invalid");
           membershipCodeStatus.classList.add("invalid");
           return false;
@@ -1284,6 +1611,20 @@
       function getAccessType() {
         const checked = document.querySelector('input[name="access-type"]:checked');
         return checked ? checked.value : "guest";
+      }
+
+      function updateAccessCards() {
+        const accessType = getAccessType();
+        if (accessType === "guest") {
+          cardGuest.classList.add("access-card-highlight");
+          cardAccount.classList.remove("access-card-highlight");
+          accountBox.style.display = "none";
+        } else {
+          cardAccount.classList.add("access-card-highlight");
+          cardGuest.classList.remove("access-card-highlight");
+          accountBox.style.display = "block";
+        }
+        updateSummary();
       }
 
       // Crear cuenta en Supabase
@@ -1296,53 +1637,62 @@
         signupStatus.textContent = "";
 
         if (!email || !password) {
-          signupStatus.textContent = "Debes ingresar correo y contraseña.";
+          signupStatus.textContent = currentLang === "es"
+            ? "Debes ingresar correo y contraseña."
+            : "You must enter email and password.";
           return;
         }
 
         if (password.length < 6) {
-          signupStatus.textContent = "La contraseña debe tener al menos 6 caracteres.";
+          signupStatus.textContent = currentLang === "es"
+            ? "La contraseña debe tener al menos 6 caracteres."
+            : "Password must be at least 6 characters.";
           return;
         }
 
         const { data: authData, error: authError } = await supabase.auth.signUp({
           email,
-          password
+          password,
+          options: {
+            emailRedirectTo: "https://addempire-services.netlify.app"
+          }
         });
 
         if (authError) {
-          signupStatus.textContent = "Error creando cuenta: " + authError.message;
+          signupStatus.textContent = (currentLang === "es" ? "Error creando cuenta: " : "Error creating account: ") + authError.message;
           return;
         }
 
         const user = authData.user;
         if (!user) {
-          signupStatus.textContent = "No se pudo obtener el usuario creado.";
+          signupStatus.textContent = currentLang === "es"
+            ? "No se pudo obtener el usuario creado."
+            : "Could not get created user.";
           return;
         }
 
-        // Intento de guardar perfil. Si falla, NO bloquea la cuenta.
+        // Actualizar perfil (email sincronizado por trigger, solo completamos datos extra)
         const { error: profileError } = await supabase
           .from("profiles")
-          .insert({
+          .upsert({
             user_id: user.id,
-            email,
             artist_name: artist || null,
             instagram: ig || null
-          });
-
-        accountCreated = true;
-        accountEmailCache = email;
-        document.getElementById("access-account").checked = true;
-        accountBox.style.display = "none";
+          }, { onConflict: "user_id" });
 
         if (profileError) {
-          console.warn("Error guardando perfil:", profileError);
-          signupStatus.style.color = "#fbbf24";
-          signupStatus.textContent = "Cuenta creada. Tus datos de perfil se terminarán de completar en estudio.";
+          signupStatus.textContent = currentLang === "es"
+            ? "Cuenta creada, pero error guardando datos de perfil."
+            : "Account created, but error saving profile data.";
         } else {
+          accountCreated = true;
+          accountEmailCache = email;
           signupStatus.style.color = "#4ade80";
-          signupStatus.textContent = "Cuenta creada. Revisa tu correo y selecciona tus servicios.";
+          signupStatus.textContent = currentLang === "es"
+            ? "Cuenta creada. Revisa tu correo y selecciona tus servicios."
+            : "Account created. Check your email and select your services.";
+          document.getElementById("access-account").checked = true;
+          updateAccessCards();
         }
 
         updateSummary();
@@ -1365,7 +1715,9 @@
         loginStatus.textContent = "";
 
         if (!email || !password) {
-          loginStatus.textContent = "Debes ingresar correo y contraseña.";
+          loginStatus.textContent = currentLang === "es"
+            ? "Debes ingresar correo y contraseña."
+            : "You must enter email and password.";
           return;
         }
 
@@ -1375,24 +1727,27 @@
         });
 
         if (error) {
-          loginStatus.textContent = "Error al iniciar sesión: " + error.message;
+          loginStatus.textContent = (currentLang === "es" ? "Error al iniciar sesión: " : "Login error: ") + error.message;
           return;
         }
 
         if (!data || !data.user) {
-          loginStatus.textContent = "No se pudo obtener la sesión.";
+          loginStatus.textContent = currentLang === "es"
+            ? "No se pudo obtener la sesión."
+            : "Could not get session.";
           return;
         }
 
         accountCreated = true;
         accountEmailCache = email;
         loginStatus.style.color = "#4ade80";
-        loginStatus.textContent = "Sesión iniciada. Puedes continuar con tu pedido.";
+        loginStatus.textContent = currentLang === "es"
+          ? "Sesión iniciada. Puedes continuar con tu pedido."
+          : "Session started. You can continue with your order.";
         signupStatus.textContent = "";
 
         document.getElementById("access-account").checked = true;
-        accountBox.style.display = "none";
-
+        updateAccessCards();
         updateSummary();
       }
 
@@ -1405,6 +1760,27 @@
         }
       }
 
+      // Google OAuth
+      async function handleGoogleSignup() {
+        signupStatus.style.color = "#f97316";
+        signupStatus.textContent = currentLang === "es"
+          ? "Redirigiendo a Google..."
+          : "Redirecting to Google...";
+
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: "https://addempire-services.netlify.app"
+          }
+        });
+
+        if (error) {
+          signupStatus.textContent = (currentLang === "es"
+            ? "Error con Google: "
+            : "Google sign-in error: ") + error.message;
+        }
+      }
+
       // Revisar sesión existente al cargar la página
       async function checkExistingSession() {
         const { data } = await supabase.auth.getSession();
@@ -1413,67 +1789,17 @@
           accountCreated = true;
           accountEmailCache = session.user.email || "";
           document.getElementById("access-account").checked = true;
-          accountBox.style.display = "none";
+          updateAccessCards();
+        } else {
+          updateAccessCards();
         }
         updateSummary();
       }
 
-      function buildBookingMessage(selected, totalWithDiscount) {
-        const membership = membershipSelect.value;
-        const membershipTextKey = `membership.text.${membership}`;
-        const membershipText = t(membershipTextKey);
-        const artistCode = membershipCodeInput.value.trim() || "";
-        const accessType = getAccessType();
-        const notSpecified = t("wa.notSpecified");
-
-        let accountValue;
-        if (accessType === "account") {
-          if (accountCreated) {
-            accountValue =
-              currentLang === "es"
-                ? `Sí, cuenta activa (${accountEmailCache || notSpecified})`
-                : `Yes, active account (${accountEmailCache || notSpecified})`;
-          } else {
-            accountValue =
-              currentLang === "es"
-                ? "Pendiente de crear cuenta"
-                : "Account not created yet";
-          }
-        } else {
-          accountValue =
-            currentLang === "es"
-              ? "No (precio regular)"
-              : "No (regular price)";
-        }
-
-        const serviciosTexto = selected
-          .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
-          .join("\n");
-
-        const totalLabel = t("wa.totalLabel");
-        const greeting = t("wa.greeting");
-        const membershipLabel = t("wa.membershipLabel");
-        const membershipCodeLabel = t("wa.membershipCodeLabel");
-        const accountLabel = t("wa.accountLabel");
-
-        const message =
-          `${greeting}\n\n` +
-          `${serviciosTexto}\n\n` +
-          `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
-          `${membershipLabel} ${membershipText}\n` +
-          `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
-          `${accountLabel} ${accountValue}\n`;
-
-        // lo dejamos accesible también para usarlo luego con TidyCal si hace falta
-        window.currentBookingMessage = message;
-
-        return message;
-      }
-
       function updateSummary() {
         const membership = membershipSelect.value;
-        const baseDiscount = discounts[membership] || 0;
-        const discount = membershipCodeIsValid ? baseDiscount : 0;
+        const baseMembershipRate = discounts[membership] || 0;
+        const membershipRate = isMembershipValid ? baseMembershipRate : 0;
         const accessType = getAccessType();
 
         let selected = [];
@@ -1495,7 +1821,7 @@
           const cat = input.getAttribute("data-category") || "";
 
           const lineBase = price * qty;
-          const lineDiscounted = lineBase * (1 - discount);
+          const lineDiscounted = lineBase * (1 - membershipRate);
 
           totalBase += lineBase;
           totalWithDiscount += lineDiscounted;
@@ -1527,9 +1853,9 @@
           });
         }
 
-        // Extra −10% por cuenta AddStudio en el servicio más caro (bienvenida)
+        // Extra −10% por cuenta AddStudio en el servicio más caro (bienvenida / mes)
         let extraAccountDiscount = 0;
-        if (accessType === "account" && selected.length > 0) {
+        if (accessType === "account" && accountCreated && selected.length > 0) {
           let maxLine = selected[0];
           selected.forEach((s) => {
             if (s.discounted > maxLine.discounted) maxLine = s;
@@ -1543,16 +1869,9 @@
         totalAmount.textContent = `${totalPrefix}${formatMoney(totalWithDiscount)}${totalSuffix}`;
 
         const parts = [];
-        if (discount > 0) {
-          const percent = Math.round(discount * 100);
+        if (membershipRate > 0) {
+          const percent = Math.round(membershipRate * 100);
           parts.push(`${t("summary.discount.applied")}−${percent}%. (${t("summary.totalPrefix")}${formatMoney(totalBase)}${t("summary.totalSuffix")})`);
-        } else if (membership !== "none" && !membershipCodeIsValid) {
-          // dejó una membresía seleccionada pero sin código válido
-          if (currentLang === "es") {
-            parts.push("Seleccionaste una membresía. Ingresa tu código de artista válido para aplicar el descuento.");
-          } else {
-            parts.push("You selected a membership. Enter a valid artist code to apply the discount.");
-          }
         }
         if (extraAccountDiscount > 0) {
           parts.push(`${t("summary.accountDiscount.applied")}$${formatMoney(extraAccountDiscount)} USD`);
@@ -1572,15 +1891,65 @@
           return;
         }
 
-        // Si eligió "crear cuenta" pero aún no está creada/logueada, bloquear WhatsApp
+        // Si eligió "crear cuenta" pero aún no está logueado / creada, bloquear WhatsApp
         if (accessType === "account" && !accountCreated) {
           whatsappLink.setAttribute("href", "#");
           whatsappLink.setAttribute("aria-disabled", "true");
           return;
         }
 
-        // Construir mensaje (sirve para WhatsApp y futuro TidyCal)
-        const message = buildBookingMessage(selected, totalWithDiscount);
+        const serviciosTexto = selected
+          .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
+          .join("\n");
+
+        let membershipText;
+        const rawCode = membershipCodeInput.value.trim();
+        if (membershipRate > 0) {
+          membershipText = t(`membership.text.${membership}`);
+        } else if (membership !== "none" && rawCode) {
+          membershipText = currentLang === "es"
+            ? "Seleccionado pero código no validado"
+            : "Selected but code not validated";
+        } else {
+          membershipText = t("membership.text.none");
+        }
+
+        const artistCode = rawCode || "";
+        const notSpecified = t("wa.notSpecified");
+
+        let accountValue;
+        if (accessType === "account") {
+          if (accountCreated) {
+            accountValue =
+              currentLang === "es"
+                ? `Sí, cuenta activa (${accountEmailCache || notSpecified})`
+                : `Yes, active account (${accountEmailCache || notSpecified})`;
+          } else {
+            accountValue =
+              currentLang === "es"
+                ? "Pendiente de crear cuenta"
+                : "Account not created yet";
+          }
+        } else {
+          accountValue =
+            currentLang === "es"
+              ? "No (precio regular)"
+              : "No (regular price)";
+        }
+
+        const totalLabel = t("wa.totalLabel");
+        const greeting = t("wa.greeting");
+        const membershipLabel = t("wa.membershipLabel");
+        const membershipCodeLabel = t("wa.membershipCodeLabel");
+        const accountLabel = t("wa.accountLabel");
+
+        const message =
+          `${greeting}\n\n` +
+          `${serviciosTexto}\n\n` +
+          `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
+          `${membershipLabel} ${membershipText}\n` +
+          `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
+          `${accountLabel} ${accountValue}\n`;
 
         const url =
           "https://wa.me/" +
@@ -1602,21 +1971,25 @@
         updateSummary();
       });
 
-      // Mostrar / ocultar formulario de cuenta
-      document.getElementById("access-guest").addEventListener("change", () => {
-        accountBox.style.display = "none";
-        updateSummary();
-      });
+      // Mostrar / ocultar formulario de cuenta con cards
+      document.getElementById("access-guest").addEventListener("change", updateAccessCards);
+      document.getElementById("access-account").addEventListener("change", updateAccessCards);
 
-      document.getElementById("access-account").addEventListener("change", () => {
-        accountBox.style.display = "block";
-        updateSummary();
+      cardGuest.addEventListener("click", () => {
+        document.getElementById("access-guest").checked = true;
+        updateAccessCards();
+      });
+      cardAccount.addEventListener("click", () => {
+        document.getElementById("access-account").checked = true;
+        updateAccessCards();
       });
 
       // Crear cuenta
       btnCreateAccount.addEventListener("click", handleCreateAccountClick);
       // Login
       btnLoginAccount.addEventListener("click", handleLoginClick);
+      // Google
+      btnGoogleSignup.addEventListener("click", handleGoogleSignup);
 
       // Cambio de idioma
       langSelect.addEventListener("change", () => {
@@ -1628,7 +2001,6 @@
 
       applyTranslations();
       validateMembershipCode();
-      updateSummary();
       checkExistingSession();
     })();
   </script>
