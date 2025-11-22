@@ -1,311 +1,347 @@
 (function () {
   const SUPABASE_URL = "https://xshxhfexvvzrrqllhrvp.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzaHhoZmV4dnZ6cnJxbGxocnZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODU4MjUsImV4cCI6MjA3OTE2MTgyNX0.stCbU3Db73PueHgO4T10wObDdd6HJvE_DE-CTTLedGQ";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzaHhoZmV4dnZ6cnJxbGxocnZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODU4MjUsImV4cCI6MjA3OTE2MTgyNX0.stCbU3Db73PueHgO4T10wObDdd6HJvE_DE-CTTLedGQ";
 
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // ------- TRADUCCIONES (las mismas que ya tenías) -------
-  const translations = { const translations = {
-  es: {
-    "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
-    "header.title": "Catálogo de Servicios",
-    "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
-    "lang.label": "Idioma:",
+  // ------- TRADUCCIONES -------
+  const translations = {
+    es: {
+      "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
+      "header.title": "Catálogo de Servicios",
+      "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
+      "lang.label": "Idioma:",
 
-    "access.title": "Cómo quieres continuar:",
-    "access.guest.title": "Seguir sin cuenta",
-    "access.guest.subtitle": "Precio normal, sin beneficios de cuenta.",
-    "access.account.title": "Crear cuenta AddStudio",
-    "access.account.subtitle": "Obtén −10% automático de bienvenida + 5% mensual en 1 servicio.",
-    "access.note": "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos (incluyendo descuentos de bienvenida y mensuales). Puedes darte de baja cuando quieras.",
+      "access.title": "Cómo quieres continuar:",
+      "access.guest.title": "Seguir sin cuenta",
+      "access.guest.subtitle": "Precio normal, sin beneficios de cuenta.",
+      "access.account.title": "Crear cuenta AddStudio",
+      "access.account.subtitle": "Obtén −10% automático de bienvenida + 5% mensual en 1 servicio.",
+      "access.note":
+        "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos (incluyendo descuentos de bienvenida y mensuales). Puedes darte de baja cuando quieras.",
 
-    "auth.signup.title": "Crear cuenta AddStudio",
-    "auth.signup.helper": "Activa tus beneficios de bienvenida y descuentos mensuales.",
-    "auth.login.title": "Iniciar sesión",
-    "auth.login.helper": "Si ya tienes cuenta, entra aquí para aplicar tus beneficios.",
-    "auth.email": "Correo electrónico",
-    "auth.password": "Contraseña",
-    "auth.artistName": "Nombre artístico",
-    "auth.instagram": "Instagram",
-    "auth.signup.button": "Crear cuenta y continuar",
-    "auth.signup.google": "Crear cuenta con Google",
-    "auth.login.button": "Iniciar sesión",
+      "auth.signup.title": "Crear cuenta AddStudio",
+      "auth.signup.helper": "Activa tus beneficios de bienvenida y descuentos mensuales.",
+      "auth.login.title": "Iniciar sesión",
+      "auth.login.helper": "Si ya tienes cuenta, entra aquí para aplicar tus beneficios.",
+      "auth.email": "Correo electrónico",
+      "auth.password": "Contraseña",
+      "auth.artistName": "Nombre artístico",
+      "auth.instagram": "Instagram",
+      "auth.signup.button": "Crear cuenta y continuar",
+      "auth.signup.google": "Crear cuenta con Google",
+      "auth.login.button": "Iniciar sesión",
 
-    "membership.label": "Membresía AddStudio:",
-    "membership.none": "Sin membresía",
-    "membership.key": "Key Tier (−10%)",
-    "membership.rising": "Rising Tier (−20%)",
-    "membership.crown": "Crown Tier (−30%)",
-    "membership.note": "El descuento de membresía solo se aplica si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
-    "membership.codeLabel": "Código de artista (si tienes membresía):",
-    "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
-    "membership.codeStatus.valid": "Código de membresía validado.",
-    "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
-    "membership.codeStatus.empty": "",
+      "membership.label": "Membresía AddStudio:",
+      "membership.none": "Sin membresía",
+      "membership.key": "Key Tier (−10%)",
+      "membership.rising": "Rising Tier (−20%)",
+      "membership.crown": "Crown Tier (−30%)",
+      "membership.note":
+        "El descuento de membresía solo se aplica si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
+      "membership.codeLabel": "Código de artista (si tienes membresía):",
+      "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
+      "membership.codeStatus.valid": "Código de membresía validado.",
+      "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
+      "membership.codeStatus.empty": "",
 
-    "service.recording.title": "🎙 Grabación Vocal",
-    "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
-    "service.recording.label": "Horas de grabación",
-    "service.recording.price": "$30 / hora",
-    "service.recording.name": "Grabación Vocal",
+      "service.recording.title": "🎙 Grabación Vocal",
+      "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
+      "service.recording.label": "Horas de grabación",
+      "service.recording.price": "$30 / hora",
+      "service.recording.name": "Grabación Vocal",
 
-    "service.mix.title": "🎛 Mezcla + Master",
-    "service.mix.desc": "Limpieza vocal, afinación y optimizado para streaming y radio.",
-    "service.mix.label": "Canciones a mezclar/masterizar",
-    "service.mix.price": "$50 / canción (precio base)",
-    "service.mix.name": "Mezcla + Master",
+      "service.mix.title": "🎛 Mezcla + Master",
+      "service.mix.desc": "Limpieza vocal, afinación y optimizado para streaming y radio.",
+      "service.mix.label": "Canciones a mezclar/masterizar",
+      "service.mix.price": "$50 / canción (precio base)",
+      "service.mix.name": "Mezcla + Master",
 
-    "service.tuning.title": "🛠 Afinación Vocal",
-    "service.tuning.desc": "Corrección de tono y tiempo, sonido profesional.",
-    "service.tuning.label": "Canciones a afinar",
-    "service.tuning.price": "$30 / canción",
-    "service.tuning.name": "Afinación Vocal (Vocal Tuning)",
+      "service.tuning.title": "🛠 Afinación Vocal",
+      "service.tuning.desc": "Corrección de tono y tiempo, sonido profesional.",
+      "service.tuning.label": "Canciones a afinar",
+      "service.tuning.price": "$30 / canción",
+      "service.tuning.name": "Afinación Vocal (Vocal Tuning)",
 
-    "service.beatOriginal.title": "🎹 Beats Originales (Exclusivos)",
-    "service.beatOriginal.desc": "Beats desde cero con uso comercial.",
-    "service.beatOriginal.label": "Cantidad de beats exclusivos",
-    "service.beatOriginal.price": "$150 / beat (precio base)",
-    "service.beatOriginal.name": "Beat Original Exclusivo",
+      "service.beatOriginal.title": "🎹 Beats Originales (Exclusivos)",
+      "service.beatOriginal.desc": "Beats desde cero con uso comercial.",
+      "service.beatOriginal.label": "Cantidad de beats exclusivos",
+      "service.beatOriginal.price": "$150 / beat (precio base)",
+      "service.beatOriginal.name": "Beat Original Exclusivo",
 
-    "service.beatNonExclusive.title": "🔥 Beats No Exclusivos",
-    "service.beatNonExclusive.desc": "Ideal para mixtapes, demos y proyectos económicos.",
-    "service.beatNonExclusive.label": "Cantidad de beats no exclusivos",
-    "service.beatNonExclusive.priceMain": "$50 / beat",
-    "service.beatNonExclusive.priceNote": "(desde $5 con membresía)",
-    "service.beatNonExclusive.name": "Beat No Exclusivo",
+      "service.beatNonExclusive.title": "🔥 Beats No Exclusivos",
+      "service.beatNonExclusive.desc": "Ideal para mixtapes, demos y proyectos económicos.",
+      "service.beatNonExclusive.label": "Cantidad de beats no exclusivos",
+      "service.beatNonExclusive.priceMain": "$50 / beat",
+      "service.beatNonExclusive.priceNote": "(desde $5 con membresía)",
+      "service.beatNonExclusive.name": "Beat No Exclusivo",
 
-    "service.packFull.title": "📦 Pack “Canción Full Terminada”",
-    "service.packFull.desc": "Grabación + Mezcla + Master + Beat original (referencia de pack completo).",
-    "service.packFull.label": "Cantidad de canciones full",
-    "service.packFull.price": "$250 / canción (precio base)",
-    "service.packFull.name": "Pack Canción Full Terminada",
+      "service.packFull.title": "📦 Pack “Canción Full Terminada”",
+      "service.packFull.desc":
+        "Grabación + Mezcla + Master + Beat original (referencia de pack completo).",
+      "service.packFull.label": "Cantidad de canciones full",
+      "service.packFull.price": "$250 / canción (precio base)",
+      "service.packFull.name": "Pack Canción Full Terminada",
 
-    "service.coversVideo.title": "📸 Portadas & 🎬 Videos Promo (por canción)",
-    "service.coversVideo.desc": "Portada y reels pensados para lanzar una canción a plataformas.",
-    "service.covers.label": "Portadas profesionales (1 canción)",
-    "service.covers.price": "$15 / portada",
-    "service.covers.name": "Portada profesional",
-    "service.video.label": "Videos promo / reels (1 canción)",
-    "service.video.price": "$30 / video",
-    "service.video.name": "Video promo / Reel",
+      "service.coversVideo.title": "📸 Portadas & 🎬 Videos Promo (por canción)",
+      "service.coversVideo.desc":
+        "Portada y reels pensados para lanzar una canción a plataformas.",
+      "service.covers.label": "Portadas profesionales (1 canción)",
+      "service.covers.price": "$15 / portada",
+      "service.covers.name": "Portada profesional",
+      "service.video.label": "Videos promo / reels (1 canción)",
+      "service.video.price": "$30 / video",
+      "service.video.name": "Video promo / Reel",
 
-    "service.coversPacks.title": "📦 Packs de Portadas",
-    "service.coversPacks.desc": "Pensado para varios lanzamientos: te sale mejor por volumen.",
-    "service.coversPacks.pack1.label": "Pack 1 · 5 portadas",
-    "service.coversPacks.pack1.price": "$65 / pack",
-    "service.coversPacks.pack1.name": "Pack 5 portadas",
-    "service.coversPacks.pack2.label": "Pack 2 · 10 portadas",
-    "service.coversPacks.pack2.price": "$100 / pack",
-    "service.coversPacks.pack2.name": "Pack 10 portadas",
+      "service.coversPacks.title": "📦 Packs de Portadas",
+      "service.coversPacks.desc":
+        "Pensado para varios lanzamientos: te sale mejor por volumen.",
+      "service.coversPacks.pack1.label": "Pack 1 · 5 portadas",
+      "service.coversPacks.pack1.price": "$65 / pack",
+      "service.coversPacks.pack1.name": "Pack 5 portadas",
+      "service.coversPacks.pack2.label": "Pack 2 · 10 portadas",
+      "service.coversPacks.pack2.price": "$100 / pack",
+      "service.coversPacks.pack2.name": "Pack 10 portadas",
 
-    "service.reelsPacks.title": "📦 Packs de Reels Promo",
-    "service.reelsPacks.desc": "Reels listos para contenido constante en redes.",
-    "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
-    "service.reelsPacks.pack1.price": "$250 / pack",
-    "service.reelsPacks.pack1.name": "Pack 10 reels",
-    "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
-    "service.reelsPacks.pack2.price": "$500 / pack",
-    "service.reelsPacks.pack2.name": "Pack 25 reels",
-    "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
-    "service.reelsPacks.pack3.price": "$900 / pack",
-    "service.reelsPacks.pack3.name": "Pack 50 reels",
+      "service.reelsPacks.title": "📦 Packs de Reels Promo",
+      "service.reelsPacks.desc": "Reels listos para contenido constante en redes.",
+      "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
+      "service.reelsPacks.pack1.price": "$250 / pack",
+      "service.reelsPacks.pack1.name": "Pack 10 reels",
+      "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
+      "service.reelsPacks.pack2.price": "$500 / pack",
+      "service.reelsPacks.pack2.name": "Pack 25 reels",
+      "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
+      "service.reelsPacks.pack3.price": "$900 / pack",
+      "service.reelsPacks.pack3.name": "Pack 50 reels",
 
-    "service.coaching.title": "🧠 Asesoría Artística",
-    "service.coaching.desc": "Corrección creativa, guía de proyecto y dudas sobre licencias.",
-    "service.coaching.label": "Bloques de asesoría (30 min)",
-    "service.coaching.price": "$25 / bloque",
-    "service.coaching.name": "Asesoría Artística (30 min)",
+      "service.coaching.title": "🧠 Asesoría Artística",
+      "service.coaching.desc":
+        "Corrección creativa, guía de proyecto y dudas sobre licencias.",
+      "service.coaching.label": "Bloques de asesoría (30 min)",
+      "service.coaching.price": "$25 / bloque",
+      "service.coaching.name": "Asesoría Artística (30 min)",
 
-    "summary.title": "🧾 Resumen de tu pedido",
-    "summary.empty": "No has agregado cantidades aún.",
-    "summary.note": "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
-    "summary.button": "Enviar pedido por WhatsApp",
-    "summary.totalPrefix": "Total estimado: ",
-    "summary.totalSuffix": " USD",
-    "summary.totalWithDiscountPrefix": "Total estimado con descuentos: ",
-    "summary.discount.none": "Sin descuentos aplicados todavía.",
-    "summary.discount.applied": "Descuento de membresía aplicado: ",
-    "summary.accountDiscount.applied": "Beneficio por cuenta AddStudio (aprox): ",
+      "summary.title": "🧾 Resumen de tu pedido",
+      "summary.empty": "No has agregado cantidades aún.",
+      "summary.note":
+        "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
+      "summary.button": "Enviar pedido por WhatsApp",
+      "summary.totalPrefix": "Total estimado: ",
+      "summary.totalSuffix": " USD",
+      "summary.totalWithDiscountPrefix": "Total estimado con descuentos: ",
+      "summary.discount.none": "Sin descuentos aplicados todavía.",
+      "summary.discount.applied": "Descuento de membresía aplicado: ",
+      "summary.accountDiscount.applied": "Beneficio por cuenta AddStudio (aprox): ",
 
-    "upsell.message": "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
+      "upsell.message":
+        "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
 
-    "steps.title": "⚙️ Cómo funciona",
-    "steps.step1": "Seleccionas servicios y cantidades en el catálogo.",
-    "steps.step2": "Nos contactas por WhatsApp con el resumen y tus datos.",
-    "steps.step3": "Agendamos fecha, cerramos detalles y recibes tus archivos finales.",
+      "steps.title": "⚙️ Cómo funciona",
+      "steps.step1": "Seleccionas servicios y cantidades en el catálogo.",
+      "steps.step2": "Nos contactas por WhatsApp con el resumen y tus datos.",
+      "steps.step3":
+        "Agendamos fecha, cerramos detalles y recibes tus archivos finales.",
 
-    "trust.title": "👑 ¿Por qué AddEmpire Studio?",
-    "trust.point1": "Sonido pensado para música urbana y artistas independientes.",
-    "trust.point2": "Derechos 100% tuyos una vez finalizado y pagado el proyecto.",
-    "trust.point3": "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
+      "trust.title": "👑 ¿Por qué AddEmpire Studio?",
+      "trust.point1": "Sonido pensado para música urbana y artistas independientes.",
+      "trust.point2":
+        "Derechos 100% tuyos una vez finalizado y pagado el proyecto.",
+      "trust.point3":
+        "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
 
-    "footer.text": "AddEmpire Studio · Sonido profesional desde un home studio real en Louisville, KY.",
-    "footer.privacy": "Política de privacidad",
-    "footer.terms": "Términos del servicio",
-    "footer.cookies": "Política de cookies",
+      "footer.text":
+        "AddEmpire Studio · Sonido profesional desde un home studio real en Louisville, KY.",
+      "footer.privacy": "Política de privacidad",
+      "footer.terms": "Términos del servicio",
+      "footer.cookies": "Política de cookies",
 
-    "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
-    "wa.totalLabel": "Total estimado con descuentos:",
-    "wa.membershipLabel": "Membresía:",
-    "wa.membershipCodeLabel": "Código de artista:",
-    "wa.accountLabel": "Cuenta AddStudio:",
-    "wa.notSpecified": "No especificado",
+      "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
+      "wa.totalLabel": "Total estimado con descuentos:",
+      "wa.membershipLabel": "Membresía:",
+      "wa.membershipCodeLabel": "Código de artista:",
+      "wa.accountLabel": "Cuenta AddStudio:",
+      "wa.notSpecified": "No especificado",
 
-    "membership.text.none": "Sin membresía",
-    "membership.text.key": "Key Tier (−10%)",
-    "membership.text.rising": "Rising Tier (−20%)",
-    "membership.text.crown": "Crown Tier (−30%)"
-  },
-  en: {
-    "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
-    "header.title": "Service Catalog",
-    "header.subtitle": "Select what you need, set quantities and book directly.",
-    "lang.label": "Language:",
+      "membership.text.none": "Sin membresía",
+      "membership.text.key": "Key Tier (−10%)",
+      "membership.text.rising": "Rising Tier (−20%)",
+      "membership.text.crown": "Crown Tier (−30%)"
+    },
+    en: {
+      "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
+      "header.title": "Service Catalog",
+      "header.subtitle": "Select what you need, set quantities and book directly.",
+      "lang.label": "Language:",
 
-    "access.title": "How do you want to continue:",
-    "access.guest.title": "Continue without account",
-    "access.guest.subtitle": "Regular price, no account benefits.",
-    "access.account.title": "Create AddStudio account",
-    "access.account.subtitle": "Get −10% welcome automatic + 5% monthly on 1 service.",
-    "access.note": "Creating an account means we store your email to send reminders, offers and exclusive benefits (including welcome and monthly discounts). You can unsubscribe anytime.",
+      "access.title": "How do you want to continue:",
+      "access.guest.title": "Continue without account",
+      "access.guest.subtitle": "Regular price, no account benefits.",
+      "access.account.title": "Create AddStudio account",
+      "access.account.subtitle":
+        "Get −10% welcome automatic + 5% monthly on 1 service.",
+      "access.note":
+        "Creating an account means we store your email to send reminders, offers and exclusive benefits (including welcome and monthly discounts). You can unsubscribe anytime.",
 
-    "auth.signup.title": "Create AddStudio account",
-    "auth.signup.helper": "Activate your welcome benefits and monthly discounts.",
-    "auth.login.title": "Log in",
-    "auth.login.helper": "If you already have an account, log in to apply your benefits.",
-    "auth.email": "Email",
-    "auth.password": "Password",
-    "auth.artistName": "Artist name",
-    "auth.instagram": "Instagram",
-    "auth.signup.button": "Create account and continue",
-    "auth.signup.google": "Sign up with Google",
-    "auth.login.button": "Log in",
+      "auth.signup.title": "Create AddStudio account",
+      "auth.signup.helper": "Activate your welcome benefits and monthly discounts.",
+      "auth.login.title": "Log in",
+      "auth.login.helper":
+        "If you already have an account, log in to apply your benefits.",
+      "auth.email": "Email",
+      "auth.password": "Password",
+      "auth.artistName": "Artist name",
+      "auth.instagram": "Instagram",
+      "auth.signup.button": "Create account and continue",
+      "auth.signup.google": "Sign up with Google",
+      "auth.login.button": "Log in",
 
-    "membership.label": "AddStudio Membership:",
-    "membership.none": "No membership",
-    "membership.key": "Key Tier (−10%)",
-    "membership.rising": "Rising Tier (−20%)",
-    "membership.crown": "Crown Tier (−30%)",
-    "membership.note": "Membership discount is only applied if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
-    "membership.codeLabel": "Artist code (if you have membership):",
-    "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
-    "membership.codeStatus.valid": "Membership code validated.",
-    "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
-    "membership.codeStatus.empty": "",
+      "membership.label": "AddStudio Membership:",
+      "membership.none": "No membership",
+      "membership.key": "Key Tier (−10%)",
+      "membership.rising": "Rising Tier (−20%)",
+      "membership.crown": "Crown Tier (−30%)",
+      "membership.note":
+        "Membership discount is only applied if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
+      "membership.codeLabel": "Artist code (if you have membership):",
+      "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
+      "membership.codeStatus.valid": "Membership code validated.",
+      "membership.codeStatus.invalid":
+        "Code not recognized. Check your code or membership.",
+      "membership.codeStatus.empty": "",
 
-    "service.recording.title": "🎙 Vocal Recording",
-    "service.recording.desc": "Professional recording, vocal guidance and platform-ready quality.",
-    "service.recording.label": "Recording hours",
-    "service.recording.price": "$30 / hour",
-    "service.recording.name": "Vocal Recording",
+      "service.recording.title": "🎙 Vocal Recording",
+      "service.recording.desc":
+        "Professional recording, vocal guidance and platform-ready quality.",
+      "service.recording.label": "Recording hours",
+      "service.recording.price": "$30 / hour",
+      "service.recording.name": "Vocal Recording",
 
-    "service.mix.title": "🎛 Mix & Master",
-    "service.mix.desc": "Vocal cleanup, tuning and optimization for streaming and radio.",
-    "service.mix.label": "Songs to mix/master",
-    "service.mix.price": "$50 / song (base price)",
-    "service.mix.name": "Mix & Master",
+      "service.mix.title": "🎛 Mix & Master",
+      "service.mix.desc":
+        "Vocal cleanup, tuning and optimization for streaming and radio.",
+      "service.mix.label": "Songs to mix/master",
+      "service.mix.price": "$50 / song (base price)",
+      "service.mix.name": "Mix & Master",
 
-    "service.tuning.title": "🛠 Vocal Tuning",
-    "service.tuning.desc": "Pitch and timing correction, professional sound.",
-    "service.tuning.label": "Songs to tune",
-    "service.tuning.price": "$30 / song",
-    "service.tuning.name": "Vocal Tuning",
+      "service.tuning.title": "🛠 Vocal Tuning",
+      "service.tuning.desc":
+        "Pitch and timing correction, professional sound.",
+      "service.tuning.label": "Songs to tune",
+      "service.tuning.price": "$30 / song",
+      "service.tuning.name": "Vocal Tuning",
 
-    "service.beatOriginal.title": "🎹 Original Beats (Exclusive)",
-    "service.beatOriginal.desc": "Custom beats from scratch for commercial use.",
-    "service.beatOriginal.label": "Number of exclusive beats",
-    "service.beatOriginal.price": "$150 / beat (base price)",
-    "service.beatOriginal.name": "Exclusive Original Beat",
+      "service.beatOriginal.title": "🎹 Original Beats (Exclusive)",
+      "service.beatOriginal.desc":
+        "Custom beats from scratch for commercial use.",
+      "service.beatOriginal.label": "Number of exclusive beats",
+      "service.beatOriginal.price": "$150 / beat (base price)",
+      "service.beatOriginal.name": "Exclusive Original Beat",
 
-    "service.beatNonExclusive.title": "🔥 Non-Exclusive Beats",
-    "service.beatNonExclusive.desc": "Perfect for mixtapes, demos and budget projects.",
-    "service.beatNonExclusive.label": "Number of non-exclusive beats",
-    "service.beatNonExclusive.priceMain": "$50 / beat",
-    "service.beatNonExclusive.priceNote": "(from $5 with membership)",
-    "service.beatNonExclusive.name": "Non-Exclusive Beat",
+      "service.beatNonExclusive.title": "🔥 Non-Exclusive Beats",
+      "service.beatNonExclusive.desc":
+        "Perfect for mixtapes, demos and budget projects.",
+      "service.beatNonExclusive.label": "Number of non-exclusive beats",
+      "service.beatNonExclusive.priceMain": "$50 / beat",
+      "service.beatNonExclusive.priceNote": "(from $5 with membership)",
+      "service.beatNonExclusive.name": "Non-Exclusive Beat",
 
-    "service.packFull.title": "📦 “Full Finished Song” Pack",
-    "service.packFull.desc": "Recording + Mix + Master + Original beat (reference as a full pack).",
-    "service.packFull.label": "Number of full songs",
-    "service.packFull.price": "$250 / song (base price)",
-    "service.packFull.name": "Full Finished Song Pack",
+      "service.packFull.title": "📦 “Full Finished Song” Pack",
+      "service.packFull.desc":
+        "Recording + Mix + Master + Original beat (reference as a full pack).",
+      "service.packFull.label": "Number of full songs",
+      "service.packFull.price": "$250 / song (base price)",
+      "service.packFull.name": "Full Finished Song Pack",
 
-    "service.coversVideo.title": "📸 Covers & 🎬 Promo Videos (per song)",
-    "service.coversVideo.desc": "Cover and reels designed to launch one song on platforms.",
-    "service.covers.label": "Professional covers (1 song)",
-    "service.covers.price": "$15 / cover",
-    "service.covers.name": "Professional Cover",
-    "service.video.label": "Promo videos / reels (1 song)",
-    "service.video.price": "$30 / video",
-    "service.video.name": "Promo Video / Reel",
+      "service.coversVideo.title": "📸 Covers & 🎬 Promo Videos (per song)",
+      "service.coversVideo.desc":
+        "Cover and reels designed to launch one song on platforms.",
+      "service.covers.label": "Professional covers (1 song)",
+      "service.covers.price": "$15 / cover",
+      "service.covers.name": "Professional Cover",
+      "service.video.label": "Promo videos / reels (1 song)",
+      "service.video.price": "$30 / video",
+      "service.video.name": "Promo Video / Reel",
 
-    "service.coversPacks.title": "📦 Cover Packs",
-    "service.coversPacks.desc": "Made for multiple releases: better price per cover.",
-    "service.coversPacks.pack1.label": "Pack 1 · 5 covers",
-    "service.coversPacks.pack1.price": "$65 / pack",
-    "service.coversPacks.pack1.name": "Pack 5 covers",
-    "service.coversPacks.pack2.label": "Pack 2 · 10 covers",
-    "service.coversPacks.pack2.price": "$100 / pack",
-    "service.coversPacks.pack2.name": "Pack 10 covers",
+      "service.coversPacks.title": "📦 Cover Packs",
+      "service.coversPacks.desc":
+        "Made for multiple releases: better price per cover.",
+      "service.coversPacks.pack1.label": "Pack 1 · 5 covers",
+      "service.coversPacks.pack1.price": "$65 / pack",
+      "service.coversPacks.pack1.name": "Pack 5 covers",
+      "service.coversPacks.pack2.label": "Pack 2 · 10 covers",
+      "service.coversPacks.pack2.price": "$100 / pack",
+      "service.coversPacks.pack2.name": "Pack 10 covers",
 
-    "service.reelsPacks.title": "📦 Promo Reels Packs",
-    "service.reelsPacks.desc": "Reels ready for consistent social media content.",
-    "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
-    "service.reelsPacks.pack1.price": "$250 / pack",
-    "service.reelsPacks.pack1.name": "Pack 10 reels",
-    "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
-    "service.reelsPacks.pack2.price": "$500 / pack",
-    "service.reelsPacks.pack2.name": "Pack 25 reels",
-    "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
-    "service.reelsPacks.pack3.price": "$900 / pack",
-    "service.reelsPacks.pack3.name": "Pack 50 reels",
+      "service.reelsPacks.title": "📦 Promo Reels Packs",
+      "service.reelsPacks.desc":
+        "Reels ready for consistent social media content.",
+      "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
+      "service.reelsPacks.pack1.price": "$250 / pack",
+      "service.reelsPacks.pack1.name": "Pack 10 reels",
+      "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
+      "service.reelsPacks.pack2.price": "$500 / pack",
+      "service.reelsPacks.pack2.name": "Pack 25 reels",
+      "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
+      "service.reelsPacks.pack3.price": "$900 / pack",
+      "service.reelsPacks.pack3.name": "Pack 50 reels",
 
-    "service.coaching.title": "🧠 Artistic Coaching",
-    "service.coaching.desc": "Creative feedback, project guidance and licensing questions.",
-    "service.coaching.label": "Coaching blocks (30 min)",
-    "service.coaching.price": "$25 / block",
-    "service.coaching.name": "Artistic Coaching (30 min)",
+      "service.coaching.title": "🧠 Artistic Coaching",
+      "service.coaching.desc":
+        "Creative feedback, project guidance and licensing questions.",
+      "service.coaching.label": "Coaching blocks (30 min)",
+      "service.coaching.price": "$25 / block",
+      "service.coaching.name": "Artistic Coaching (30 min)",
 
-    "summary.title": "🧾 Your order summary",
-    "summary.empty": "You haven't added any quantities yet.",
-    "summary.note": "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity, your membership and account benefits (if any).",
-    "summary.button": "Send order via WhatsApp",
-    "summary.totalPrefix": "Estimated total: ",
-    "summary.totalSuffix": " USD",
-    "summary.totalWithDiscountPrefix": "Estimated total with discounts: ",
-    "summary.discount.none": "No discounts applied yet.",
-    "summary.discount.applied": "Membership discount applied: ",
-    "summary.accountDiscount.applied": "Benefit for AddStudio account (approx): ",
+      "summary.title": "🧾 Your order summary",
+      "summary.empty": "You haven't added any quantities yet.",
+      "summary.note":
+        "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity, your membership and account benefits (if any).",
+      "summary.button": "Send order via WhatsApp",
+      "summary.totalPrefix": "Estimated total: ",
+      "summary.totalSuffix": " USD",
+      "summary.totalWithDiscountPrefix": "Estimated total with discounts: ",
+      "summary.discount.none": "No discounts applied yet.",
+      "summary.discount.applied": "Membership discount applied: ",
+      "summary.accountDiscount.applied":
+        "Benefit for AddStudio account (approx): ",
 
-    "upsell.message": "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
+      "upsell.message":
+        "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
 
-    "steps.title": "⚙️ How it works",
-    "steps.step1": "Select services and quantities in the catalog.",
-    "steps.step2": "Contact us on WhatsApp with the summary and your info.",
-    "steps.step3": "We schedule a date, close details and deliver your final files.",
+      "steps.title": "⚙️ How it works",
+      "steps.step1": "Select services and quantities in the catalog.",
+      "steps.step2": "Contact us on WhatsApp with the summary and your info.",
+      "steps.step3":
+        "We schedule a date, close details and deliver your final files.",
 
-    "trust.title": "👑 Why AddEmpire Studio?",
-    "trust.point1": "Sound tailored for urban music and independent artists.",
-    "trust.point2": "100% of the rights are yours once the project is finished and paid.",
-    "trust.point3": "Real creative direction: not just pushing buttons, but building your sound.",
+      "trust.title": "👑 Why AddEmpire Studio?",
+      "trust.point1":
+        "Sound tailored for urban music and independent artists.",
+      "trust.point2":
+        "100% of the rights are yours once the project is finished and paid.",
+      "trust.point3":
+        "Real creative direction: not just pushing buttons, but building your sound.",
 
-    "footer.text": "AddEmpire Studio · Professional sound from a real home studio in Louisville, KY.",
-    "footer.privacy": "Privacy policy",
-    "footer.terms": "Terms of service",
-    "footer.cookies": "Cookies policy",
+      "footer.text":
+        "AddEmpire Studio · Professional sound from a real home studio in Louisville, KY.",
+      "footer.privacy": "Privacy policy",
+      "footer.terms": "Terms of service",
+      "footer.cookies": "Cookies policy",
 
-    "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
-    "wa.totalLabel": "Estimated total with discounts:",
-    "wa.membershipLabel": "Membership:",
-    "wa.membershipCodeLabel": "Artist code:",
-    "wa.accountLabel": "AddStudio account:",
-    "wa.notSpecified": "Not specified",
+      "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
+      "wa.totalLabel": "Estimated total with discounts:",
+      "wa.membershipLabel": "Membership:",
+      "wa.membershipCodeLabel": "Artist code:",
+      "wa.accountLabel": "AddStudio account:",
+      "wa.notSpecified": "Not specified",
 
-    "membership.text.none": "No membership",
-    "membership.text.key": "Key Tier (−10%)",
-    "membership.text.rising": "Key Tier (−20%)",
-    "membership.text.crown": "Crown Tier (−30%)"
-  }
+      "membership.text.none": "No membership",
+      "membership.text.key": "Key Tier (−10%)",
+      "membership.text.rising": "Rising Tier (−20%)",
+      "membership.text.crown": "Crown Tier (−30%)"
+    }
   };
 
   let currentLang = "es";
@@ -320,6 +356,7 @@
       const key = el.getAttribute("data-i18n");
       el.textContent = t(key);
     });
+
     document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
       const key = el.getAttribute("data-i18n-placeholder");
       el.setAttribute("placeholder", t(key));
@@ -366,9 +403,9 @@
 
   const discounts = {
     none: 0,
-    key: 0.10,
-    rising: 0.20,
-    crown: 0.30
+    key: 0.1,
+    rising: 0.2,
+    crown: 0.3
   };
 
   let accountCreated = false;
@@ -397,7 +434,7 @@
     isMembershipValid = false;
 
     if (!raw) {
-      membershipCodeStatus.textContent = ""; // vacío, sin key fea
+      membershipCodeStatus.textContent = "";
       return false;
     }
 
@@ -433,7 +470,6 @@
   }
 
   // ------- AUTH EMAIL/PASSWORD -------
-
   async function createAccount() {
     const email = signupEmail.value.trim();
     const password = signupPassword.value.trim();
@@ -443,16 +479,18 @@
     signupStatus.textContent = "";
 
     if (!email || !password) {
-      signupStatus.textContent = currentLang === "es"
-        ? "Debes ingresar correo y contraseña."
-        : "You must enter email and password.";
+      signupStatus.textContent =
+        currentLang === "es"
+          ? "Debes ingresar correo y contraseña."
+          : "You must enter email and password.";
       return;
     }
 
     if (password.length < 6) {
-      signupStatus.textContent = currentLang === "es"
-        ? "La contraseña debe tener al menos 6 caracteres."
-        : "Password must be at least 6 characters.";
+      signupStatus.textContent =
+        currentLang === "es"
+          ? "La contraseña debe tener al menos 6 caracteres."
+          : "Password must be at least 6 characters.";
       return;
     }
 
@@ -466,20 +504,21 @@
 
     if (authError) {
       signupStatus.textContent =
-        (currentLang === "es" ? "Error creando cuenta: " : "Error creating account: ") +
-        authError.message;
+        (currentLang === "es"
+          ? "Error creando cuenta: "
+          : "Error creating account: ") + authError.message;
       return;
     }
 
     const user = authData.user;
     if (!user) {
-      signupStatus.textContent = currentLang === "es"
-        ? "No se pudo obtener el usuario creado."
-        : "Could not get created user.";
+      signupStatus.textContent =
+        currentLang === "es"
+          ? "No se pudo obtener el usuario creado."
+          : "Could not get created user.";
       return;
     }
 
-    // PERFIL con email (sin depender de triggers)
     const { error: profileError } = await supabase
       .from("profiles")
       .upsert(
@@ -493,16 +532,18 @@
       );
 
     if (profileError) {
-      signupStatus.textContent = currentLang === "es"
-        ? "Cuenta creada, pero error guardando datos de perfil."
-        : "Account created, but error saving profile data.";
+      signupStatus.textContent =
+        currentLang === "es"
+          ? "Cuenta creada, pero error guardando datos de perfil."
+          : "Account created, but error saving profile data.";
     } else {
       accountCreated = true;
       accountEmailCache = email;
       signupStatus.style.color = "#4ade80";
-      signupStatus.textContent = currentLang === "es"
-        ? "Cuenta creada. Revisa tu correo y selecciona tus servicios."
-        : "Account created. Check your email and select your services.";
+      signupStatus.textContent =
+        currentLang === "es"
+          ? "Cuenta creada. Revisa tu correo y selecciona tus servicios."
+          : "Account created. Check your email and select your services.";
       document.getElementById("access-account").checked = true;
       updateAccessCards();
     }
@@ -526,9 +567,10 @@
     loginStatus.textContent = "";
 
     if (!email || !password) {
-      loginStatus.textContent = currentLang === "es"
-        ? "Debes ingresar correo y contraseña."
-        : "You must enter email and password.";
+      loginStatus.textContent =
+        currentLang === "es"
+          ? "Debes ingresar correo y contraseña."
+          : "You must enter email and password.";
       return;
     }
 
@@ -545,18 +587,20 @@
     }
 
     if (!data || !data.user) {
-      loginStatus.textContent = currentLang === "es"
-        ? "No se pudo obtener la sesión."
-        : "Could not get session.";
+      loginStatus.textContent =
+        currentLang === "es"
+          ? "No se pudo obtener la sesión."
+          : "Could not get session.";
       return;
     }
 
     accountCreated = true;
     accountEmailCache = email;
     loginStatus.style.color = "#4ade80";
-    loginStatus.textContent = currentLang === "es"
-      ? "Sesión iniciada. Puedes continuar con tu pedido."
-      : "Session started. You can continue with your order.";
+    loginStatus.textContent =
+      currentLang === "es"
+        ? "Sesión iniciada. Puedes continuar con tu pedido."
+        : "Session started. You can continue with your order.";
     signupStatus.textContent = "";
 
     document.getElementById("access-account").checked = true;
@@ -574,13 +618,10 @@
   }
 
   // ------- GOOGLE OAUTH (signup + login) -------
-
   async function handleGoogleAuth() {
-    // mensaje en ambos, por si el usuario está mirando login o signup
     signupStatus.style.color = "#f97316";
-    signupStatus.textContent = currentLang === "es"
-      ? "Redirigiendo a Google..."
-      : "Redirecting to Google...";
+    signupStatus.textContent =
+      currentLang === "es" ? "Redirigiendo a Google..." : "Redirecting to Google...";
 
     loginStatus.style.color = "#f97316";
     loginStatus.textContent = signupStatus.textContent;
@@ -602,7 +643,6 @@
   }
 
   // ------- SESIÓN EXISTENTE (incluye Google) -------
-
   async function checkExistingSession() {
     const { data } = await supabase.auth.getSession();
     const session = data && data.session;
@@ -614,7 +654,6 @@
       document.getElementById("access-account").checked = true;
       updateAccessCards();
 
-      // asegurar perfil básico con email
       await supabase
         .from("profiles")
         .upsert(
@@ -631,7 +670,6 @@
   }
 
   // ------- RESUMEN / WHATSAPP -------
-
   function updateSummary() {
     const membership = membershipSelect.value;
     const baseMembershipRate = discounts[membership] || 0;
@@ -689,34 +727,41 @@
       });
     }
 
-    // extra 10% cuenta AddStudio en la línea más cara
+    // Extra −10% por cuenta AddStudio en la línea más cara
     let extraAccountDiscount = 0;
     if (accessType === "account" && accountCreated && selected.length > 0) {
       let maxLine = selected[0];
       selected.forEach((s) => {
         if (s.discounted > maxLine.discounted) maxLine = s;
       });
-      extraAccountDiscount = maxLine.discounted * 0.10;
+      extraAccountDiscount = maxLine.discounted * 0.1;
       totalWithDiscount -= extraAccountDiscount;
     }
 
     const totalPrefix = t("summary.totalWithDiscountPrefix");
     const totalSuffix = t("summary.totalSuffix");
-    totalAmount.textContent = `${totalPrefix}${formatMoney(totalWithDiscount)}${totalSuffix}`;
+    totalAmount.textContent = `${totalPrefix}${formatMoney(
+      totalWithDiscount
+    )}${totalSuffix}`;
 
     const parts = [];
     if (membershipRate > 0) {
       const percent = Math.round(membershipRate * 100);
       parts.push(
-        `${t("summary.discount.applied")}−${percent}%. (${t("summary.totalPrefix")}${formatMoney(
-          totalBase
-        )}${t("summary.totalSuffix")})`
+        `${t("summary.discount.applied")}−${percent}%. (${t(
+          "summary.totalPrefix"
+        )}${formatMoney(totalBase)}${t("summary.totalSuffix")})`
       );
     }
     if (extraAccountDiscount > 0) {
-      parts.push(`${t("summary.accountDiscount.applied")}$${formatMoney(extraAccountDiscount)} USD`);
+      parts.push(
+        `${t("summary.accountDiscount.applied")}$${formatMoney(
+          extraAccountDiscount
+        )} USD`
+      );
     }
-    discountLabel.textContent = parts.length > 0 ? parts.join(" | ") : t("summary.discount.none");
+    discountLabel.textContent =
+      parts.length > 0 ? parts.join(" | ") : t("summary.discount.none");
 
     if (qtyGrab > 0 && qtyMix > 0 && qtyPack === 0 && qtyBeatOrig === 0) {
       upsellNote.textContent = t("upsell.message");
@@ -791,17 +836,13 @@
       `${accountLabel} ${accountValue}\n`;
 
     const url =
-      "https://wa.me/" +
-      phoneNumber +
-      "?text=" +
-      encodeURIComponent(message);
+      "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
 
     whatsappLink.setAttribute("href", url);
     whatsappLink.setAttribute("aria-disabled", "false");
   }
 
   // ------- EVENTOS -------
-
   items.forEach((input) => {
     input.addEventListener("input", updateSummary);
   });
@@ -811,8 +852,12 @@
     updateSummary();
   });
 
-  document.getElementById("access-guest").addEventListener("change", updateAccessCards);
-  document.getElementById("access-account").addEventListener("change", updateAccessCards);
+  document
+    .getElementById("access-guest")
+    .addEventListener("change", updateAccessCards);
+  document
+    .getElementById("access-account")
+    .addEventListener("change", updateAccessCards);
 
   cardGuest.addEventListener("click", () => {
     document.getElementById("access-guest").checked = true;
