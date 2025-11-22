@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
 <head>
   <!-- Supabase JS (solo cliente) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1181,7 +1179,7 @@
     <footer>
       <div data-i18n="footer.text"></div>
       <div class="footer-links">
-        <span>© 2025 ADD EMPIRE LLC · All Rights Reserved ®</span>
+        <span>© 2025 ADDEMPIRE LLC · All Rights Reserved ®</span>
         <a href="privacy.html" data-i18n="footer.privacy"></a>
         <a href="terms.html" data-i18n="footer.terms"></a>
         <a href="cookies.html" data-i18n="footer.cookies"></a>
@@ -1192,7 +1190,6 @@
   <!-- Archivos externos (códigos de membresía / config futura) -->
   <script src="membership-codes.js"></script>
   <script src="accounts-config.js"></script>
-
   <script>
     (function () {
       // === SUPABASE CLIENT ===
@@ -1671,7 +1668,7 @@
           return;
         }
 
-        // Actualizar perfil (email sincronizado por trigger, solo completamos datos extra)
+        // Perfil: email sincronizado por trigger, aquí solo datos extra
         const { error: profileError } = await supabase
           .from("profiles")
           .upsert({
@@ -1853,7 +1850,7 @@
           });
         }
 
-        // Extra −10% por cuenta AddStudio en el servicio más caro (bienvenida / mes)
+        // Extra −10% por cuenta AddStudio en el servicio más caro
         let extraAccountDiscount = 0;
         if (accessType === "account" && accountCreated && selected.length > 0) {
           let maxLine = selected[0];
