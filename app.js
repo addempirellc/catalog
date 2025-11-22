@@ -5,7 +5,316 @@
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // ------- TRADUCCIONES (las mismas que ya tenías) -------
-  const translations = { /* TODO: pega aquí tu objeto gigante de traducciones ES/EN tal cual */ };
+  const translations = {
+    es: {
+      "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
+      "header.title": "Catálogo de Servicios",
+      "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
+      "lang.label": "Idioma:",
+
+      "access.title": "Cómo quieres continuar:",
+      "access.guest.title": "Seguir sin cuenta",
+      "access.guest.subtitle": "Precio normal, sin beneficios de cuenta.",
+      "access.account.title": "Crear cuenta AddStudio",
+      "access.account.subtitle": "Obtén −10% automático de bienvenida + 5% mensual en 1 servicio.",
+      "access.note":
+        "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos (incluyendo descuentos de bienvenida y mensuales). Puedes darte de baja cuando quieras.",
+
+      "auth.signup.title": "Crear cuenta AddStudio",
+      "auth.signup.helper": "Activa tus beneficios de bienvenida y descuentos mensuales.",
+      "auth.login.title": "Iniciar sesión",
+      "auth.login.helper": "Si ya tienes cuenta, entra aquí para aplicar tus beneficios.",
+      "auth.email": "Correo electrónico",
+      "auth.password": "Contraseña",
+      "auth.artistName": "Nombre artístico",
+      "auth.instagram": "Instagram",
+      "auth.signup.button": "Crear cuenta y continuar",
+      "auth.signup.google": "Crear cuenta con Google",
+      "auth.login.button": "Iniciar sesión",
+
+      "membership.label": "Membresía AddStudio:",
+      "membership.none": "Sin membresía",
+      "membership.key": "Key Tier (−10%)",
+      "membership.rising": "Rising Tier (−20%)",
+      "membership.crown": "Crown Tier (−30%)",
+      "membership.note":
+        "El descuento de membresía solo se aplica si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
+      "membership.codeLabel": "Código de artista (si tienes membresía):",
+      "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
+      "membership.codeStatus.valid": "Código de membresía validado.",
+      "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
+      "membership.codeStatus.empty": "",
+
+      "service.recording.title": "🎙 Grabación Vocal",
+      "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
+      "service.recording.label": "Horas de grabación",
+      "service.recording.price": "$30 / hora",
+      "service.recording.name": "Grabación Vocal",
+
+      "service.mix.title": "🎛 Mezcla + Master",
+      "service.mix.desc": "Limpieza vocal, afinación y optimizado para streaming y radio.",
+      "service.mix.label": "Canciones a mezclar/masterizar",
+      "service.mix.price": "$50 / canción (precio base)",
+      "service.mix.name": "Mezcla + Master",
+
+      "service.tuning.title": "🛠 Afinación Vocal",
+      "service.tuning.desc": "Corrección de tono y tiempo, sonido profesional.",
+      "service.tuning.label": "Canciones a afinar",
+      "service.tuning.price": "$30 / canción",
+      "service.tuning.name": "Afinación Vocal (Vocal Tuning)",
+
+      "service.beatOriginal.title": "🎹 Beats Originales (Exclusivos)",
+      "service.beatOriginal.desc": "Beats desde cero con uso comercial.",
+      "service.beatOriginal.label": "Cantidad de beats exclusivos",
+      "service.beatOriginal.price": "$150 / beat (precio base)",
+      "service.beatOriginal.name": "Beat Original Exclusivo",
+
+      "service.beatNonExclusive.title": "🔥 Beats No Exclusivos",
+      "service.beatNonExclusive.desc": "Ideal para mixtapes, demos y proyectos económicos.",
+      "service.beatNonExclusive.label": "Cantidad de beats no exclusivos",
+      "service.beatNonExclusive.priceMain": "$50 / beat",
+      "service.beatNonExclusive.priceNote": "(desde $5 con membresía)",
+      "service.beatNonExclusive.name": "Beat No Exclusivo",
+
+      "service.packFull.title": "📦 Pack “Canción Full Terminada”",
+      "service.packFull.desc": "Grabación + Mezcla + Master + Beat original (referencia de pack completo).",
+      "service.packFull.label": "Cantidad de canciones full",
+      "service.packFull.price": "$250 / canción (precio base)",
+      "service.packFull.name": "Pack Canción Full Terminada",
+
+      "service.coversVideo.title": "📸 Portadas & 🎬 Videos Promo (por canción)",
+      "service.coversVideo.desc": "Portada y reels pensados para lanzar una canción a plataformas.",
+      "service.covers.label": "Portadas profesionales (1 canción)",
+      "service.covers.price": "$15 / portada",
+      "service.covers.name": "Portada profesional",
+      "service.video.label": "Videos promo / reels (1 canción)",
+      "service.video.price": "$30 / video",
+      "service.video.name": "Video promo / Reel",
+
+      "service.coversPacks.title": "📦 Packs de Portadas",
+      "service.coversPacks.desc": "Pensado para varios lanzamientos: te sale mejor por volumen.",
+      "service.coversPacks.pack1.label": "Pack 1 · 5 portadas",
+      "service.coversPacks.pack1.price": "$65 / pack",
+      "service.coversPacks.pack1.name": "Pack 5 portadas",
+      "service.coversPacks.pack2.label": "Pack 2 · 10 portadas",
+      "service.coversPacks.pack2.price": "$100 / pack",
+      "service.coversPacks.pack2.name": "Pack 10 portadas",
+
+      "service.reelsPacks.title": "📦 Packs de Reels Promo",
+      "service.reelsPacks.desc": "Reels listos para contenido constante en redes.",
+      "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
+      "service.reelsPacks.pack1.price": "$250 / pack",
+      "service.reelsPacks.pack1.name": "Pack 10 reels",
+      "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
+      "service.reelsPacks.pack2.price": "$500 / pack",
+      "service.reelsPacks.pack2.name": "Pack 25 reels",
+      "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
+      "service.reelsPacks.pack3.price": "$900 / pack",
+      "service.reelsPacks.pack3.name": "Pack 50 reels",
+
+      "service.coaching.title": "🧠 Asesoría Artística",
+      "service.coaching.desc": "Corrección creativa, guía de proyecto y dudas sobre licencias.",
+      "service.coaching.label": "Bloques de asesoría (30 min)",
+      "service.coaching.price": "$25 / bloque",
+      "service.coaching.name": "Asesoría Artística (30 min)",
+
+      "summary.title": "🧾 Resumen de tu pedido",
+      "summary.empty": "No has agregado cantidades aún.",
+      "summary.note":
+        "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
+      "summary.button": "Enviar pedido por WhatsApp",
+      "summary.totalPrefix": "Total estimado: ",
+      "summary.totalSuffix": " USD",
+      "summary.totalWithDiscountPrefix": "Total estimado con descuentos: ",
+      "summary.discount.none": "Sin descuentos aplicados todavía.",
+      "summary.discount.applied": "Descuento de membresía aplicado: ",
+      "summary.accountDiscount.applied": "Beneficio por cuenta AddStudio (aprox): ",
+
+      "upsell.message":
+        "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
+
+      "steps.title": "⚙️ Cómo funciona",
+      "steps.step1": "Seleccionas servicios y cantidades en el catálogo.",
+      "steps.step2": "Nos contactas por WhatsApp con el resumen y tus datos.",
+      "steps.step3": "Agendamos fecha, cerramos detalles y recibes tus archivos finales.",
+
+      "trust.title": "👑 ¿Por qué AddEmpire Studio?",
+      "trust.point1": "Sonido pensado para música urbana y artistas independientes.",
+      "trust.point2": "Derechos 100% tuyos una vez finalizado y pagado el proyecto.",
+      "trust.point3": "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
+
+      "footer.text": "AddEmpire Studio · Sonido profesional desde un home studio real en Louisville, KY.",
+      "footer.privacy": "Política de privacidad",
+      "footer.terms": "Términos del servicio",
+      "footer.cookies": "Política de cookies",
+
+      "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
+      "wa.totalLabel": "Total estimado con descuentos:",
+      "wa.membershipLabel": "Membresía:",
+      "wa.membershipCodeLabel": "Código de artista:",
+      "wa.accountLabel": "Cuenta AddStudio:",
+      "wa.notSpecified": "No especificado",
+
+      "membership.text.none": "Sin membresía",
+      "membership.text.key": "Key Tier (−10%)",
+      "membership.text.rising": "Rising Tier (−20%)",
+      "membership.text.crown": "Crown Tier (−30%)"
+    },
+    en: {
+      "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
+      "header.title": "Service Catalog",
+      "header.subtitle": "Select what you need, set quantities and book directly.",
+      "lang.label": "Language:",
+
+      "access.title": "How do you want to continue:",
+      "access.guest.title": "Continue without account",
+      "access.guest.subtitle": "Regular price, no account benefits.",
+      "access.account.title": "Create AddStudio account",
+      "access.account.subtitle": "Get −10% welcome automatic + 5% monthly on 1 service.",
+      "access.note":
+        "Creating an account means we store your email to send reminders, offers and exclusive benefits (including welcome and monthly discounts). You can unsubscribe anytime.",
+
+      "auth.signup.title": "Create AddStudio account",
+      "auth.signup.helper": "Activate your welcome benefits and monthly discounts.",
+      "auth.login.title": "Log in",
+      "auth.login.helper": "If you already have an account, log in to apply your benefits.",
+      "auth.email": "Email",
+      "auth.password": "Password",
+      "auth.artistName": "Artist name",
+      "auth.instagram": "Instagram",
+      "auth.signup.button": "Create account and continue",
+      "auth.signup.google": "Sign up with Google",
+      "auth.login.button": "Log in",
+
+      "membership.label": "AddStudio Membership:",
+      "membership.none": "No membership",
+      "membership.key": "Key Tier (−10%)",
+      "membership.rising": "Rising Tier (−20%)",
+      "membership.crown": "Crown Tier (−30%)",
+      "membership.note":
+        "Membership discount is only applied if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
+      "membership.codeLabel": "Artist code (if you have membership):",
+      "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
+      "membership.codeStatus.valid": "Membership code validated.",
+      "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
+      "membership.codeStatus.empty": "",
+
+      "service.recording.title": "🎙 Vocal Recording",
+      "service.recording.desc": "Professional recording, vocal guidance and platform-ready quality.",
+      "service.recording.label": "Recording hours",
+      "service.recording.price": "$30 / hour",
+      "service.recording.name": "Vocal Recording",
+
+      "service.mix.title": "🎛 Mix & Master",
+      "service.mix.desc": "Vocal cleanup, tuning and optimization for streaming and radio.",
+      "service.mix.label": "Songs to mix/master",
+      "service.mix.price": "$50 / song (base price)",
+      "service.mix.name": "Mix & Master",
+
+      "service.tuning.title": "🛠 Vocal Tuning",
+      "service.tuning.desc": "Pitch and timing correction, professional sound.",
+      "service.tuning.label": "Songs to tune",
+      "service.tuning.price": "$30 / song",
+      "service.tuning.name": "Vocal Tuning",
+
+      "service.beatOriginal.title": "🎹 Original Beats (Exclusive)",
+      "service.beatOriginal.desc": "Custom beats from scratch for commercial use.",
+      "service.beatOriginal.label": "Number of exclusive beats",
+      "service.beatOriginal.price": "$150 / beat (base price)",
+      "service.beatOriginal.name": "Exclusive Original Beat",
+
+      "service.beatNonExclusive.title": "🔥 Non-Exclusive Beats",
+      "service.beatNonExclusive.desc": "Perfect for mixtapes, demos and budget projects.",
+      "service.beatNonExclusive.label": "Number of non-exclusive beats",
+      "service.beatNonExclusive.priceMain": "$50 / beat",
+      "service.beatNonExclusive.priceNote": "(from $5 with membership)",
+      "service.beatNonExclusive.name": "Non-Exclusive Beat",
+
+      "service.packFull.title": "📦 “Full Finished Song” Pack",
+      "service.packFull.desc": "Recording + Mix + Master + Original beat (reference as a full pack).",
+      "service.packFull.label": "Number of full songs",
+      "service.packFull.price": "$250 / song (base price)",
+      "service.packFull.name": "Full Finished Song Pack",
+
+      "service.coversVideo.title": "📸 Covers & 🎬 Promo Videos (per song)",
+      "service.coversVideo.desc": "Cover and reels designed to launch one song on platforms.",
+      "service.covers.label": "Professional covers (1 song)",
+      "service.covers.price": "$15 / cover",
+      "service.covers.name": "Professional Cover",
+      "service.video.label": "Promo videos / reels (1 song)",
+      "service.video.price": "$30 / video",
+      "service.video.name": "Promo Video / Reel",
+
+      "service.coversPacks.title": "📦 Cover Packs",
+      "service.coversPacks.desc": "Made for multiple releases: better price per cover.",
+      "service.coversPacks.pack1.label": "Pack 1 · 5 covers",
+      "service.coversPacks.pack1.price": "$65 / pack",
+      "service.coversPacks.pack1.name": "Pack 5 covers",
+      "service.coversPacks.pack2.label": "Pack 2 · 10 covers",
+      "service.coversPacks.pack2.price": "$100 / pack",
+      "service.coversPacks.pack2.name": "Pack 10 covers",
+
+      "service.reelsPacks.title": "📦 Promo Reels Packs",
+      "service.reelsPacks.desc": "Reels ready for consistent social media content.",
+      "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
+      "service.reelsPacks.pack1.price": "$250 / pack",
+      "service.reelsPacks.pack1.name": "Pack 10 reels",
+      "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
+      "service.reelsPacks.pack2.price": "$500 / pack",
+      "service.reelsPacks.pack2.name": "Pack 25 reels",
+      "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
+      "service.reelsPacks.pack3.price": "$900 / pack",
+      "service.reelsPacks.pack3.name": "Pack 50 reels",
+
+      "service.coaching.title": "🧠 Artistic Coaching",
+      "service.coaching.desc": "Creative feedback, project guidance and licensing questions.",
+      "service.coaching.label": "Coaching blocks (30 min)",
+      "service.coaching.price": "$25 / block",
+      "service.coaching.name": "Artistic Coaching (30 min)",
+
+      "summary.title": "🧾 Your order summary",
+      "summary.empty": "You haven't added any quantities yet.",
+      "summary.note":
+        "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity, your membership and account benefits (if any).",
+      "summary.button": "Send order via WhatsApp",
+      "summary.totalPrefix": "Estimated total: ",
+      "summary.totalSuffix": " USD",
+      "summary.totalWithDiscountPrefix": "Estimated total with discounts: ",
+      "summary.discount.none": "No discounts applied yet.",
+      "summary.discount.applied": "Membership discount applied: ",
+      "summary.accountDiscount.applied": "Benefit for AddStudio account (approx): ",
+
+      "upsell.message":
+        "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
+
+      "steps.title": "⚙️ How it works",
+      "steps.step1": "Select services and quantities in the catalog.",
+      "steps.step2": "Contact us on WhatsApp with the summary and your info.",
+      "steps.step3": "We schedule a date, close details and deliver your final files.",
+
+      "trust.title": "👑 Why AddEmpire Studio?",
+      "trust.point1": "Sound tailored for urban music and independent artists.",
+      "trust.point2": "100% of the rights are yours once the project is finished and paid.",
+      "trust.point3": "Real creative direction: not just pushing buttons, but building your sound.",
+
+      "footer.text": "AddEmpire Studio · Professional sound from a real home studio in Louisville, KY.",
+      "footer.privacy": "Privacy policy",
+      "footer.terms": "Terms of service",
+      "footer.cookies": "Cookies policy",
+
+      "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
+      "wa.totalLabel": "Estimated total with discounts:",
+      "wa.membershipLabel": "Membership:",
+      "wa.membershipCodeLabel": "Artist code:",
+      "wa.accountLabel": "AddStudio account:",
+      "wa.notSpecified": "Not specified",
+
+      "membership.text.none": "No membership",
+      "membership.text.key": "Key Tier (−10%)",
+      "membership.text.rising": "Rising Tier (−20%)",
+      "membership.text.crown": "Crown Tier (−30%)"
+    }
+  };
 
   let currentLang = "es";
 
