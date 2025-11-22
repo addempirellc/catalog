@@ -1,758 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <!-- Supabase JS (solo cliente) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <meta charset="UTF-8" />
   <title>AddEmpire Studio – Estudio de grabación urbano en Louisville</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AddEmpire Studio en Louisville, KY. Grabación, mezcla, master, beats originales, portadas, videos y asesoría para artistas urbanos. Selecciona lo que necesitas, pon cantidades y agenda directo." />
-  <style>
-    :root {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f5f5f5;
-      background: #020203;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.08), transparent 55%),
-        radial-gradient(circle at bottom, rgba(129, 140, 248, 0.12), transparent 55%),
-        #020203;
-      color: #e5e7eb;
-    }
-    .page {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 1.75rem 1.5rem 5rem;
-      position: relative;
-      background:
-        radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      border-left: 1px solid rgba(56, 78, 130, 0.6);
-      border-right: 1px solid rgba(56, 78, 130, 0.6);
-      box-shadow:
-        0 0 80px rgba(15, 23, 42, 0.9),
-        0 0 140px rgba(30, 64, 175, 0.45);
-      overflow: hidden;
-    }
-    .page::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.2), transparent 55%),
-        radial-gradient(circle at 80% 100%, rgba(147, 51, 234, 0.18), transparent 55%);
-      mix-blend-mode: screen;
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: -1;
-    }
+  <meta
+    name="description"
+    content="AddEmpire Studio en Louisville, KY. Grabación, mezcla, master, beats originales, portadas, videos y asesoría para artistas urbanos. Selecciona lo que necesitas, pon cantidades y agenda directo."
+  />
 
-    header {
-      position: relative;
-      margin-bottom: 2rem;
-      padding-top: 4.5rem;
-      text-align: center;
-    }
-    .logo-addempire {
-      width: 180px;
-      height: auto;
-      margin: 0 auto 0.75rem;
-      display: block;
-      filter:
-        drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9))
-        drop-shadow(0 0 26px rgba(59, 130, 246, 0.8));
-    }
-    .hero-title {
-      letter-spacing: 0.12em;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: #a5b4fc;
-      margin-top: 0.25rem;
-    }
-    h1 {
-      margin: 0.5rem 0;
-      font-size: 2rem;
-      letter-spacing: 0.04em;
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin: 0 0 0.75rem;
-    }
-    .tagline {
-      color: #9ca3af;
-      font-size: 0.9rem;
-    }
-    .contact {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: #d1d1d1;
-      line-height: 1.5;
-    }
-    .contact-line {
-      display: block;
-    }
-    .contact-label {
-      font-weight: 500;
-    }
+  <!-- CSS separado -->
+  <link rel="stylesheet" href="styles.css" />
 
-    .lang-switch {
-      margin-top: 0.9rem;
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(51, 65, 85, 0.9);
-      box-shadow: 0 0 18px rgba(37, 99, 235, 0.35);
-    }
-    .lang-switch select {
-      background: #020617;
-      border: 1px solid #334155;
-      color: #e5e7eb;
-      border-radius: 999px;
-      padding: 0.2rem 0.7rem;
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    /* ACCESS CARDS */
-    .access-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.85rem;
-    }
-    .access-row > strong {
-      font-size: 0.95rem;
-    }
-    .access-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-    }
-    .access-card {
-      position: relative;
-      flex: 1 1 260px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.99));
-      border: 1px solid rgba(51, 65, 85, 0.95);
-      box-shadow:
-        0 14px 26px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(30, 64, 175, 0.25);
-      cursor: pointer;
-      display: flex;
-      align-items: stretch;
-      padding: 0.55rem 0.7rem;
-      transition:
-        border-color 0.15s ease-out,
-        box-shadow 0.15s ease-out,
-        transform 0.15s ease-out,
-        background 0.15s ease-out;
-    }
-    .access-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(96, 165, 250, 0.96);
-      box-shadow:
-        0 18px 32px rgba(15, 23, 42, 0.95),
-        0 0 22px rgba(59, 130, 246, 0.9);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.99));
-    }
-    .access-radio {
-      position: relative;
-      width: 20px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 0.2rem;
-    }
-    .access-radio input[type="radio"] {
-      appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      border: 2px solid #64748b;
-      background: transparent;
-      display: inline-block;
-      position: relative;
-      cursor: pointer;
-      outline: none;
-    }
-    .access-radio input[type="radio"]::after {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: inherit;
-      background: linear-gradient(135deg, #60a5fa, #4f46e5);
-      opacity: 0;
-      transition: opacity 0.12s ease-out;
-    }
-    .access-radio input[type="radio"]:checked {
-      border-color: #60a5fa;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.4);
-    }
-    .access-radio input[type="radio"]:checked::after {
-      opacity: 1;
-    }
-    .access-card-body {
-      flex: 1;
-      padding-left: 0.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .access-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-    .access-sub {
-      font-size: 0.8rem;
-      color: #a5b4fc;
-    }
-    .access-note {
-      color: #a1a1b5;
-      font-size: 0.78rem;
-      max-width: 720px;
-    }
-
-    .access-card-highlight {
-      border-color: rgba(96, 165, 250, 0.98) !important;
-      box-shadow:
-        0 18px 32px rgba(15, 23, 42, 0.95),
-        0 0 22px rgba(59, 130, 246, 0.9) !important;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.99)) !important;
-    }
-
-    /* AUTH PANELS */
-    .auth-section {
-      margin-bottom: 1.75rem;
-    }
-    .auth-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 1rem;
-    }
-    .auth-panel {
-      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.35), rgba(15, 23, 42, 0.98));
-      border-radius: 14px;
-      padding: 1rem 1.1rem 0.85rem;
-      border: 1px solid rgba(75, 85, 99, 0.96);
-      box-shadow:
-        0 16px 32px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(15, 23, 42, 1);
-    }
-    .auth-panel h3 {
-      margin: 0 0 0.4rem;
-      font-size: 1rem;
-      color: #e5e7eb;
-    }
-    .auth-panel p.helper {
-      margin: 0 0 0.6rem;
-      font-size: 0.8rem;
-      color: #a5b4fc;
-    }
-
-    .client-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.85rem;
-      margin-bottom: 0.7rem;
-      font-size: 0.85rem;
-    }
-    .client-form label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .client-form input {
-      background: #020617;
-      border: 1px solid #4b5563;
-      border-radius: 8px;
-      padding: 0.4rem 0.55rem;
-      color: #f5f5f5;
-      font-size: 0.85rem;
-      outline: none;
-    }
-    .client-form input:focus {
-      border-color: #60a5fa;
-      box-shadow:
-        0 0 0 1px rgba(96, 165, 250, 0.9),
-        0 0 16px rgba(59, 130, 246, 0.8);
-    }
-
-    .auth-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      text-decoration: none;
-      padding: 0.65rem 1.4rem;
-      border-radius: 999px;
-      border: none;
-      background: radial-gradient(circle at top left, #60a5fa, #2563eb);
-      color: #e5f2ff;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-align: center;
-      box-shadow:
-        0 16px 34px rgba(37, 99, 235, 0.9),
-        0 0 22px rgba(191, 219, 254, 0.7);
-      transition:
-        transform 0.14s ease-out,
-        box-shadow 0.14s ease-out,
-        filter 0.14s ease-out,
-        opacity 0.14s ease-out;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-      box-shadow:
-        0 20px 40px rgba(37, 99, 235, 1),
-        0 0 28px rgba(191, 219, 254, 0.95);
-    }
-    .btn-primary[disabled] {
-      opacity: 0.5;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-      filter: none;
-    }
-
-    .btn-success {
-      background: radial-gradient(circle at top left,#34d399,#059669);
-      box-shadow:
-        0 16px 34px rgba(16,185,129,.6),
-        0 0 22px rgba(167,243,208,.7);
-    }
-    .btn-success:hover {
-      box-shadow:
-        0 20px 42px rgba(16,185,129,.8),
-        0 0 28px rgba(167,243,208,.9);
-    }
-
-    /* GOOGLE BUTTON */
-    .btn-google {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 999px;
-      border: 1px solid #4b5563;
-      background: #020617;
-      color: #e5e7eb;
-      font-size: 0.86rem;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
-      transition:
-        transform 0.14s ease-out,
-        box-shadow 0.14s ease-out,
-        background 0.14s ease-out,
-        border-color 0.14s ease-out;
-    }
-    .btn-google:hover {
-      transform: translateY(-1px);
-      background: #02081a;
-      border-color: #6b7280;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.95);
-    }
-    .google-icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-      background:
-        conic-gradient(from 135deg,
-          #ea4335 0deg 90deg,
-          #4285f4 90deg 180deg,
-          #34a853 180deg 270deg,
-          #fbbc05 270deg 360deg);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .google-icon::after {
-      content: "G";
-      font-weight: 700;
-      font-size: 0.8rem;
-      color: #fff;
-      text-shadow: 0 0 3px rgba(0,0,0,0.6);
-    }
-
-    .auth-status {
-      margin-top: 0.45rem;
-      font-size: 0.82rem;
-      min-height: 1rem;
-    }
-    #signup-status {
-      color: #f97316;
-    }
-    #login-status {
-      color: #f97316;
-    }
-
-    /* MEMBERSHIP BOX */
-    .membership-box {
-      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.25), transparent 55%),
-                  rgba(10, 14, 32, 0.95);
-      border-radius: 14px;
-      padding: 0.9rem 1.1rem;
-      border: 1px solid rgba(88, 118, 234, 0.65);
-      margin-bottom: 1.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 0.9rem 1.2rem;
-      font-size: 0.9rem;
-      box-shadow:
-        0 0 25px rgba(37, 99, 235, 0.45),
-        0 0 55px rgba(17, 24, 39, 0.85);
-    }
-    .membership-box label {
-      font-weight: 600;
-    }
-    .membership-box select {
-      background: #020617;
-      border: 1px solid #4b5563;
-      color: #f9fafb;
-      border-radius: 999px;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.86rem;
-      min-width: 170px;
-    }
-    .membership-note {
-      color: #9ca3af;
-      font-size: 0.8rem;
-      flex-basis: 100%;
-    }
-    .membership-code-label {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      font-weight: 500;
-    }
-    .membership-code-input {
-      background: #020617;
-      border: 1px solid #4b5563;
-      border-radius: 8px;
-      padding: 0.4rem 0.6rem;
-      color: #e5e7eb;
-      font-size: 0.85rem;
-      min-width: 210px;
-      outline: none;
-      box-shadow: 0 0 0 1px rgba(30, 64, 175, 0.4);
-    }
-    .membership-code-input:focus {
-      border-color: #60a5fa;
-      box-shadow:
-        0 0 0 1px rgba(96, 165, 250, 0.9),
-        0 0 18px rgba(59, 130, 246, 0.6);
-    }
-    .membership-code-status {
-      font-size: 0.78rem;
-      flex-basis: 100%;
-      min-height: 1rem;
-      color: #9ca3af;
-    }
-    .membership-code-status.valid {
-      color: #4ade80;
-    }
-    .membership-code-status.invalid {
-      color: #f97316;
-    }
-
-    /* SERVICE GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.1rem;
-      margin-bottom: 2rem;
-    }
-    .card {
-      position: relative;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
-      border-radius: 14px;
-      padding: 1rem;
-      border: 1px solid rgba(51, 65, 85, 0.95);
-      box-shadow:
-        0 18px 35px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(30, 64, 175, 0.3);
-      overflow: hidden;
-      transition:
-        transform 0.18s ease-out,
-        box-shadow 0.18s ease-out,
-        border-color 0.18s ease-out,
-        background 0.18s ease-out;
-    }
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: linear-gradient(120deg,
-        rgba(56, 189, 248, 0),
-        rgba(56, 189, 248, 0.7),
-        rgba(129, 140, 248, 0));
-      opacity: 0;
-      transform: translateX(-40%);
-      transition: opacity 0.2s ease-out, transform 0.25s ease-out;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(96, 165, 250, 0.95);
-      box-shadow:
-        0 22px 50px rgba(15, 23, 42, 0.95),
-        0 0 28px rgba(59, 130, 246, 0.9);
-      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.8), rgba(15, 23, 42, 0.98));
-    }
-    .card:hover::before {
-      opacity: 0.9;
-      transform: translateX(40%);
-    }
-    .card-title {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: #e5e7eb;
-    }
-    .card small {
-      display: block;
-      color: #9ca3af;
-      margin-bottom: 0.55rem;
-      font-size: 0.78rem;
-    }
-    .service-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      margin: 0.25rem 0;
-      padding: 0.35rem 0.45rem;
-      border-radius: 9px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(51, 65, 85, 0.95);
-      transition:
-        border-color 0.18s ease-out,
-        box-shadow 0.18s ease-out,
-        background 0.18s ease-out;
-    }
-    .service-line:hover {
-      border-color: rgba(96, 165, 250, 0.95);
-      background: rgba(15, 23, 42, 1);
-      box-shadow: 0 0 18px rgba(59, 130, 246, 0.8);
-    }
-    .service-info {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .service-label {
-      font-size: 0.88rem;
-    }
-    .price {
-      white-space: nowrap;
-      font-weight: 600;
-      color: #4ade80;
-      font-size: 0.9rem;
-    }
-    .price-multiline {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .price-note {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #4ade80;
-    }
-    .service-qty {
-      width: 64px;
-      background: #020617;
-      border: 1px solid #4b5563;
-      border-radius: 999px;
-      color: #f5f5f5;
-      padding: 0.25rem 0.4rem;
-      font-size: 0.85rem;
-      text-align: right;
-      outline: none;
-    }
-    .service-qty:focus {
-      border-color: #60a5fa;
-      box-shadow:
-        0 0 0 1px rgba(96, 165, 250, 0.9),
-        0 0 14px rgba(59, 130, 246, 0.8);
-      background: #020617;
-    }
-
-    /* SUMMARY PANEL */
-    .summary {
-      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.5), rgba(10, 16, 40, 0.98));
-      border-radius: 16px;
-      padding: 1.25rem 1.4rem;
-      border: 1px solid rgba(129, 140, 248, 0.9);
-      margin-bottom: 1.7rem;
-      box-shadow:
-        0 0 40px rgba(30, 64, 175, 0.85),
-        0 0 0 1px rgba(15, 23, 42, 1);
-    }
-    .summary-list {
-      list-style: none;
-      padding-left: 1rem;
-      margin: 0.5rem 0 1rem;
-      font-size: 0.9rem;
-    }
-    .summary-list li::marker {
-      color: #4ade80;
-    }
-    .total {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 0.25rem;
-    }
-    .discount-label {
-      font-size: 0.85rem;
-      color: #cbd5f5;
-      margin-bottom: 0.75rem;
-    }
-    .note {
-      font-size: 0.8rem;
-      color: #e5e7eb;
-    }
-    .upsell {
-      font-size: 0.85rem;
-      color: #facc15;
-      margin-top: 0.25rem;
-    }
-
-    .btn-whatsapp {
-      display: inline-block;
-      text-decoration: none;
-      padding: 0.8rem 1.9rem;
-      border-radius: 999px;
-      border: none;
-      background: radial-gradient(circle at top left, #60a5fa, #2563eb);
-      color: #e5f2ff;
-      font-weight: 600;
-      font-size: 0.96rem;
-      cursor: pointer;
-      text-align: center;
-      box-shadow:
-        0 18px 40px rgba(37, 99, 235, 0.9),
-        0 0 26px rgba(191, 219, 254, 0.7);
-      transition:
-        transform 0.14s ease-out,
-        box-shadow 0.14s ease-out,
-        filter 0.14s ease-out,
-        opacity 0.14s ease-out;
-    }
-    .btn-whatsapp:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-      box-shadow:
-        0 22px 48px rgba(37, 99, 235, 1),
-        0 0 35px rgba(191, 219, 254, 0.95);
-    }
-    .btn-whatsapp[aria-disabled="true"] {
-      opacity: 0.45;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-      filter: none;
-    }
-
-    .steps,
-    .trust {
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.92), rgba(10, 16, 40, 0.98));
-      border-radius: 14px;
-      padding: 1rem 1.25rem;
-      border: 1px solid rgba(75, 85, 99, 0.96);
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
-    }
-    .steps ol {
-      padding-left: 1.2rem;
-      margin: 0.5rem 0 0;
-    }
-    .trust ul {
-      padding-left: 1.2rem;
-      margin: 0.5rem 0 0;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.75rem;
-      color: #9ca3af;
-      margin-top: 1.5rem;
-      padding-bottom: 1rem;
-    }
-    footer .footer-links {
-      margin-top: 0.35rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      justify-content: center;
-      font-size: 0.74rem;
-    }
-    footer .footer-links a {
-      color: #a5b4fc;
-      text-decoration: none;
-    }
-    footer .footer-links a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 800px) {
-      .auth-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.6rem;
-      }
-      .page {
-        padding: 1.25rem 0.9rem 4.5rem;
-      }
-      .logo-addempire {
-        width: 150px;
-      }
-      .membership-box {
-        padding: 0.9rem 0.85rem;
-      }
-      .access-options {
-        flex-direction: column;
-      }
-    }
-  </style>
+  <!-- Supabase JS (solo cliente) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="page">
     <header>
-      <img src="https://raw.githubusercontent.com/addempirellc/catalog/refs/heads/main/logo-addempire%20.png"
-           alt="AddEmpire Logo"
-           class="logo-addempire" />
+      <img
+        src="https://raw.githubusercontent.com/addempirellc/catalog/refs/heads/main/logo-addempire%20.png"
+        alt="AddEmpire Logo"
+        class="logo-addempire"
+      />
 
       <div class="hero-title" data-i18n="header.tagline"></div>
       <h1 data-i18n="header.title"></h1>
@@ -867,6 +137,11 @@
             <button id="btn-login-account" class="btn-primary btn-success">
               <span data-i18n="auth.login.button"></span>
             </button>
+            <!-- Login con Google -->
+            <button id="btn-google-login" class="btn-google" type="button">
+              <span class="google-icon"></span>
+              <span>Iniciar sesión con Google</span>
+            </button>
           </div>
 
           <p id="login-status" class="auth-status"></p>
@@ -912,11 +187,17 @@
             <span class="service-label" data-i18n="service.recording.label"></span>
             <span class="price" data-i18n="service.recording.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.recording.name"
-                 data-price="30"
-                 data-category="grabacion"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.recording.name"
+            data-price="30"
+            data-category="grabacion"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -930,11 +211,17 @@
             <span class="service-label" data-i18n="service.mix.label"></span>
             <span class="price" data-i18n="service.mix.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.mix.name"
-                 data-price="50"
-                 data-category="mixmaster"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.mix.name"
+            data-price="50"
+            data-category="mixmaster"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -948,11 +235,17 @@
             <span class="service-label" data-i18n="service.tuning.label"></span>
             <span class="price" data-i18n="service.tuning.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.tuning.name"
-                 data-price="30"
-                 data-category="afinacion"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.tuning.name"
+            data-price="30"
+            data-category="afinacion"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -966,11 +259,17 @@
             <span class="service-label" data-i18n="service.beatOriginal.label"></span>
             <span class="price" data-i18n="service.beatOriginal.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.beatOriginal.name"
-                 data-price="150"
-                 data-category="beat_original"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.beatOriginal.name"
+            data-price="150"
+            data-category="beat_original"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -987,11 +286,17 @@
               <span class="price-note" data-i18n="service.beatNonExclusive.priceNote"></span>
             </span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.beatNonExclusive.name"
-                 data-price="50"
-                 data-category="beat_noex"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.beatNonExclusive.name"
+            data-price="50"
+            data-category="beat_noex"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -1005,15 +310,21 @@
             <span class="service-label" data-i18n="service.packFull.label"></span>
             <span class="price" data-i18n="service.packFull.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.packFull.name"
-                 data-price="250"
-                 data-category="pack_full"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.packFull.name"
+            data-price="250"
+            data-category="pack_full"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
-      <!-- Portadas y Video (unitarios por canción) -->
+      <!-- Portadas y Video -->
       <div class="card">
         <div class="card-title" data-i18n="service.coversVideo.title"></div>
         <small data-i18n="service.coversVideo.desc"></small>
@@ -1023,11 +334,17 @@
             <span class="service-label" data-i18n="service.covers.label"></span>
             <span class="price" data-i18n="service.covers.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.covers.name"
-                 data-price="15"
-                 data-category="portada"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.covers.name"
+            data-price="15"
+            data-category="portada"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
 
         <div class="service-line">
@@ -1035,11 +352,17 @@
             <span class="service-label" data-i18n="service.video.label"></span>
             <span class="price" data-i18n="service.video.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.video.name"
-                 data-price="30"
-                 data-category="video"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.video.name"
+            data-price="30"
+            data-category="video"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -1053,11 +376,17 @@
             <span class="service-label" data-i18n="service.coversPacks.pack1.label"></span>
             <span class="price" data-i18n="service.coversPacks.pack1.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.coversPacks.pack1.name"
-                 data-price="65"
-                 data-category="portada_pack"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.coversPacks.pack1.name"
+            data-price="65"
+            data-category="portada_pack"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
 
         <div class="service-line">
@@ -1065,11 +394,17 @@
             <span class="service-label" data-i18n="service.coversPacks.pack2.label"></span>
             <span class="price" data-i18n="service.coversPacks.pack2.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.coversPacks.pack2.name"
-                 data-price="100"
-                 data-category="portada_pack"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.coversPacks.pack2.name"
+            data-price="100"
+            data-category="portada_pack"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -1083,11 +418,17 @@
             <span class="service-label" data-i18n="service.reelsPacks.pack1.label"></span>
             <span class="price" data-i18n="service.reelsPacks.pack1.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.reelsPacks.pack1.name"
-                 data-price="250"
-                 data-category="reels_pack"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.reelsPacks.pack1.name"
+            data-price="250"
+            data-category="reels_pack"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
 
         <div class="service-line">
@@ -1095,11 +436,17 @@
             <span class="service-label" data-i18n="service.reelsPacks.pack2.label"></span>
             <span class="price" data-i18n="service.reelsPacks.pack2.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.reelsPacks.pack2.name"
-                 data-price="500"
-                 data-category="reels_pack"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.reelsPacks.pack2.name"
+            data-price="500"
+            data-category="reels_pack"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
 
         <div class="service-line">
@@ -1107,11 +454,17 @@
             <span class="service-label" data-i18n="service.reelsPacks.pack3.label"></span>
             <span class="price" data-i18n="service.reelsPacks.pack3.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.reelsPacks.pack3.name"
-                 data-price="900"
-                 data-category="reels_pack"
-                 min="0" max="50" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.reelsPacks.pack3.name"
+            data-price="900"
+            data-category="reels_pack"
+            min="0"
+            max="50"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
 
@@ -1125,11 +478,17 @@
             <span class="service-label" data-i18n="service.coaching.label"></span>
             <span class="price" data-i18n="service.coaching.price"></span>
           </div>
-          <input type="number" class="service-qty"
-                 data-name="service.coaching.name"
-                 data-price="25"
-                 data-category="asesoria"
-                 min="0" max="20" step="1" inputmode="numeric" />
+          <input
+            type="number"
+            class="service-qty"
+            data-name="service.coaching.name"
+            data-price="25"
+            data-category="asesoria"
+            min="0"
+            max="20"
+            step="1"
+            inputmode="numeric"
+          />
         </div>
       </div>
     </section>
@@ -1145,15 +504,16 @@
       <div class="discount-label" id="discount-label"></div>
       <p class="note" data-i18n="summary.note"></p>
       <p class="upsell" id="upsell-note"></p>
-      <a id="whatsapp-link"
-         class="btn-whatsapp"
-         href="#"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Enviar pedido a WhatsApp de AddEmpire Studio"
-         aria-disabled="true"
-         data-i18n="summary.button">
-      </a>
+      <a
+        id="whatsapp-link"
+        class="btn-whatsapp"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Enviar pedido a WhatsApp de AddEmpire Studio"
+        aria-disabled="true"
+        data-i18n="summary.button"
+      ></a>
     </section>
 
     <!-- Proceso en 3 pasos -->
@@ -1190,816 +550,7 @@
   <!-- Archivos externos (códigos de membresía / config futura) -->
   <script src="membership-codes.js"></script>
   <script src="accounts-config.js"></script>
-  <script>
-    (function () {
-      // === SUPABASE CLIENT ===
-      const SUPABASE_URL = "https://xshxhfexvvzrrqllhrvp.supabase.co";
-      const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzaHhoZmV4dnZ6cnJxbGxocnZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODU4MjUsImV4cCI6MjA3OTE2MTgyNX0.stCbU3Db73PueHgO4T10wObDdd6HJvE_DE-CTTLedGQ";
-
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-      const translations = {
-        es: {
-          "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
-          "header.title": "Catálogo de Servicios",
-          "header.subtitle": "Selecciona lo que necesitas, pon cantidades y agenda directo.",
-          "lang.label": "Idioma:",
-
-          "access.title": "Cómo quieres continuar:",
-          "access.guest.title": "Seguir sin cuenta",
-          "access.guest.subtitle": "Precio normal, sin beneficios de cuenta.",
-          "access.account.title": "Crear cuenta AddStudio",
-          "access.account.subtitle": "Obtén −10% automático de bienvenida + 5% mensual en 1 servicio.",
-          "access.note": "Crear cuenta implica que guardemos tu email para enviarte recordatorios, ofertas y beneficios exclusivos (incluyendo descuentos de bienvenida y mensuales). Puedes darte de baja cuando quieras.",
-
-          "auth.signup.title": "Crear cuenta AddStudio",
-          "auth.signup.helper": "Activa tus beneficios de bienvenida y descuentos mensuales.",
-          "auth.login.title": "Iniciar sesión",
-          "auth.login.helper": "Si ya tienes cuenta, entra aquí para aplicar tus beneficios.",
-          "auth.email": "Correo electrónico",
-          "auth.password": "Contraseña",
-          "auth.artistName": "Nombre artístico",
-          "auth.instagram": "Instagram",
-          "auth.signup.button": "Crear cuenta y continuar",
-          "auth.signup.google": "Crear cuenta con Google",
-          "auth.login.button": "Iniciar sesión",
-
-          "membership.label": "Membresía AddStudio:",
-          "membership.none": "Sin membresía",
-          "membership.key": "Key Tier (−10%)",
-          "membership.rising": "Rising Tier (−20%)",
-          "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "El descuento de membresía solo se aplica si tu código de artista es válido. Beats no exclusivos pueden bajar hasta $5 con membresía.",
-          "membership.codeLabel": "Código de artista (si tienes membresía):",
-          "membership.codePlaceholder": "Ej: ASD-K-MRA-001",
-          "membership.codeStatus.valid": "Código de membresía validado.",
-          "membership.codeStatus.invalid": "Código no reconocido. Verifica tu código o tu membresía.",
-          "membership.codeStatus.empty": "",
-
-          "service.recording.title": "🎙 Grabación Vocal",
-          "service.recording.desc": "Grabación profesional, guía vocal y calidad para plataformas.",
-          "service.recording.label": "Horas de grabación",
-          "service.recording.price": "$30 / hora",
-          "service.recording.name": "Grabación Vocal",
-
-          "service.mix.title": "🎛 Mezcla + Master",
-          "service.mix.desc": "Limpieza vocal, afinación y optimizado para streaming y radio.",
-          "service.mix.label": "Canciones a mezclar/masterizar",
-          "service.mix.price": "$50 / canción (precio base)",
-          "service.mix.name": "Mezcla + Master",
-
-          "service.tuning.title": "🛠 Afinación Vocal",
-          "service.tuning.desc": "Corrección de tono y tiempo, sonido profesional.",
-          "service.tuning.label": "Canciones a afinar",
-          "service.tuning.price": "$30 / canción",
-          "service.tuning.name": "Afinación Vocal (Vocal Tuning)",
-
-          "service.beatOriginal.title": "🎹 Beats Originales (Exclusivos)",
-          "service.beatOriginal.desc": "Beats desde cero con uso comercial.",
-          "service.beatOriginal.label": "Cantidad de beats exclusivos",
-          "service.beatOriginal.price": "$150 / beat (precio base)",
-          "service.beatOriginal.name": "Beat Original Exclusivo",
-
-          "service.beatNonExclusive.title": "🔥 Beats No Exclusivos",
-          "service.beatNonExclusive.desc": "Ideal para mixtapes, demos y proyectos económicos.",
-          "service.beatNonExclusive.label": "Cantidad de beats no exclusivos",
-          "service.beatNonExclusive.priceMain": "$50 / beat",
-          "service.beatNonExclusive.priceNote": "(desde $5 con membresía)",
-          "service.beatNonExclusive.name": "Beat No Exclusivo",
-
-          "service.packFull.title": "📦 Pack “Canción Full Terminada”",
-          "service.packFull.desc": "Grabación + Mezcla + Master + Beat original (referencia de pack completo).",
-          "service.packFull.label": "Cantidad de canciones full",
-          "service.packFull.price": "$250 / canción (precio base)",
-          "service.packFull.name": "Pack Canción Full Terminada",
-
-          "service.coversVideo.title": "📸 Portadas & 🎬 Videos Promo (por canción)",
-          "service.coversVideo.desc": "Portada y reels pensados para lanzar una canción a plataformas.",
-          "service.covers.label": "Portadas profesionales (1 canción)",
-          "service.covers.price": "$15 / portada",
-          "service.covers.name": "Portada profesional",
-          "service.video.label": "Videos promo / reels (1 canción)",
-          "service.video.price": "$30 / video",
-          "service.video.name": "Video promo / Reel",
-
-          "service.coversPacks.title": "📦 Packs de Portadas",
-          "service.coversPacks.desc": "Pensado para varios lanzamientos: te sale mejor por volumen.",
-          "service.coversPacks.pack1.label": "Pack 1 · 5 portadas",
-          "service.coversPacks.pack1.price": "$65 / pack",
-          "service.coversPacks.pack1.name": "Pack 5 portadas",
-          "service.coversPacks.pack2.label": "Pack 2 · 10 portadas",
-          "service.coversPacks.pack2.price": "$100 / pack",
-          "service.coversPacks.pack2.name": "Pack 10 portadas",
-
-          "service.reelsPacks.title": "📦 Packs de Reels Promo",
-          "service.reelsPacks.desc": "Reels listos para contenido constante en redes.",
-          "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
-          "service.reelsPacks.pack1.price": "$250 / pack",
-          "service.reelsPacks.pack1.name": "Pack 10 reels",
-          "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
-          "service.reelsPacks.pack2.price": "$500 / pack",
-          "service.reelsPacks.pack2.name": "Pack 25 reels",
-          "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
-          "service.reelsPacks.pack3.price": "$900 / pack",
-          "service.reelsPacks.pack3.name": "Pack 50 reels",
-
-          "service.coaching.title": "🧠 Asesoría Artística",
-          "service.coaching.desc": "Corrección creativa, guía de proyecto y dudas sobre licencias.",
-          "service.coaching.label": "Bloques de asesoría (30 min)",
-          "service.coaching.price": "$25 / bloque",
-          "service.coaching.name": "Asesoría Artística (30 min)",
-
-          "summary.title": "🧾 Resumen de tu pedido",
-          "summary.empty": "No has agregado cantidades aún.",
-          "summary.note": "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
-          "summary.button": "Enviar pedido por WhatsApp",
-          "summary.totalPrefix": "Total estimado: ",
-          "summary.totalSuffix": " USD",
-          "summary.totalWithDiscountPrefix": "Total estimado con descuentos: ",
-          "summary.discount.none": "Sin descuentos aplicados todavía.",
-          "summary.discount.applied": "Descuento de membresía aplicado: ",
-          "summary.accountDiscount.applied": "Beneficio por cuenta AddStudio (aprox): ",
-
-          "upsell.message": "💡 Tienes grabación + mezcla/master seleccionados. Si agregas beat original o Pack Full, se vuelve una canción completa y normalmente te sale mejor en conjunto.",
-
-          "steps.title": "⚙️ Cómo funciona",
-          "steps.step1": "Seleccionas servicios y cantidades en el catálogo.",
-          "steps.step2": "Nos contactas por WhatsApp con el resumen y tus datos.",
-          "steps.step3": "Agendamos fecha, cerramos detalles y recibes tus archivos finales.",
-
-          "trust.title": "👑 ¿Por qué AddEmpire Studio?",
-          "trust.point1": "Sonido pensado para música urbana y artistas independientes.",
-          "trust.point2": "Derechos 100% tuyos una vez finalizado y pagado el proyecto.",
-          "trust.point3": "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
-
-          "footer.text": "AddEmpire Studio · Sonido profesional desde un home studio real en Louisville, KY.",
-          "footer.privacy": "Política de privacidad",
-          "footer.terms": "Términos del servicio",
-          "footer.cookies": "Política de cookies",
-
-          "wa.greeting": "Hola, quiero agendar estos servicios en AddEmpire Studio:",
-          "wa.totalLabel": "Total estimado con descuentos:",
-          "wa.membershipLabel": "Membresía:",
-          "wa.membershipCodeLabel": "Código de artista:",
-          "wa.accountLabel": "Cuenta AddStudio:",
-          "wa.notSpecified": "No especificado",
-
-          "membership.text.none": "Sin membresía",
-          "membership.text.key": "Key Tier (−10%)",
-          "membership.text.rising": "Rising Tier (−20%)",
-          "membership.text.crown": "Crown Tier (−30%)"
-        },
-        en: {
-          "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
-          "header.title": "Service Catalog",
-          "header.subtitle": "Select what you need, set quantities and book directly.",
-          "lang.label": "Language:",
-
-          "access.title": "How do you want to continue:",
-          "access.guest.title": "Continue without account",
-          "access.guest.subtitle": "Regular price, no account benefits.",
-          "access.account.title": "Create AddStudio account",
-          "access.account.subtitle": "Get −10% welcome automatic + 5% monthly on 1 service.",
-          "access.note": "Creating an account means we store your email to send reminders, offers and exclusive benefits (including welcome and monthly discounts). You can unsubscribe anytime.",
-
-          "auth.signup.title": "Create AddStudio account",
-          "auth.signup.helper": "Activate your welcome benefits and monthly discounts.",
-          "auth.login.title": "Log in",
-          "auth.login.helper": "If you already have an account, log in to apply your benefits.",
-          "auth.email": "Email",
-          "auth.password": "Password",
-          "auth.artistName": "Artist name",
-          "auth.instagram": "Instagram",
-          "auth.signup.button": "Create account and continue",
-          "auth.signup.google": "Sign up with Google",
-          "auth.login.button": "Log in",
-
-          "membership.label": "AddStudio Membership:",
-          "membership.none": "No membership",
-          "membership.key": "Key Tier (−10%)",
-          "membership.rising": "Rising Tier (−20%)",
-          "membership.crown": "Crown Tier (−30%)",
-          "membership.note": "Membership discount is only applied if your artist code is valid. Non-exclusive beats can go as low as $5 with membership.",
-          "membership.codeLabel": "Artist code (if you have membership):",
-          "membership.codePlaceholder": "Ex: ASD-K-MRA-001",
-          "membership.codeStatus.valid": "Membership code validated.",
-          "membership.codeStatus.invalid": "Code not recognized. Check your code or membership.",
-          "membership.codeStatus.empty": "",
-
-          "service.recording.title": "🎙 Vocal Recording",
-          "service.recording.desc": "Professional recording, vocal guidance and platform-ready quality.",
-          "service.recording.label": "Recording hours",
-          "service.recording.price": "$30 / hour",
-          "service.recording.name": "Vocal Recording",
-
-          "service.mix.title": "🎛 Mix & Master",
-          "service.mix.desc": "Vocal cleanup, tuning and optimization for streaming and radio.",
-          "service.mix.label": "Songs to mix/master",
-          "service.mix.price": "$50 / song (base price)",
-          "service.mix.name": "Mix & Master",
-
-          "service.tuning.title": "🛠 Vocal Tuning",
-          "service.tuning.desc": "Pitch and timing correction, professional sound.",
-          "service.tuning.label": "Songs to tune",
-          "service.tuning.price": "$30 / song",
-          "service.tuning.name": "Vocal Tuning",
-
-          "service.beatOriginal.title": "🎹 Original Beats (Exclusive)",
-          "service.beatOriginal.desc": "Custom beats from scratch for commercial use.",
-          "service.beatOriginal.label": "Number of exclusive beats",
-          "service.beatOriginal.price": "$150 / beat (base price)",
-          "service.beatOriginal.name": "Exclusive Original Beat",
-
-          "service.beatNonExclusive.title": "🔥 Non-Exclusive Beats",
-          "service.beatNonExclusive.desc": "Perfect for mixtapes, demos and budget projects.",
-          "service.beatNonExclusive.label": "Number of non-exclusive beats",
-          "service.beatNonExclusive.priceMain": "$50 / beat",
-          "service.beatNonExclusive.priceNote": "(from $5 with membership)",
-          "service.beatNonExclusive.name": "Non-Exclusive Beat",
-
-          "service.packFull.title": "📦 “Full Finished Song” Pack",
-          "service.packFull.desc": "Recording + Mix + Master + Original beat (reference as a full pack).",
-          "service.packFull.label": "Number of full songs",
-          "service.packFull.price": "$250 / song (base price)",
-          "service.packFull.name": "Full Finished Song Pack",
-
-          "service.coversVideo.title": "📸 Covers & 🎬 Promo Videos (per song)",
-          "service.coversVideo.desc": "Cover and reels designed to launch one song on platforms.",
-          "service.covers.label": "Professional covers (1 song)",
-          "service.covers.price": "$15 / cover",
-          "service.covers.name": "Professional Cover",
-          "service.video.label": "Promo videos / reels (1 song)",
-          "service.video.price": "$30 / video",
-          "service.video.name": "Promo Video / Reel",
-
-          "service.coversPacks.title": "📦 Cover Packs",
-          "service.coversPacks.desc": "Made for multiple releases: better price per cover.",
-          "service.coversPacks.pack1.label": "Pack 1 · 5 covers",
-          "service.coversPacks.pack1.price": "$65 / pack",
-          "service.coversPacks.pack1.name": "Pack 5 covers",
-          "service.coversPacks.pack2.label": "Pack 2 · 10 covers",
-          "service.coversPacks.pack2.price": "$100 / pack",
-          "service.coversPacks.pack2.name": "Pack 10 covers",
-
-          "service.reelsPacks.title": "📦 Promo Reels Packs",
-          "service.reelsPacks.desc": "Reels ready for consistent social media content.",
-          "service.reelsPacks.pack1.label": "Pack 1 · 10 reels",
-          "service.reelsPacks.pack1.price": "$250 / pack",
-          "service.reelsPacks.pack1.name": "Pack 10 reels",
-          "service.reelsPacks.pack2.label": "Pack 2 · 25 reels",
-          "service.reelsPacks.pack2.price": "$500 / pack",
-          "service.reelsPacks.pack2.name": "Pack 25 reels",
-          "service.reelsPacks.pack3.label": "Pack 3 · 50 reels",
-          "service.reelsPacks.pack3.price": "$900 / pack",
-          "service.reelsPacks.pack3.name": "Pack 50 reels",
-
-          "service.coaching.title": "🧠 Artistic Coaching",
-          "service.coaching.desc": "Creative feedback, project guidance and licensing questions.",
-          "service.coaching.label": "Coaching blocks (30 min)",
-          "service.coaching.price": "$25 / block",
-          "service.coaching.name": "Artistic Coaching (30 min)",
-
-          "summary.title": "🧾 Your order summary",
-          "summary.empty": "You haven't added any quantities yet.",
-          "summary.note": "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity, your membership and account benefits (if any).",
-          "summary.button": "Send order via WhatsApp",
-          "summary.totalPrefix": "Estimated total: ",
-          "summary.totalSuffix": " USD",
-          "summary.totalWithDiscountPrefix": "Estimated total with discounts: ",
-          "summary.discount.none": "No discounts applied yet.",
-          "summary.discount.applied": "Membership discount applied: ",
-          "summary.accountDiscount.applied": "Benefit for AddStudio account (approx): ",
-
-          "upsell.message": "💡 You selected recording + mix/master. If you add an original beat or Full Pack, you basically get a complete song and it usually works better as a bundle.",
-
-          "steps.title": "⚙️ How it works",
-          "steps.step1": "Select services and quantities in the catalog.",
-          "steps.step2": "Contact us on WhatsApp with the summary and your info.",
-          "steps.step3": "We schedule a date, close details and deliver your final files.",
-
-          "trust.title": "👑 Why AddEmpire Studio?",
-          "trust.point1": "Sound tailored for urban music and independent artists.",
-          "trust.point2": "100% of the rights are yours once the project is finished and paid.",
-          "trust.point3": "Real creative direction: not just pushing buttons, but building your sound.",
-
-          "footer.text": "AddEmpire Studio · Professional sound from a real home studio in Louisville, KY.",
-          "footer.privacy": "Privacy policy",
-          "footer.terms": "Terms of service",
-          "footer.cookies": "Cookies policy",
-
-          "wa.greeting": "Hi, I want to book these services at AddEmpire Studio:",
-          "wa.totalLabel": "Estimated total with discounts:",
-          "wa.membershipLabel": "Membership:",
-          "wa.membershipCodeLabel": "Artist code:",
-          "wa.accountLabel": "AddStudio account:",
-          "wa.notSpecified": "Not specified",
-
-          "membership.text.none": "No membership",
-          "membership.text.key": "Key Tier (−10%)",
-          "membership.text.rising": "Rising Tier (−20%)",
-          "membership.text.crown": "Crown Tier (−30%)"
-        }
-      };
-
-      let currentLang = "es";
-
-      function t(key) {
-        const langPack = translations[currentLang] || {};
-        return langPack[key] || key;
-      }
-
-      function applyTranslations() {
-        document.querySelectorAll("[data-i18n]").forEach((el) => {
-          const key = el.getAttribute("data-i18n");
-          el.textContent = t(key);
-        });
-        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
-          const key = el.getAttribute("data-i18n-placeholder");
-          el.setAttribute("placeholder", t(key));
-        });
-
-        const membershipOptions = document.querySelectorAll("#membership option");
-        membershipOptions.forEach((opt) => {
-          const key = opt.getAttribute("data-i18n");
-          if (key) opt.textContent = t(key);
-        });
-      }
-
-      const items = document.querySelectorAll(".service-qty");
-      const summaryList = document.getElementById("summary-list");
-      const totalAmount = document.getElementById("total-amount");
-      const discountLabel = document.getElementById("discount-label");
-      const upsellNote = document.getElementById("upsell-note");
-      const whatsappLink = document.getElementById("whatsapp-link");
-      const membershipSelect = document.getElementById("membership");
-      const langSelect = document.getElementById("lang-select");
-
-      const membershipCodeInput = document.getElementById("membership-code");
-      const membershipCodeStatus = document.getElementById("membership-code-status");
-
-      const accountBox = document.getElementById("account-create-box");
-      const signupEmail = document.getElementById("signup-email");
-      const signupPassword = document.getElementById("signup-password");
-      const signupArtist = document.getElementById("signup-artist");
-      const signupIG = document.getElementById("signup-ig");
-      const signupStatus = document.getElementById("signup-status");
-      const btnCreateAccount = document.getElementById("btn-create-account");
-      const btnGoogleSignup = document.getElementById("btn-google-signup");
-
-      const loginEmail = document.getElementById("login-email");
-      const loginPassword = document.getElementById("login-password");
-      const btnLoginAccount = document.getElementById("btn-login-account");
-      const loginStatus = document.getElementById("login-status");
-
-      const cardGuest = document.getElementById("card-guest");
-      const cardAccount = document.getElementById("card-account");
-
-      const phoneNumber = "19718182710";
-
-      const discounts = {
-        none: 0,
-        key: 0.10,
-        rising: 0.20,
-        crown: 0.30
-      };
-
-      let accountCreated = false;
-      let accountEmailCache = "";
-      let isMembershipValid = false;
-
-      function getValidCodes() {
-        if (Array.isArray(window.validCodes)) {
-          return window.validCodes.map(c => String(c).trim().toUpperCase());
-        }
-        return [];
-      }
-
-      function formatMoney(value) {
-        return value.toFixed(2).replace(/\.00$/, "");
-      }
-
-      function getServiceName(key) {
-        return t(key);
-      }
-
-      function validateMembershipCode() {
-        const codes = getValidCodes();
-        const raw = membershipCodeInput.value.trim().toUpperCase();
-        membershipCodeStatus.classList.remove("valid", "invalid");
-        isMembershipValid = false;
-
-        if (!raw) {
-          membershipCodeStatus.textContent = t("membership.codeStatus.empty");
-          return false;
-        }
-
-        if (codes.includes(raw)) {
-          membershipCodeStatus.textContent = t("membership.codeStatus.valid");
-          membershipCodeStatus.classList.add("valid");
-          isMembershipValid = true;
-          return true;
-        } else {
-          membershipCodeStatus.textContent = t("membership.codeStatus.invalid");
-          membershipCodeStatus.classList.add("invalid");
-          return false;
-        }
-      }
-
-      function getAccessType() {
-        const checked = document.querySelector('input[name="access-type"]:checked');
-        return checked ? checked.value : "guest";
-      }
-
-      function updateAccessCards() {
-        const accessType = getAccessType();
-        if (accessType === "guest") {
-          cardGuest.classList.add("access-card-highlight");
-          cardAccount.classList.remove("access-card-highlight");
-          accountBox.style.display = "none";
-        } else {
-          cardAccount.classList.add("access-card-highlight");
-          cardGuest.classList.remove("access-card-highlight");
-          accountBox.style.display = "block";
-        }
-        updateSummary();
-      }
-
-      // Crear cuenta en Supabase
-      async function createAccount() {
-        const email = signupEmail.value.trim();
-        const password = signupPassword.value.trim();
-        const artist = signupArtist.value.trim();
-        const ig = signupIG.value.trim();
-        signupStatus.style.color = "#f97316";
-        signupStatus.textContent = "";
-
-        if (!email || !password) {
-          signupStatus.textContent = currentLang === "es"
-            ? "Debes ingresar correo y contraseña."
-            : "You must enter email and password.";
-          return;
-        }
-
-        if (password.length < 6) {
-          signupStatus.textContent = currentLang === "es"
-            ? "La contraseña debe tener al menos 6 caracteres."
-            : "Password must be at least 6 characters.";
-          return;
-        }
-
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: "https://addempire-services.netlify.app"
-          }
-        });
-
-        if (authError) {
-          signupStatus.textContent = (currentLang === "es" ? "Error creando cuenta: " : "Error creating account: ") + authError.message;
-          return;
-        }
-
-        const user = authData.user;
-        if (!user) {
-          signupStatus.textContent = currentLang === "es"
-            ? "No se pudo obtener el usuario creado."
-            : "Could not get created user.";
-          return;
-        }
-
-        // Perfil: email sincronizado por trigger, aquí solo datos extra
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .upsert({
-            user_id: user.id,
-            artist_name: artist || null,
-            instagram: ig || null
-          }, { onConflict: "user_id" });
-
-        if (profileError) {
-          signupStatus.textContent = currentLang === "es"
-            ? "Cuenta creada, pero error guardando datos de perfil."
-            : "Account created, but error saving profile data.";
-        } else {
-          accountCreated = true;
-          accountEmailCache = email;
-          signupStatus.style.color = "#4ade80";
-          signupStatus.textContent = currentLang === "es"
-            ? "Cuenta creada. Revisa tu correo y selecciona tus servicios."
-            : "Account created. Check your email and select your services.";
-          document.getElementById("access-account").checked = true;
-          updateAccessCards();
-        }
-
-        updateSummary();
-      }
-
-      async function handleCreateAccountClick() {
-        btnCreateAccount.disabled = true;
-        try {
-          await createAccount();
-        } finally {
-          btnCreateAccount.disabled = false;
-        }
-      }
-
-      // Login en Supabase
-      async function loginAccount() {
-        const email = loginEmail.value.trim();
-        const password = loginPassword.value.trim();
-        loginStatus.style.color = "#f97316";
-        loginStatus.textContent = "";
-
-        if (!email || !password) {
-          loginStatus.textContent = currentLang === "es"
-            ? "Debes ingresar correo y contraseña."
-            : "You must enter email and password.";
-          return;
-        }
-
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        if (error) {
-          loginStatus.textContent = (currentLang === "es" ? "Error al iniciar sesión: " : "Login error: ") + error.message;
-          return;
-        }
-
-        if (!data || !data.user) {
-          loginStatus.textContent = currentLang === "es"
-            ? "No se pudo obtener la sesión."
-            : "Could not get session.";
-          return;
-        }
-
-        accountCreated = true;
-        accountEmailCache = email;
-        loginStatus.style.color = "#4ade80";
-        loginStatus.textContent = currentLang === "es"
-          ? "Sesión iniciada. Puedes continuar con tu pedido."
-          : "Session started. You can continue with your order.";
-        signupStatus.textContent = "";
-
-        document.getElementById("access-account").checked = true;
-        updateAccessCards();
-        updateSummary();
-      }
-
-      async function handleLoginClick() {
-        btnLoginAccount.disabled = true;
-        try {
-          await loginAccount();
-        } finally {
-          btnLoginAccount.disabled = false;
-        }
-      }
-
-      // Google OAuth
-      async function handleGoogleSignup() {
-        signupStatus.style.color = "#f97316";
-        signupStatus.textContent = currentLang === "es"
-          ? "Redirigiendo a Google..."
-          : "Redirecting to Google...";
-
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: "google",
-          options: {
-            redirectTo: "https://addempire-services.netlify.app"
-          }
-        });
-
-        if (error) {
-          signupStatus.textContent = (currentLang === "es"
-            ? "Error con Google: "
-            : "Google sign-in error: ") + error.message;
-        }
-      }
-
-      // Revisar sesión existente al cargar la página
-      async function checkExistingSession() {
-        const { data } = await supabase.auth.getSession();
-        const session = data && data.session;
-        if (session && session.user) {
-          accountCreated = true;
-          accountEmailCache = session.user.email || "";
-          document.getElementById("access-account").checked = true;
-          updateAccessCards();
-        } else {
-          updateAccessCards();
-        }
-        updateSummary();
-      }
-
-      function updateSummary() {
-        const membership = membershipSelect.value;
-        const baseMembershipRate = discounts[membership] || 0;
-        const membershipRate = isMembershipValid ? baseMembershipRate : 0;
-        const accessType = getAccessType();
-
-        let selected = [];
-        let totalBase = 0;
-        let totalWithDiscount = 0;
-
-        let qtyGrab = 0;
-        let qtyMix = 0;
-        let qtyPack = 0;
-        let qtyBeatOrig = 0;
-
-        items.forEach((input) => {
-          const qty = Number(input.value) || 0;
-          if (qty <= 0) return;
-
-          const nameKey = input.getAttribute("data-name") || "Servicio";
-          const name = getServiceName(nameKey);
-          const price = Number(input.getAttribute("data-price") || 0);
-          const cat = input.getAttribute("data-category") || "";
-
-          const lineBase = price * qty;
-          const lineDiscounted = lineBase * (1 - membershipRate);
-
-          totalBase += lineBase;
-          totalWithDiscount += lineDiscounted;
-
-          selected.push({
-            name,
-            qty,
-            base: lineBase,
-            discounted: lineDiscounted
-          });
-
-          if (cat === "grabacion") qtyGrab += qty;
-          if (cat === "mixmaster") qtyMix += qty;
-          if (cat === "pack_full") qtyPack += qty;
-          if (cat === "beat_original") qtyBeatOrig += qty;
-        });
-
-        summaryList.innerHTML = "";
-        if (selected.length === 0) {
-          const li = document.createElement("li");
-          li.textContent = t("summary.empty");
-          summaryList.appendChild(li);
-        } else {
-          selected.forEach((s) => {
-            const li = document.createElement("li");
-            const linePrice = formatMoney(s.discounted);
-            li.textContent = `${s.name} (x${s.qty}) — $${linePrice}`;
-            summaryList.appendChild(li);
-          });
-        }
-
-        // Extra −10% por cuenta AddStudio en el servicio más caro
-        let extraAccountDiscount = 0;
-        if (accessType === "account" && accountCreated && selected.length > 0) {
-          let maxLine = selected[0];
-          selected.forEach((s) => {
-            if (s.discounted > maxLine.discounted) maxLine = s;
-          });
-          extraAccountDiscount = maxLine.discounted * 0.10;
-          totalWithDiscount -= extraAccountDiscount;
-        }
-
-        const totalPrefix = t("summary.totalWithDiscountPrefix");
-        const totalSuffix = t("summary.totalSuffix");
-        totalAmount.textContent = `${totalPrefix}${formatMoney(totalWithDiscount)}${totalSuffix}`;
-
-        const parts = [];
-        if (membershipRate > 0) {
-          const percent = Math.round(membershipRate * 100);
-          parts.push(`${t("summary.discount.applied")}−${percent}%. (${t("summary.totalPrefix")}${formatMoney(totalBase)}${t("summary.totalSuffix")})`);
-        }
-        if (extraAccountDiscount > 0) {
-          parts.push(`${t("summary.accountDiscount.applied")}$${formatMoney(extraAccountDiscount)} USD`);
-        }
-        discountLabel.textContent = parts.length > 0 ? parts.join(" | ") : t("summary.discount.none");
-
-        if (qtyGrab > 0 && qtyMix > 0 && qtyPack === 0 && qtyBeatOrig === 0) {
-          upsellNote.textContent = t("upsell.message");
-        } else {
-          upsellNote.textContent = "";
-        }
-
-        // Si no hay servicios, bloquear WhatsApp
-        if (selected.length === 0) {
-          whatsappLink.setAttribute("href", "#");
-          whatsappLink.setAttribute("aria-disabled", "true");
-          return;
-        }
-
-        // Si eligió "crear cuenta" pero aún no está logueado / creada, bloquear WhatsApp
-        if (accessType === "account" && !accountCreated) {
-          whatsappLink.setAttribute("href", "#");
-          whatsappLink.setAttribute("aria-disabled", "true");
-          return;
-        }
-
-        const serviciosTexto = selected
-          .map((s) => `• ${s.name} (x${s.qty}) — $${formatMoney(s.discounted)}`)
-          .join("\n");
-
-        let membershipText;
-        const rawCode = membershipCodeInput.value.trim();
-        if (membershipRate > 0) {
-          membershipText = t(`membership.text.${membership}`);
-        } else if (membership !== "none" && rawCode) {
-          membershipText = currentLang === "es"
-            ? "Seleccionado pero código no validado"
-            : "Selected but code not validated";
-        } else {
-          membershipText = t("membership.text.none");
-        }
-
-        const artistCode = rawCode || "";
-        const notSpecified = t("wa.notSpecified");
-
-        let accountValue;
-        if (accessType === "account") {
-          if (accountCreated) {
-            accountValue =
-              currentLang === "es"
-                ? `Sí, cuenta activa (${accountEmailCache || notSpecified})`
-                : `Yes, active account (${accountEmailCache || notSpecified})`;
-          } else {
-            accountValue =
-              currentLang === "es"
-                ? "Pendiente de crear cuenta"
-                : "Account not created yet";
-          }
-        } else {
-          accountValue =
-            currentLang === "es"
-              ? "No (precio regular)"
-              : "No (regular price)";
-        }
-
-        const totalLabel = t("wa.totalLabel");
-        const greeting = t("wa.greeting");
-        const membershipLabel = t("wa.membershipLabel");
-        const membershipCodeLabel = t("wa.membershipCodeLabel");
-        const accountLabel = t("wa.accountLabel");
-
-        const message =
-          `${greeting}\n\n` +
-          `${serviciosTexto}\n\n` +
-          `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
-          `${membershipLabel} ${membershipText}\n` +
-          `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
-          `${accountLabel} ${accountValue}\n`;
-
-        const url =
-          "https://wa.me/" +
-          phoneNumber +
-          "?text=" +
-          encodeURIComponent(message);
-
-        whatsappLink.setAttribute("href", url);
-        whatsappLink.setAttribute("aria-disabled", "false");
-      }
-
-      // Eventos servicios / membresía
-      items.forEach((input) => {
-        input.addEventListener("input", updateSummary);
-      });
-      membershipSelect.addEventListener("change", updateSummary);
-      membershipCodeInput.addEventListener("input", () => {
-        validateMembershipCode();
-        updateSummary();
-      });
-
-      // Mostrar / ocultar formulario de cuenta con cards
-      document.getElementById("access-guest").addEventListener("change", updateAccessCards);
-      document.getElementById("access-account").addEventListener("change", updateAccessCards);
-
-      cardGuest.addEventListener("click", () => {
-        document.getElementById("access-guest").checked = true;
-        updateAccessCards();
-      });
-      cardAccount.addEventListener("click", () => {
-        document.getElementById("access-account").checked = true;
-        updateAccessCards();
-      });
-
-      // Crear cuenta
-      btnCreateAccount.addEventListener("click", handleCreateAccountClick);
-      // Login
-      btnLoginAccount.addEventListener("click", handleLoginClick);
-      // Google
-      btnGoogleSignup.addEventListener("click", handleGoogleSignup);
-
-      // Cambio de idioma
-      langSelect.addEventListener("change", () => {
-        currentLang = langSelect.value || "es";
-        applyTranslations();
-        validateMembershipCode();
-        updateSummary();
-      });
-
-      applyTranslations();
-      validateMembershipCode();
-      checkExistingSession();
-    })();
-  </script>
+  <!-- JS principal -->
+  <script src="app.js"></script>
 </body>
 </html>
