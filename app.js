@@ -5,7 +5,7 @@
 
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // ------- TRADUCCIONES -------
+  // ---------------- TRADUCCIONES ----------------
   const translations = {
     es: {
       "header.tagline": "ADDSTUDIO · LOUISVILLE, KY",
@@ -369,6 +369,7 @@
     });
   }
 
+  // ---------------- REFERENCIAS DOM ----------------
   const items = document.querySelectorAll(".service-qty");
   const summaryList = document.getElementById("summary-list");
   const totalAmount = document.getElementById("total-amount");
@@ -399,6 +400,8 @@
   const cardGuest = document.getElementById("card-guest");
   const cardAccount = document.getElementById("card-account");
 
+  const sessionIndicator = document.getElementById("session-indicator");
+
   const phoneNumber = "19718182710";
 
   const discounts = {
@@ -411,7 +414,9 @@
   let accountCreated = false;
   let accountEmailCache = "";
   let isMembershipValid = false;
+  let currentUser = null; // usuario logueado (Google)
 
+  // ---------------- UTILIDADES ----------------
   function getValidCodes() {
     if (Array.isArray(window.validCodes)) {
       return window.validCodes.map((c) => String(c).trim().toUpperCase());
@@ -455,6 +460,24 @@
     return checked ? checked.value : "guest";
   }
 
+  function updateSessionIndicator() {
+    if (!sessionIndicator) return;
+
+    if (accountCreated && accountEmailCache) {
+      sessionIndicator.classList.add("session-active");
+      sessionIndicator.textContent =
+        currentLang === "es"
+          ? `Sesión iniciada: ${accountEmailCache}`
+          : `Logged in as: ${accountEmailCache}`;
+    } else {
+      sessionIndicator.classList.remove("session-active");
+      sessionIndicator.textContent =
+        currentLang === "es"
+          ? "Modo invitado (sin sesión)"
+          : "Guest mode (no session)";
+    }
+  }
+
   function updateAccessCards() {
     const accessType = getAccessType();
     if (accessType === "guest") {
@@ -469,152 +492,81 @@
     updateSummary();
   }
 
-  // ------- AUTH EMAIL/PASSWORD -------
+  // ---------------- AUTH: SOLO GOOGLE ----------------
+
+  // ✅ Ya NO se crean cuentas con email/contraseña
   async function createAccount() {
-    const email = signupEmail.value.trim();
-    const password = signupPassword.value.trim();
-    const artist = signupArtist.value.trim();
-    const ig = signupIG.value.trim();
+    const msg =
+      currentLang === "es"
+        ? "La creación de cuenta ahora es solo con Google. Usa el botón de Google."
+        : "Account creation is now Google-only. Use the Google button.";
     signupStatus.style.color = "#f97316";
-    signupStatus.textContent = "";
+    signupStatus.textContent = msg;
+  }
 
-    if (!email || !password) {
-      signupStatus.textContent =
+  async function handleCreateAccountClick() {
+    // En este flujo, reutilizamos este botón como "guardar perfil" si ya hay sesión.
+    // Si no hay sesión, avisamos que inicie con Google.
+    if (!currentUser) {
+      const msg =
         currentLang === "es"
-          ? "Debes ingresar correo y contraseña."
-          : "You must enter email and password.";
+          ? "Primero inicia sesión con Google para guardar tu nombre artístico e Instagram."
+          : "First sign in with Google to save your artist name and Instagram.";
+      signupStatus.style.color = "#f97316";
+      signupStatus.textContent = msg;
       return;
     }
 
-    if (password.length < 6) {
-      signupStatus.textContent =
-        currentLang === "es"
-          ? "La contraseña debe tener al menos 6 caracteres."
-          : "Password must be at least 6 characters.";
-      return;
-    }
+    const artist = signupArtist.value.trim() || null;
+    const ig = signupIG.value.trim() || null;
 
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: window.location.origin + "/"
-      }
-    });
+    signupStatus.style.color = "#f97316";
+    signupStatus.textContent =
+      currentLang === "es"
+        ? "Guardando perfil..."
+        : "Saving profile...";
 
-    if (authError) {
-      signupStatus.textContent =
-        (currentLang === "es"
-          ? "Error creando cuenta: "
-          : "Error creating account: ") + authError.message;
-      return;
-    }
-
-    const user = authData.user;
-    if (!user) {
-      signupStatus.textContent =
-        currentLang === "es"
-          ? "No se pudo obtener el usuario creado."
-          : "Could not get created user.";
-      return;
-    }
-
-    const { error: profileError } = await supabase
+    const { error } = await supabase
       .from("profiles")
       .upsert(
         {
-          user_id: user.id,
-          email: email,
-          artist_name: artist || null,
-          instagram: ig || null
+          user_id: currentUser.id,
+          email: currentUser.email || null,
+          artist_name: artist,
+          instagram: ig
         },
         { onConflict: "user_id" }
       );
 
-    if (profileError) {
-      signupStatus.textContent =
-        currentLang === "es"
-          ? "Cuenta creada, pero error guardando datos de perfil."
-          : "Account created, but error saving profile data.";
-    } else {
-      accountCreated = true;
-      accountEmailCache = email;
-      signupStatus.style.color = "#4ade80";
-      signupStatus.textContent =
-        currentLang === "es"
-          ? "Cuenta creada. Revisa tu correo y selecciona tus servicios."
-          : "Account created. Check your email and select your services.";
-      document.getElementById("access-account").checked = true;
-      updateAccessCards();
-    }
-
-    updateSummary();
-  }
-
-  async function handleCreateAccountClick() {
-    btnCreateAccount.disabled = true;
-    try {
-      await createAccount();
-    } finally {
-      btnCreateAccount.disabled = false;
-    }
-  }
-
-  async function loginAccount() {
-    const email = loginEmail.value.trim();
-    const password = loginPassword.value.trim();
-    loginStatus.style.color = "#f97316";
-    loginStatus.textContent = "";
-
-    if (!email || !password) {
-      loginStatus.textContent =
-        currentLang === "es"
-          ? "Debes ingresar correo y contraseña."
-          : "You must enter email and password.";
-      return;
-    }
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-
     if (error) {
-      loginStatus.textContent =
-        (currentLang === "es" ? "Error al iniciar sesión: " : "Login error: ") +
-        error.message;
+      signupStatus.style.color = "#f97316";
+      signupStatus.textContent =
+        (currentLang === "es"
+          ? "Error guardando perfil: "
+          : "Error saving profile: ") + error.message;
       return;
     }
 
-    if (!data || !data.user) {
-      loginStatus.textContent =
-        currentLang === "es"
-          ? "No se pudo obtener la sesión."
-          : "Could not get session.";
-      return;
-    }
-
-    accountCreated = true;
-    accountEmailCache = email;
-    loginStatus.style.color = "#4ade80";
-    loginStatus.textContent =
+    signupStatus.style.color = "#4ade80";
+    signupStatus.textContent =
       currentLang === "es"
-        ? "Sesión iniciada. Puedes continuar con tu pedido."
-        : "Session started. You can continue with your order.";
-    signupStatus.textContent = "";
+        ? "Perfil actualizado correctamente."
+        : "Profile updated successfully.";
+  }
 
-    document.getElementById("access-account").checked = true;
-    updateAccessCards();
-    updateSummary();
+  // ✅ Ya NO se hace login con email/contraseña
+  async function loginAccount() {
+    const msg =
+      currentLang === "es"
+        ? "El inicio de sesión ahora es solo con Google. Usa el botón de Google."
+        : "Login is now Google-only. Use the Google button.";
+    loginStatus.style.color = "#f97316";
+    loginStatus.textContent = msg;
   }
 
   async function handleLoginClick() {
-    btnLoginAccount.disabled = true;
-    try {
-      await loginAccount();
-    } finally {
-      btnLoginAccount.disabled = false;
-    }
+    // Simplemente mostramos el mensaje de Google-only
+    await loginAccount();
   }
 
   // ------- GOOGLE OAUTH (signup + login) -------
@@ -633,6 +585,7 @@
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
+        // Home del dominio actual (funciona en Netlify, GitHub Pages, dominio propio, etc.)
         redirectTo: window.location.origin + "/"
       }
     });
@@ -654,11 +607,16 @@
 
     if (session && session.user) {
       const user = session.user;
+      currentUser = user;
       accountCreated = true;
       accountEmailCache = user.email || "";
-      document.getElementById("access-account").checked = true;
+
+      // Modo cuenta
+      const accessAccount = document.getElementById("access-account");
+      if (accessAccount) accessAccount.checked = true;
       updateAccessCards();
 
+      // Mini-upsert de seguridad por si no existe el perfil
       await supabase
         .from("profiles")
         .upsert(
@@ -669,12 +627,20 @@
           { onConflict: "user_id" }
         );
     } else {
+      currentUser = null;
+      accountCreated = false;
+      accountEmailCache = "";
+      // Modo invitado por defecto
+      const accessGuest = document.getElementById("access-guest");
+      if (accessGuest) accessGuest.checked = true;
       updateAccessCards();
     }
+
+    updateSessionIndicator();
     updateSummary();
   }
 
-  // ------- RESUMEN / WHATSAPP -------
+  // ---------------- RESUMEN / WHATSAPP ----------------
   function updateSummary() {
     const membership = membershipSelect.value;
     const baseMembershipRate = discounts[membership] || 0;
@@ -847,7 +813,7 @@
     whatsappLink.setAttribute("aria-disabled", "false");
   }
 
-  // ------- EVENTOS -------
+  // ---------------- EVENTOS ----------------
   items.forEach((input) => {
     input.addEventListener("input", updateSummary);
   });
@@ -873,7 +839,9 @@
     updateAccessCards();
   });
 
+  // Botón ahora actúa como "guardar perfil" si ya hay sesión
   btnCreateAccount.addEventListener("click", handleCreateAccountClick);
+  // Login manual solo muestra mensaje de que todo es vía Google
   btnLoginAccount.addEventListener("click", handleLoginClick);
 
   btnGoogleSignup.addEventListener("click", handleGoogleAuth);
@@ -884,9 +852,10 @@
     applyTranslations();
     validateMembershipCode();
     updateSummary();
+    updateSessionIndicator();
   });
 
-  // init
+  // ---------------- INIT ----------------
   applyTranslations();
   validateMembershipCode();
   checkExistingSession();
