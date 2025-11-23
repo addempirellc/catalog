@@ -5,6 +5,7 @@
 window.validCodes = [
   // Key Tier
 "ASD-K-MRA-001",
+"ASD-K-MRA-002",
 
 
   // Rising Tier
