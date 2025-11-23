@@ -44,6 +44,11 @@
           <option value="en">English</option>
         </select>
       </div>
+
+      <!-- Indicador de sesión (lo controla app.js) -->
+      <div id="session-indicator" class="session-indicator">
+        Modo invitado (sin sesión)
+      </div>
     </header>
 
     <!-- Acceso: sin cuenta / crear cuenta -->
@@ -82,16 +87,7 @@
           <p class="helper" data-i18n="auth.signup.helper"></p>
 
           <div class="client-form">
-            <label>
-              <span data-i18n="auth.email"></span>
-              <input type="email" id="signup-email" placeholder="tucorreo@example.com" />
-            </label>
-
-            <label>
-              <span data-i18n="auth.password"></span>
-              <input type="password" id="signup-password" placeholder="Mínimo 6 caracteres" />
-            </label>
-
+            <!-- Ahora solo datos de perfil, el email real viene de Google -->
             <label>
               <span data-i18n="auth.artistName"></span>
               <input type="text" id="signup-artist" placeholder="Ej: Mr.Addamz" />
@@ -104,9 +100,11 @@
           </div>
 
           <div class="auth-actions">
-            <button id="btn-create-account" class="btn-primary">
+            <!-- Este botón ahora guarda perfil (nombre artístico + IG) si ya hay sesión Google -->
+            <button id="btn-create-account" class="btn-primary" type="button">
               <span data-i18n="auth.signup.button"></span>
             </button>
+            <!-- Crear / iniciar con Google -->
             <button id="btn-google-signup" class="btn-google" type="button">
               <span class="google-icon"></span>
               <span data-i18n="auth.signup.google"></span>
@@ -121,20 +119,10 @@
           <h3 data-i18n="auth.login.title"></h3>
           <p class="helper" data-i18n="auth.login.helper"></p>
 
-          <div class="client-form">
-            <label>
-              <span data-i18n="auth.email"></span>
-              <input type="email" id="login-email" placeholder="tucorreo@example.com" />
-            </label>
-
-            <label>
-              <span data-i18n="auth.password"></span>
-              <input type="password" id="login-password" placeholder="Tu contraseña" />
-            </label>
-          </div>
-
+          <!-- Ya no hay campos de email/contraseña, solo botones -->
           <div class="auth-actions">
-            <button id="btn-login-account" class="btn-primary btn-success">
+            <!-- Muestra mensaje de que el login es solo con Google -->
+            <button id="btn-login-account" class="btn-primary btn-success" type="button">
               <span data-i18n="auth.login.button"></span>
             </button>
             <!-- Login con Google -->
