@@ -29,9 +29,9 @@
       "auth.password": "Contraseña",
       "auth.artistName": "Nombre artístico",
       "auth.instagram": "Instagram",
-      "auth.signup.button": "Crear cuenta y continuar",
-      "auth.signup.google": "Crear cuenta con Google",
-      "auth.login.button": "Iniciar sesión",
+      "auth.signup.button": "Guardar datos de perfil",
+      "auth.signup.google": "Crear / iniciar sesión con Google",
+      "auth.login.button": "Iniciar sesión (Google)",
 
       "membership.label": "Membresía AddStudio:",
       "membership.none": "Sin membresía",
@@ -193,9 +193,9 @@
       "auth.password": "Password",
       "auth.artistName": "Artist name",
       "auth.instagram": "Instagram",
-      "auth.signup.button": "Create account and continue",
-      "auth.signup.google": "Sign up with Google",
-      "auth.login.button": "Log in",
+      "auth.signup.button": "Save profile data",
+      "auth.signup.google": "Sign up / log in with Google",
+      "auth.login.button": "Log in (Google)",
 
       "membership.label": "AddStudio Membership:",
       "membership.none": "No membership",
@@ -383,16 +383,12 @@
   const membershipCodeStatus = document.getElementById("membership-code-status");
 
   const accountBox = document.getElementById("account-create-box");
-  const signupEmail = document.getElementById("signup-email");
-  const signupPassword = document.getElementById("signup-password");
   const signupArtist = document.getElementById("signup-artist");
   const signupIG = document.getElementById("signup-ig");
   const signupStatus = document.getElementById("signup-status");
   const btnCreateAccount = document.getElementById("btn-create-account");
   const btnGoogleSignup = document.getElementById("btn-google-signup");
 
-  const loginEmail = document.getElementById("login-email");
-  const loginPassword = document.getElementById("login-password");
   const btnLoginAccount = document.getElementById("btn-login-account");
   const loginStatus = document.getElementById("login-status");
   const btnGoogleLogin = document.getElementById("btn-google-login");
@@ -401,6 +397,7 @@
   const cardAccount = document.getElementById("card-account");
 
   const sessionIndicator = document.getElementById("session-indicator");
+  const btnLogout = document.getElementById("btn-logout");
 
   const phoneNumber = "19718182710";
 
@@ -505,8 +502,7 @@
   }
 
   async function handleCreateAccountClick() {
-    // En este flujo, reutilizamos este botón como "guardar perfil" si ya hay sesión.
-    // Si no hay sesión, avisamos que inicie con Google.
+    // Este botón ahora guarda perfil si ya hay sesión Google.
     if (!currentUser) {
       const msg =
         currentLang === "es"
@@ -565,7 +561,6 @@
   }
 
   async function handleLoginClick() {
-    // Simplemente mostramos el mensaje de Google-only
     await loginAccount();
   }
 
@@ -585,7 +580,6 @@
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        // Home del dominio actual (funciona en Netlify, GitHub Pages, dominio propio, etc.)
         redirectTo: window.location.origin + "/"
       }
     });
@@ -600,6 +594,31 @@
     }
   }
 
+  // ------- LOGOUT -------
+  async function handleLogout() {
+    signupStatus.textContent = "";
+    loginStatus.textContent = "";
+
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+
+    currentUser = null;
+    accountCreated = false;
+    accountEmailCache = "";
+
+    const accessGuest = document.getElementById("access-guest");
+    if (accessGuest) accessGuest.checked = true;
+    updateAccessCards();
+
+    if (btnLogout) btnLogout.style.display = "none";
+
+    updateSessionIndicator();
+    updateSummary();
+  }
+
   // ------- SESIÓN EXISTENTE (incluye Google) -------
   async function checkExistingSession() {
     const { data } = await supabase.auth.getSession();
@@ -611,12 +630,12 @@
       accountCreated = true;
       accountEmailCache = user.email || "";
 
-      // Modo cuenta
       const accessAccount = document.getElementById("access-account");
       if (accessAccount) accessAccount.checked = true;
       updateAccessCards();
 
-      // Mini-upsert de seguridad por si no existe el perfil
+      if (btnLogout) btnLogout.style.display = "inline-flex";
+
       await supabase
         .from("profiles")
         .upsert(
@@ -630,10 +649,12 @@
       currentUser = null;
       accountCreated = false;
       accountEmailCache = "";
-      // Modo invitado por defecto
+
       const accessGuest = document.getElementById("access-guest");
       if (accessGuest) accessGuest.checked = true;
       updateAccessCards();
+
+      if (btnLogout) btnLogout.style.display = "none";
     }
 
     updateSessionIndicator();
@@ -839,13 +860,15 @@
     updateAccessCards();
   });
 
-  // Botón ahora actúa como "guardar perfil" si ya hay sesión
   btnCreateAccount.addEventListener("click", handleCreateAccountClick);
-  // Login manual solo muestra mensaje de que todo es vía Google
   btnLoginAccount.addEventListener("click", handleLoginClick);
 
   btnGoogleSignup.addEventListener("click", handleGoogleAuth);
   btnGoogleLogin.addEventListener("click", handleGoogleAuth);
+
+  if (btnLogout) {
+    btnLogout.addEventListener("click", handleLogout);
+  }
 
   langSelect.addEventListener("change", () => {
     currentLang = langSelect.value || "es";
