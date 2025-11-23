@@ -148,7 +148,10 @@ h2 {
   box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
 }
 
-.btn-logout {
+/* Logout button (usa id del HTML) */
+#btn-logout,
+.btn-logout,
+.session-logout-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -166,10 +169,12 @@ h2 {
     box-shadow 0.14s ease-out,
     background 0.14s ease-out,
     border-color 0.14s ease-out,
-    color 0.14s ease-out;
+    color 0.14s.ease-out;
 }
 
-.btn-logout:hover {
+#btn-logout:hover,
+.btn-logout:hover,
+.session-logout-btn:hover {
   transform: translateY(-1px);
   background: #7f1d1d;
   border-color: #f87171;
@@ -414,10 +419,10 @@ h2 {
     0 16px 34px rgba(37, 99, 235, 0.9),
     0 0 22px rgba(191, 219, 254, 0.7);
   transition:
-    transform 0.14s ease-out,
-    box-shadow 0.14s ease-out,
-    filter 0.14s ease-out,
-    opacity 0.14s ease-out;
+    transform 0.14s.ease-out,
+    box-shadow 0.14s.ease-out,
+    filter 0.14s.ease-out,
+    opacity 0.14s.ease-out;
 }
 
 .btn-primary:hover {
@@ -465,10 +470,10 @@ h2 {
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
   transition:
-    transform 0.14s ease-out,
-    box-shadow 0.14s ease-out,
-    background 0.14s ease-out,
-    border-color 0.14s ease-out;
+    transform 0.14s.ease-out,
+    box-shadow 0.14s.ease-out,
+    background 0.14s.ease-out,
+    border-color 0.14s.ease-out;
 }
 
 .btn-google:hover {
@@ -610,10 +615,10 @@ h2 {
     0 0 0 1px rgba(30, 64, 175, 0.3);
   overflow: hidden;
   transition:
-    transform 0.18s ease-out,
-    box-shadow 0.18s ease-out,
-    border-color 0.18s ease-out,
-    background 0.18s ease-out;
+    transform 0.18s.ease-out,
+    box-shadow 0.18s.ease-out,
+    border-color 0.18s.ease-out,
+    background 0.18s.ease-out;
 }
 
 .card::before {
@@ -628,7 +633,7 @@ h2 {
   );
   opacity: 0;
   transform: translateX(-40%);
-  transition: opacity 0.2s ease-out, transform 0.25s ease-out;
+  transition: opacity 0.2s.ease-out, transform 0.25s.ease-out;
   mix-blend-mode: screen;
   pointer-events: none;
 }
@@ -675,9 +680,9 @@ h2 {
   background: rgba(15, 23, 42, 0.95);
   border: 1px solid rgba(51, 65, 85, 0.95);
   transition:
-    border-color 0.18s ease-out,
-    box-shadow 0.18s ease-out,
-    background 0.18s ease-out;
+    border-color 0.18s.ease-out,
+    box-shadow 0.18s.ease-out,
+    background 0.18s.ease-out;
 }
 
 .service-line:hover {
@@ -799,10 +804,10 @@ h2 {
     0 18px 40px rgba(37, 99, 235, 0.9),
     0 0 26px rgba(191, 219, 254, 0.7);
   transition:
-    transform 0.14s ease-out,
-    box-shadow 0.14s ease-out,
-    filter 0.14s ease-out,
-    opacity 0.14s ease-out;
+    transform 0.14s.ease-out,
+    box-shadow 0.14s.ease-out,
+    filter 0.14s.ease-out,
+    opacity 0.14s.ease-out;
 }
 
 .btn-whatsapp:hover {
@@ -892,9 +897,36 @@ footer .footer-links a:hover {
 
   .access-options {
     flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* Tarjetas más compactas en móvil */
+  .access-card {
+    padding: 0.4rem 0.55rem;
+    border-radius: 10px;
+  }
+
+  .access-row {
+    margin-bottom: 0.9rem;
+  }
+
+  .access-title {
+    font-size: 0.86rem;
+  }
+
+  .access-sub {
+    font-size: 0.76rem;
   }
 
   .session-row {
     flex-direction: column;
+  }
+
+  #btn-logout,
+  .session-logout-btn {
+    width: 100%;
+    justify-content: center;
+    max-width: 220px;
+    margin: 0.5rem auto 0;
   }
 }
