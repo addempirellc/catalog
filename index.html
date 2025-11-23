@@ -45,20 +45,20 @@
         </select>
       </div>
 
-      <!-- Indicador de sesión (lo controla app.js) -->
-      <div id="session-indicator" class="session-indicator">
-        Modo invitado (sin sesión)
+      <!-- Indicador + botón logout (lo controla app.js) -->
+      <div class="session-row">
+        <div id="session-indicator" class="session-indicator">
+          Modo invitado (sin sesión)
+        </div>
+        <button
+          id="btn-logout"
+          class="btn-logout"
+          type="button"
+          style="display:none;"
+        >
+          Cerrar sesión
+        </button>
       </div>
-
-      <!-- Botón de logout (visible solo si hay sesión) -->
-      <button
-        id="btn-logout"
-        class="session-logout-btn"
-        type="button"
-        style="display:none;"
-      >
-        Cerrar sesión
-      </button>
     </header>
 
     <!-- Acceso: sin cuenta / crear cuenta -->
