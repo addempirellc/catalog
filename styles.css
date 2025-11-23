@@ -929,4 +929,38 @@ footer .footer-links a:hover {
     max-width: 220px;
     margin: 0.5rem auto 0;
   }
+/* FIX: Tarjetas gigantes en Android */
+@media (max-width: 600px) {
+
+  .access-card {
+    padding: 0.6rem 0.7rem !important;
+    min-height: auto !important;
+    height: auto !important;
+    flex: none !important;
+  }
+
+  .access-card-body {
+    padding-left: 0.6rem !important;
+  }
+
+  .access-title {
+    font-size: 0.9rem !important;
+  }
+
+  .access-sub {
+    font-size: 0.75rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .access-radio {
+    padding-top: 0 !important;
+    width: 16px !important;
+  }
+
+  .access-radio input[type="radio"] {
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
+
 }
