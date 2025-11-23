@@ -498,7 +498,7 @@
       email,
       password,
       options: {
-        emailRedirectTo: "https://addempire-services.netlify.app"
+        emailRedirectTo: window.location.origin + "/"
       }
     });
 
@@ -619,26 +619,31 @@
 
   // ------- GOOGLE OAUTH (signup + login) -------
   async function handleGoogleAuth() {
+    const msg =
+      currentLang === "es"
+        ? "Redirigiendo a Google..."
+        : "Redirecting to Google...";
+
     signupStatus.style.color = "#f97316";
-    signupStatus.textContent =
-      currentLang === "es" ? "Redirigiendo a Google..." : "Redirecting to Google...";
+    signupStatus.textContent = msg;
 
     loginStatus.style.color = "#f97316";
-    loginStatus.textContent = signupStatus.textContent;
+    loginStatus.textContent = msg;
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://addempire-services.netlify.app"
+        redirectTo: window.location.origin + "/"
       }
     });
 
     if (error) {
-      const msg =
+      const errMsg =
         (currentLang === "es" ? "Error con Google: " : "Google sign-in error: ") +
         error.message;
-      signupStatus.textContent = msg;
-      loginStatus.textContent = msg;
+
+      signupStatus.textContent = errMsg;
+      loginStatus.textContent = errMsg;
     }
   }
 
