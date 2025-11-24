@@ -125,8 +125,9 @@
 
       "summary.title": "🧾 Resumen de tu pedido",
       "summary.empty": "No has agregado cantidades aún.",
+      // ✅ Actualizado con política de depósito + no-show + 30–50%
       "summary.note":
-        "Este total es una estimación. Precios finales se confirman por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
+        "Este total es una estimación. Para bloquear tu cita se solicita un depósito de $50 (no reembolsable en caso de no-show, se descuenta del total) más un 30–50 % adelantado del proyecto según el tipo de trabajo. El valor final se confirma por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
       "summary.button": "Enviar pedido por WhatsApp",
       "summary.totalPrefix": "Total estimado: ",
       "summary.totalSuffix": " USD",
@@ -140,14 +141,15 @@
 
       "steps.title": "⚙️ Cómo funciona",
       "steps.step1": "Seleccionas servicios y cantidades en el catálogo.",
-      "steps.step2": "Nos contactas por WhatsApp con el resumen y tus datos.",
+      "steps.step2":
+        "Te enviamos por WhatsApp los detalles y el enlace para pagar el depósito y bloquear tu cita.",
       "steps.step3":
-        "Agendamos fecha, cerramos detalles y recibes tus archivos finales.",
+        "El día de la sesión se liquidan las horas reservadas y se completa el resto del proyecto según lo acordado.",
 
       "trust.title": "👑 ¿Por qué AddEmpire Studio?",
       "trust.point1": "Sonido pensado para música urbana y artistas independientes.",
       "trust.point2":
-        "Uso comercial asegurado según el acuerdo del proyecto para que puedas mover tu música con seguridad.",
+        "Flujo claro: desde idea hasta lanzamiento, todo en un solo lugar.",
       "trust.point3":
         "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
 
@@ -296,8 +298,9 @@
 
       "summary.title": "🧾 Your order summary",
       "summary.empty": "You haven't added any quantities yet.",
+      // ✅ Updated with deposit policy in English
       "summary.note":
-        "This total is an estimate. Final prices are confirmed on WhatsApp depending on project complexity, your membership and account benefits (if any).",
+        "This total is an estimate. To lock your session we require a $50 deposit (non-refundable in case of no-show, discounted from the final total) plus 30–50% of the project upfront depending on the type of work. Final value is confirmed on WhatsApp based on project complexity, your membership and account benefits (if any).",
       "summary.button": "Send order via WhatsApp",
       "summary.totalPrefix": "Estimated total: ",
       "summary.totalSuffix": " USD",
@@ -312,15 +315,16 @@
 
       "steps.title": "⚙️ How it works",
       "steps.step1": "Select services and quantities in the catalog.",
-      "steps.step2": "Contact us on WhatsApp with the summary and your info.",
+      "steps.step2":
+        "We send you the details and the deposit payment link via WhatsApp to lock your date.",
       "steps.step3":
-        "We schedule a date, close details and deliver your final files.",
+        "On the session day you pay the booked hours and we complete the rest of the project as agreed.",
 
       "trust.title": "👑 Why AddEmpire Studio?",
       "trust.point1":
         "Sound tailored for urban music and independent artists.",
       "trust.point2":
-        "Commercial use secured according to our project agreement so you can move your music safely.",
+        "Clear flow: from idea to release, everything in one place.",
       "trust.point3":
         "Real creative direction: not just pushing buttons, but building your sound.",
 
@@ -398,8 +402,6 @@
 
   const sessionIndicator = document.getElementById("session-indicator");
   const btnLogout = document.getElementById("btn-logout");
-
-  const btnRecommendedPack = document.getElementById("btn-recommended-pack");
 
   const phoneNumber = "19718182710";
 
@@ -661,32 +663,6 @@
     updateSummary();
   }
 
-  // ---------------- PACK ARTÍSTICO RECOMENDADO ----------------
-  function applyRecommendedPack() {
-    // Definimos los mínimos del pack
-    const packConfig = {
-      "service.packFull.name": 1,            // Canción Full Terminada
-      "service.covers.name": 1,             // Portada profesional
-      "service.reelsPacks.pack1.name": 1,   // Pack 10 reels
-      "service.coaching.name": 1            // Asesoría (opcional pero recomendada)
-    };
-
-    items.forEach((input) => {
-      const key = input.getAttribute("data-name");
-      if (!key) return;
-
-      const desired = packConfig[key];
-      if (typeof desired === "number") {
-        const current = Number(input.value) || 0;
-        if (current < desired) {
-          input.value = String(desired);
-        }
-      }
-    });
-
-    updateSummary();
-  }
-
   // ---------------- RESUMEN / WHATSAPP ----------------
   function updateSummary() {
     const membership = membershipSelect.value;
@@ -845,13 +821,20 @@
     const membershipCodeLabel = t("wa.membershipCodeLabel");
     const accountLabel = t("wa.accountLabel");
 
+    // ✅ Nota de depósito que viaja en el WhatsApp
+    const depositNote =
+      currentLang === "es"
+        ? "Nota: entiendo que para bloquear la cita se solicita un depósito de $50 (no reembolsable en caso de no-show, se descuenta del total) más un 30–50 % adelantado del proyecto, que definimos contigo por WhatsApp."
+        : "Note: I understand that to lock the date you require a $50 deposit (non-refundable in case of no-show, discounted from the total) plus 30–50% of the project upfront, to be agreed with you via WhatsApp.";
+
     const message =
       `${greeting}\n\n` +
       `${serviciosTexto}\n\n` +
       `${totalLabel} $${formatMoney(totalWithDiscount)} USD\n` +
       `${membershipLabel} ${membershipText}\n` +
       `${membershipCodeLabel} ${artistCode || notSpecified}\n` +
-      `${accountLabel} ${accountValue}\n`;
+      `${accountLabel} ${accountValue}\n\n` +
+      `${depositNote}\n`;
 
     const url =
       "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
@@ -894,10 +877,6 @@
 
   if (btnLogout) {
     btnLogout.addEventListener("click", handleLogout);
-  }
-
-  if (btnRecommendedPack) {
-    btnRecommendedPack.addEventListener("click", applyRecommendedPack);
   }
 
   langSelect.addEventListener("change", () => {
