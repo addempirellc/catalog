@@ -147,7 +147,7 @@
       "trust.title": "👑 ¿Por qué AddEmpire Studio?",
       "trust.point1": "Sonido pensado para música urbana y artistas independientes.",
       "trust.point2":
-        "Derechos 100% tuyos una vez finalizado y pagado el proyecto.",
+        "Uso comercial asegurado según el acuerdo del proyecto para que puedas mover tu música con seguridad.",
       "trust.point3":
         "Dirección creativa real: no solo “apretar botones”, sino construir tu sonido.",
 
@@ -320,7 +320,7 @@
       "trust.point1":
         "Sound tailored for urban music and independent artists.",
       "trust.point2":
-        "100% of the rights are yours once the project is finished and paid.",
+        "Commercial use secured according to our project agreement so you can move your music safely.",
       "trust.point3":
         "Real creative direction: not just pushing buttons, but building your sound.",
 
@@ -398,6 +398,8 @@
 
   const sessionIndicator = document.getElementById("session-indicator");
   const btnLogout = document.getElementById("btn-logout");
+
+  const btnRecommendedPack = document.getElementById("btn-recommended-pack");
 
   const phoneNumber = "19718182710";
 
@@ -491,7 +493,6 @@
 
   // ---------------- AUTH: SOLO GOOGLE ----------------
 
-  // ✅ Ya NO se crean cuentas con email/contraseña
   async function createAccount() {
     const msg =
       currentLang === "es"
@@ -550,7 +551,6 @@
         : "Profile updated successfully.";
   }
 
-  // ✅ Ya NO se hace login con email/contraseña
   async function loginAccount() {
     const msg =
       currentLang === "es"
@@ -658,6 +658,32 @@
     }
 
     updateSessionIndicator();
+    updateSummary();
+  }
+
+  // ---------------- PACK ARTÍSTICO RECOMENDADO ----------------
+  function applyRecommendedPack() {
+    // Definimos los mínimos del pack
+    const packConfig = {
+      "service.packFull.name": 1,            // Canción Full Terminada
+      "service.covers.name": 1,             // Portada profesional
+      "service.reelsPacks.pack1.name": 1,   // Pack 10 reels
+      "service.coaching.name": 1            // Asesoría (opcional pero recomendada)
+    };
+
+    items.forEach((input) => {
+      const key = input.getAttribute("data-name");
+      if (!key) return;
+
+      const desired = packConfig[key];
+      if (typeof desired === "number") {
+        const current = Number(input.value) || 0;
+        if (current < desired) {
+          input.value = String(desired);
+        }
+      }
+    });
+
     updateSummary();
   }
 
@@ -868,6 +894,10 @@
 
   if (btnLogout) {
     btnLogout.addEventListener("click", handleLogout);
+  }
+
+  if (btnRecommendedPack) {
+    btnRecommendedPack.addEventListener("click", applyRecommendedPack);
   }
 
   langSelect.addEventListener("change", () => {
