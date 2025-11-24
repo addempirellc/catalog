@@ -125,7 +125,7 @@
 
       "summary.title": "🧾 Resumen de tu pedido",
       "summary.empty": "No has agregado cantidades aún.",
-      // ✅ Actualizado con política de depósito + no-show + 30–50%
+      // ✅ Política de depósito + no-show + 30–50%
       "summary.note":
         "Este total es una estimación. Para bloquear tu cita se solicita un depósito de $50 (no reembolsable en caso de no-show, se descuenta del total) más un 30–50 % adelantado del proyecto según el tipo de trabajo. El valor final se confirma por WhatsApp según complejidad del proyecto, tu membresía y beneficios de cuenta (si aplica).",
       "summary.button": "Enviar pedido por WhatsApp",
@@ -298,7 +298,6 @@
 
       "summary.title": "🧾 Your order summary",
       "summary.empty": "You haven't added any quantities yet.",
-      // ✅ Updated with deposit policy in English
       "summary.note":
         "This total is an estimate. To lock your session we require a $50 deposit (non-refundable in case of no-show, discounted from the final total) plus 30–50% of the project upfront depending on the type of work. Final value is confirmed on WhatsApp based on project complexity, your membership and account benefits (if any).",
       "summary.button": "Send order via WhatsApp",
@@ -403,6 +402,9 @@
   const sessionIndicator = document.getElementById("session-indicator");
   const btnLogout = document.getElementById("btn-logout");
 
+  // 👉 Botón del pack recomendado
+  const btnPackRecomendado = document.getElementById("btn-pack-recomendado");
+
   const phoneNumber = "19718182710";
 
   const discounts = {
@@ -431,6 +433,26 @@
 
   function getServiceName(key) {
     return t(key);
+  }
+
+  // 👉 Helper para setear cantidades por data-name
+  function setServiceQty(nameKey, qty) {
+    const el = document.querySelector(`.service-qty[data-name="${nameKey}"]`);
+    if (el) {
+      el.value = qty;
+    }
+  }
+
+  // 👉 Lógica del Pack Artístico Recomendado
+  function addRecommendedPack() {
+    // Estos nameKey deben existir en los inputs del catálogo
+    setServiceQty("service.packFull.name", 1);
+    setServiceQty("service.covers.name", 1);
+    setServiceQty("service.reelsPacks.pack1.name", 1);
+    // Si quieres incluir asesoría por defecto, descomenta:
+    // setServiceQty("service.coaching.name", 1);
+
+    updateSummary();
   }
 
   function validateMembershipCode() {
@@ -494,7 +516,6 @@
   }
 
   // ---------------- AUTH: SOLO GOOGLE ----------------
-
   async function createAccount() {
     const msg =
       currentLang === "es"
@@ -821,7 +842,7 @@
     const membershipCodeLabel = t("wa.membershipCodeLabel");
     const accountLabel = t("wa.accountLabel");
 
-    // ✅ Nota de depósito que viaja en el WhatsApp
+    // ✅ Nota de depósito que entra en el mensaje
     const depositNote =
       currentLang === "es"
         ? "Nota: entiendo que para bloquear la cita se solicita un depósito de $50 (no reembolsable en caso de no-show, se descuenta del total) más un 30–50 % adelantado del proyecto, que definimos contigo por WhatsApp."
@@ -877,6 +898,11 @@
 
   if (btnLogout) {
     btnLogout.addEventListener("click", handleLogout);
+  }
+
+  // 👉 Evento del botón del pack recomendado
+  if (btnPackRecomendado) {
+    btnPackRecomendado.addEventListener("click", addRecommendedPack);
   }
 
   langSelect.addEventListener("change", () => {
